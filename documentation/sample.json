@@ -2,15 +2,19 @@
     "on_load":[
         {
             "device":"example_tv",
-            "code":"KEY_POWER_ON",
-            "delay": "10s",
-            "code2":"KEY_HDMI_01"
+            "codes": [
+                { "code":"KEY_POWER_ON" },
+                { "delay": "10s" },
+                { "code":"KEY_HDMI_01" }
+            ]
         },
         {
             "device":"example_receiver",
-            "code":"KEY_POWER_ON",
-            "delay": "10s",
-            "code2":"KEY_HDMI_04"
+            "codes": [
+                { "code":"KEY_POWER_ON" },
+                { "delay": "10s" },
+                { "code":"KEY_HDMI_01" }
+            ]
         }
     ],
     "on_unload": {
