@@ -45,8 +45,10 @@ https://github.com/AnaviTechnology/anavi-docs/blob/master/anavi-infrared-phat/an
 It's not exactly what I want for a remote, but it does RF and can act like a keyboard (I think).  I can use it for development and for only $10 shipped, it's not a terrible option.
 
 # Links
+
 * https://globalcache.zendesk.com/hc/en-us/articles/360034968311-iConvert-Converting-IR-code-formats
 * https://www.instructables.com/Transforming-Raspberry-Pi-Into-a-Remote-Control/
 * https://projects-raspberry.com/emulate-a-bluetooth-keyboard-with-the-raspberry-pi/
 * https://remotesource.net/full-remote-catalog/
+* https://github.com/boppreh/keyboard
 
