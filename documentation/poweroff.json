@@ -1,0 +1,23 @@
+{
+    "on_load":[
+        {
+            "device":"toshiba_tv",
+            "type": "ir",
+            "codes": [
+                { "code":"KEY_HDMI_01" },
+                { "code":"KEY_POWER_OFF" }
+            ]
+        },
+        {
+            "device":"yamaha_receiver",
+            "type": "ir",
+            "codes": [
+                { "code":"KEY_HDMI_01" },
+                { "code":"KEY_POWER_OFF" }
+            ]
+        }
+    ],
+    "on_unload": {
+
+    }
+}

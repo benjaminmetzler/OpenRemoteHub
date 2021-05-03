@@ -1,18 +1,19 @@
 {
     "on_load":[
         {
-            "device":"example_tv",
+            "device":"toshiba_tv",
             "codes": [
                 { "code":"KEY_POWER_ON" },
-                { "delay": "10s" },
+                { "delay": "2s" },
                 { "code":"KEY_HDMI_01" }
             ]
         },
         {
-            "device":"example_receiver",
+            "device":"yamaha_receiver",
+            "type": "ir",
             "codes": [
                 { "code":"KEY_POWER_ON" },
-                { "delay": "10s" },
+                { "delay": "2s" },
                 { "code":"KEY_HDMI_01" }
             ]
         }
@@ -21,96 +22,135 @@
 
     },
 
+    "1":{
+        "device":"toshiba_tv",
+        "type": "ir",
+        "code":"SOURCE_HDMI_01"
+    },
+    "2":{
+        "device":"toshiba_tv",
+        "type": "ir",
+        "code":"SOURCE_HDMI_02"
+    },
+    "3":{
+        "device":"toshiba_tv",
+        "type": "ir",
+        "code":"SOURCE_HDMI_03"
+    },
+
     "setup": {
         "device":"example_stb",
+        "type": "rf",
         "button":"menu"
     },
     "up":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_UP"
     },
     "down":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_DOWN"
     },
     "left":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_LEFT"
     },
     "right":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_RIGHT"
     },
     "ok":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_OK"
     },
     "exit":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_EXIT"
     },
     "menu":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_MENU"
     },
     "info":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_INFO"
     },
     "guide":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_GUIDE"
     },
     "volume_up":{
-        "device":"example_receiver",
+        "device":"yamaha_receiver",
+        "type": "ir",
         "code":"KEY_VOLUME_UP"
     },
     "volume_down":{
-        "device":"example_receiver",
+        "device":"yamaha_receiver",
+        "type": "ir",
         "code":"KEY_VOLUME_DOWN"
     },
     "volume_mute":{
-        "device":"example_receiver",
+        "device":"yamaha_receiver",
+        "type": "ir",
         "code":"KEY_VOLUME_MUTE"
     },
     "rew":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_REW"
     },
     "play":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_PLAY"
     },
     "ffwd":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_FFWD"
     },
     "stop":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_STOP"
     },
     "pause":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_PAUSE"
     },
     "record":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_RECORD"
     },
     "red":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_RED"
     },
     "green":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_GREEN"
     },
     "yellow":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_YELLOW"
     },
     "blue":{
         "device":"example_stb",
+        "type": "rf",
         "code":"KEY_BLUE"
     }
 }
