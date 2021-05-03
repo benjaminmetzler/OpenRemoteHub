@@ -1,7 +1,7 @@
 {
     "on_load":[
         {
-            "device":"example_tv",
+            "device":"toshiba_tv",
             "type": "ir",
             "codes": [
                 { "code":"KEY_POWER_ON" },
@@ -10,7 +10,7 @@
             ]
         },
         {
-            "device":"example_receiver",
+            "device":"yamaha_receiver",
             "type": "ir",
             "codes": [
                 { "code":"KEY_POWER_ON" },
@@ -24,17 +24,17 @@
     },
 
     "1":{
-        "device":"example_tv",
+        "device":"toshiba_tv",
         "type": "ir",
         "code":"SOURCE_HDMI_01"
     },
     "2":{
-        "device":"example_tv",
+        "device":"toshiba_tv",
         "type": "ir",
         "code":"SOURCE_HDMI_02"
     },
     "3":{
-        "device":"example_tv",
+        "device":"toshiba_tv",
         "type": "ir",
         "code":"SOURCE_HDMI_03"
     },
@@ -90,17 +90,17 @@
         "code":"KEY_GUIDE"
     },
     "volume_up":{
-        "device":"example_receiver",
+        "device":"yamaha_receiver",
         "type": "ir",
         "code":"KEY_VOLUME_UP"
     },
     "volume_down":{
-        "device":"example_receiver",
+        "device":"yamaha_receiver",
         "type": "ir",
         "code":"KEY_VOLUME_DOWN"
     },
     "volume_mute":{
-        "device":"example_receiver",
+        "device":"yamaha_receiver",
         "type": "ir",
         "code":"KEY_VOLUME_MUTE"
     },

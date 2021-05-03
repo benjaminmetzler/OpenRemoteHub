@@ -1,0 +1,140 @@
+{
+    "on_load":[
+        {
+            "device":"toshiba_tv",
+            "type": "ir",
+            "codes": [
+                { "code":"KEY_POWER_ON" },
+                { "delay": "2s" },
+                { "code":"KEY_HDMI_01" }
+            ]
+        },
+        {
+            "device":"yamaha_receiver",
+            "type": "ir",
+            "codes": [
+                { "code":"KEY_POWER_ON" },
+                { "delay": "2s" },
+                { "code":"KEY_HDMI_04" }
+            ]
+        }
+    ],
+    "on_unload": {
+
+    },
+    "setup": {
+        "device":"lg_dvd",
+        "type": "ir",
+        "button":"menu"
+    },
+    "up":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_UP"
+    },
+    "down":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_DOWN"
+    },
+    "left":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_LEFT"
+    },
+    "right":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_RIGHT"
+    },
+    "ok":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_OK"
+    },
+    "exit":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_EXIT"
+    },
+    "menu":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_MENU"
+    },
+    "info":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_INFO"
+    },
+    "guide":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_GUIDE"
+    },
+    "volume_up":{
+        "device":"yamaha_receiver",
+        "type": "ir",
+        "code":"KEY_VOLUME_UP"
+    },
+    "volume_down":{
+        "device":"yamaha_receiver",
+        "type": "ir",
+        "code":"KEY_VOLUME_DOWN"
+    },
+    "volume_mute":{
+        "device":"yamaha_receiver",
+        "type": "ir",
+        "code":"KEY_VOLUME_MUTE"
+    },
+    "rew":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_REW"
+    },
+    "play":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_PLAY"
+    },
+    "ffwd":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_FFWD"
+    },
+    "stop":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_STOP"
+    },
+    "pause":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_PAUSE"
+    },
+    "record":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_RECORD"
+    },
+    "red":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_RED"
+    },
+    "green":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_GREEN"
+    },
+    "yellow":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_YELLOW"
+    },
+    "blue":{
+        "device":"lg_dvd",
+        "type": "ir",
+        "code":"KEY_BLUE"
+    }
+}

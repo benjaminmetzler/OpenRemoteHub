@@ -2,6 +2,12 @@ import json
 import time
 import keyboard 
 
+class MR_Configuration:
+    def __init__(self, conf_file):
+      self.conf_file = conf_file
+      
+
+
 def send_code(device, code):
   print(" %s --> send_code(%s)" % (device, code))
 
@@ -22,4 +28,6 @@ for device in mode['on_load']:
       send_code( device['device'], code_entry["code"])
     if "delay" in code_entry:
       delay( device['device'], code_entry["delay"])
+
+
 

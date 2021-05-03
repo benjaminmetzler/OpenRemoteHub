@@ -53,7 +53,7 @@ class My_Remote:
             for device in self.mode['on_load']:
                 for code_entry in device['codes']:
                     if "code" in code_entry:
-                        self.send_code( name )
+                        self.send_code( cane)
                     if "delay" in code_entry:
                         self.delay( device['device'], code_entry["delay"])
 
