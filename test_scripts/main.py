@@ -5,10 +5,31 @@ from jsonmerge import merge
 
 
 class My_Remote:
+
     def __init__(self, conf_file):
-        
+        self.mode={}
+        self.current_mode_file=""
+        self.load_mode(conf_file)
+
+    def process_code(self, code):
+        if code['type'] == "ir":
+            self.send_ir( code['device'], code['code'])
+        elif code['type'] == "bluetooth":
+            self.bluetooth( code['device'], code['code'])
+        elif code['type'] == "load":
+            self.load_mode(code['file'])
+        elif code['type'] == "sleep":
+            self.sleep( code['device'], code['duration'] )
+        else:
+            print("Unknown type(%s)" % self.code['type'])
+
+    def load_mode(self, conf_file):
+        self.on_unload()
+
         # read the common file
-        f = open("/home/pi/my_remote/test_scripts/common.json")
+        # TK should we have an on_load and on_unload in the common.json?
+        # TK how should they be handled?
+        f = open("/home/pi/my_remote/json/common.json")
         self.common = json.load(f)
         f.close()
 
@@ -17,52 +38,62 @@ class My_Remote:
         self.mode = json.load(f)
         f.close()
 
-    def send_code(self, name):
-        if(name in self.mode):
-            if self.mode[name]['type'] == "ir":
-                self.send_ir( self.mode[name]['device'], self.mode[name]['code'])
-            if self.mode[name]['type'] == "rf":
-                self.send_rf( self.mode[name]['device'], self.mode[name]['code'])
+        self.current_mode_file=conf_file
+        # load up the defaults
+        self.on_load()
 
     def send_ir(self, device, code):
-        print(" %s --> send_ir(%s)" % (device, code))
+        command = "irsend SEND_ONCE %s %s" % (device, code)
+        print("%s | %s" % (device, command))
         # TK sanitize parameters since we are running as root
-        os.system("irsend SEND_ONCE %s %s" % (device, code))
+        os.system(command)
 
-    def send_rf(self, device, code):
-        print(" %s --> send_ir(%s)" % (device, code))
+    def bluetooth(self, device, code):
+        command = " %s --> bluetooth(%s)" % (device, code)
+        print("%s | %s" % (device, command))
         # TK sanitize parameters since we are running as root
-        # os.system("irsend SEND_ONCE %s %s" % (device, code))
+        # os.system("TK")
 
-    def delay(self, device, timeout):
-        print(" %s --> delay(%s)" % (device, timeout))
+    def sleep(self, device, duration):
+        command="sleep %s" % duration
+        print("%s | %s" % (device, command))
+        # TK sanitize parameters since we are running as root
+        # os.system(command)
         
     def callback(self, event):
         scan_code = event.scan_code
         name = event.name
-        self.send_code( name )
+        if(name in self.mode):
+            self.process_code( self.mode[name] )
             
     def on_load(self):
-        print("on_load")
+        print("on_load: %s" % self.current_mode_file)
         # on load
         # currently serial, but ideally parallelized so that multiple
         # codes could be sent across different devices, with each 
         # device getting it's own queue that can push to a single queue
         # that is then sent out the IR/RF hardware.
         if("on_load" in self.mode):
-            for device in self.mode['on_load']:
-                for code_entry in device['codes']:
-                    if "code" in code_entry:
-                        self.send_code( cane)
-                    if "delay" in code_entry:
-                        self.delay( device['device'], code_entry["delay"])
+            for entry in self.mode['on_load']:
+                for macro in entry:
+                    for code in entry[macro]:
+                        self.process_code( code )
 
-    def start(self):
-        self.on_load()
+    def on_unload(self):
+        print("on_unload: %s" % self.current_mode_file)
+        if("on_unload" in self.mode):
+            for entry in self.mode['on_unload']:
+                for macro in entry:
+                    for code in entry[macro]:
+                        self.process_code( code )
+        self.mode={}
+
+
+    def event_loop(self):
         keyboard.on_release(callback=self.callback, suppress=True)
         keyboard.wait()
 
 
 if __name__ == "__main__":
-    my_remote = My_Remote('/home/pi/my_remote/documentation/sample.json')
-    my_remote.start()
+    my_remote = My_Remote('/home/pi/my_remote/json/my_stb.json')
+    my_remote.event_loop()

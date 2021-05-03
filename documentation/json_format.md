@@ -85,18 +85,18 @@ When a mode is loaded, MyRemote will invoke the `on_load` block.  This will carr
         {
             "device":"example_tv",
             "code":"KEY_POWER_ON",
-            "delay": "2s",
+            "sleep": "2s",
             "code2":"KEY_HDMI_01"
         },
         {
             "device":"example_receiver",
             "code":"KEY_POWER_ON",
-            "delay": "2s",
+            "sleep": "2s",
             "code2":"KEY_HDMI_04"
         }
     ],
 ```
-The above example shows that when the mode is loaded it will instruct the `example_tv` to send the `KEY_POWER_ON` command and then switch to HDMI1, with a 2 second delay between the two actions.  The `example_receiver` will power on and then  switch to HDMI4, with a 2 second delay between actions.  Any number of actions can be done.
+The above example shows that when the mode is loaded it will instruct the `example_tv` to send the `KEY_POWER_ON` command and then switch to HDMI1, with a 2 second sleep between the two actions.  The `example_receiver` will power on and then  switch to HDMI4, with a 2 second sleep between actions.  Any number of actions can be done.
 
 ``` json
     "on_unload":[

@@ -1,92 +1,98 @@
 {
     "on_load":[
         {
-            "device":"toshiba_tv",
-            "type": "ir",
-            "codes": [
-                { "code":"KEY_POWER_ON" },
-                { "delay": "2s" },
-                { "code":"KEY_HDMI_01" }
+            "macro": [
+                { "device": "toshiba_tv", "type": "ir", "code":"POWER_ON" },
+                { "device": "toshiba_tv", "type": "sleep", "duration": "2s" },
+                { "device": "toshiba_tv", "type": "ir", "code":"INPUT_HDMI_1" }
             ]
         },
         {
-            "device":"yamaha_receiver",
-            "type": "ir",
-            "codes": [
-                { "code":"KEY_POWER_ON" },
-                { "delay": "2s" },
-                { "code":"KEY_HDMI_01" }
+            "macro": [
+                { "device": "yamaha_receiver", "type": "ir", "code":"POWER_ON" },
+                { "device": "yamaha_receiver", "type": "sleep", "duration": "2s" },
+                { "device": "yamaha_receiver", "type": "ir", "code":"INPUT_HDMI_4" }
+            ]
+        }
+],
+    "on_unload": [
+        {
+            "macro": [
+                { "device": "toshiba_tv", "type": "ir", "code":"POWER_ON" },
+                { "device": "toshiba_tv", "type": "sleep", "duration": "2s" },
+                { "device": "toshiba_tv", "type": "ir", "code":"INPUT_HDMI_1" }
             ]
         }
     ],
-    "on_unload": {
-
-    },
 
     "1":{
         "device":"toshiba_tv",
         "type": "ir",
-        "code":"SOURCE_HDMI_01"
+        "code":"INPUT_HDMI_1"
     },
     "2":{
         "device":"toshiba_tv",
         "type": "ir",
-        "code":"SOURCE_HDMI_02"
+        "code":"INPUT_HDMI_2"
     },
     "3":{
         "device":"toshiba_tv",
         "type": "ir",
-        "code":"SOURCE_HDMI_03"
+        "code":"INPUT_HDMI_3"
+    },
+    "4":{
+        "type": "load",
+        "file":"/home/pi/my_remote/json/my_stb.json"
     },
 
     "setup": {
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "button":"menu"
     },
     "up":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_UP"
     },
     "down":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_DOWN"
     },
     "left":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_LEFT"
     },
     "right":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_RIGHT"
     },
     "ok":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_OK"
     },
     "exit":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_EXIT"
     },
     "menu":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_MENU"
     },
     "info":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_INFO"
     },
     "guide":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_GUIDE"
     },
     "volume_up":{
@@ -106,52 +112,52 @@
     },
     "rew":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_REW"
     },
     "play":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_PLAY"
     },
     "ffwd":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_FFWD"
     },
     "stop":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_STOP"
     },
     "pause":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_PAUSE"
     },
     "record":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_RECORD"
     },
     "red":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_RED"
     },
     "green":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_GREEN"
     },
     "yellow":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_YELLOW"
     },
     "blue":{
         "device":"example_stb",
-        "type": "rf",
+        "type": "bluetooth",
         "code":"KEY_BLUE"
     }
 }

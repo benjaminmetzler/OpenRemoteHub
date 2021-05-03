@@ -11,8 +11,8 @@ class MR_Configuration:
 def send_code(device, code):
   print(" %s --> send_code(%s)" % (device, code))
 
-def delay(device, timeout):
-  print(" %s --> delay(%s)" % (device, timeout))
+def sleep(device, timeout):
+  print(" %s --> sleep(%s)" % (device, timeout))
 
 with open('/Users/ben/Projects/my_remote/documentation/sample.json') as f:
   mode = json.load(f)
@@ -26,8 +26,8 @@ for device in mode['on_load']:
   for code_entry in device['codes']:
     if "code" in code_entry:
       send_code( device['device'], code_entry["code"])
-    if "delay" in code_entry:
-      delay( device['device'], code_entry["delay"])
+    if "sleep" in code_entry:
+      sleep( device['device'], code_entry["sleep"])
 
 
 

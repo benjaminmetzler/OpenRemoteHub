@@ -1,11 +1,14 @@
 {
     "dvd":{
-        "load": "/home/pi/my_remote/documentation/dvd.json"
+        "type": "load",
+        "file": "/home/pi/my_remote/json/my_dvd.json"
     },
     "stb":{
-        "load": "/home/pi/my_remote/documentation/stb.json"
+        "type": "load",
+        "file": "/home/pi/my_remote/json/my_stb.json"
     },
     "xbox":{
-        "load": "/home/pi/my_remote/documentation/xbox.json"
+        "type": "load",
+        "file": "/home/pi/my_remote/json/my_xbox.json"
     }
 }

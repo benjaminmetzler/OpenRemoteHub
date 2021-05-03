@@ -5,7 +5,7 @@
             "type": "ir",
             "codes": [
                 { "code":"KEY_POWER_ON" },
-                { "delay": "2s" },
+                { "sleep": "2s" },
                 { "code":"KEY_HDMI_01" }
             ]
         },
@@ -14,7 +14,7 @@
             "type": "ir",
             "codes": [
                 { "code":"KEY_POWER_ON" },
-                { "delay": "2s" },
+                { "sleep": "2s" },
                 { "code":"KEY_HDMI_01" }
             ]
         }

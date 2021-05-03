@@ -1,23 +1,20 @@
 {
-    "on_load":[
-        {
-            "device":"toshiba_tv",
-            "type": "ir",
-            "codes": [
-                { "code":"KEY_POWER_ON" },
-                { "delay": "2s" },
-                { "code":"KEY_HDMI_01" }
-            ]
-        },
-        {
-            "device":"yamaha_receiver",
-            "type": "ir",
-            "codes": [
-                { "code":"KEY_POWER_ON" },
-                { "delay": "2s" },
-                { "code":"KEY_HDMI_04" }
-            ]
-        }
+    "on_load":
+        [
+            {
+                "macro": [
+                    { "device": "toshiba_tv", "type": "ir", "code":"KEY_POWER_ON" },
+                    { "device": "toshiba_tv", "type": "sleep", "duration": "2s" },
+                    { "device": "toshiba_tv", "type": "ir", "code":"KEY_HDMI_01" }
+                ]
+            },
+            {
+                "macro": [
+                    { "device": "yamaha_receiver", "type": "ir", "code":"KEY_POWER_ON" },
+                    { "device": "yamaha_receiver", "type": "sleep", "duration": "2s" },
+                    { "device": "yamaha_receiver", "type": "ir", "code":"KEY_HDMI_04" }
+                ]
+            }
     ],
     "on_unload": {
 
@@ -25,7 +22,7 @@
     "setup": {
         "device":"lg_dvd",
         "type": "ir",
-        "button":"menu"
+        "code":"menu"
     },
     "up":{
         "device":"lg_dvd",
