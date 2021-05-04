@@ -1,27 +1,26 @@
 import json
-import keyboard 
+import keyboard
 import os
 from jsonmerge import merge
 
 
 class My_Remote:
-
     def __init__(self, conf_file):
-        self.mode={}
-        self.current_mode_file=""
+        self.mode = {}
+        self.current_mode_file = ""
         self.load_mode(conf_file)
 
     def process_code(self, code):
-        if code['type'] == "ir":
-            self.send_ir( code['device'], code['code'])
-        elif code['type'] == "bluetooth":
-            self.bluetooth( code['device'], code['code'])
-        elif code['type'] == "load":
-            self.load_mode(code['file'])
-        elif code['type'] == "sleep":
-            self.sleep( code['device'], code['duration'] )
+        if code["type"] == "ir":
+            self.send_ir(code["device"], code["code"])
+        elif code["type"] == "bluetooth":
+            self.bluetooth(code["device"], code["code"])
+        elif code["type"] == "load":
+            self.load_mode(code["file"])
+        elif code["type"] == "sleep":
+            self.sleep(code["device"], code["duration"])
         else:
-            print("Unknown type(%s)" % self.code['type'])
+            print("Unknown type(%s)" % self.code["type"])
 
     def load_mode(self, conf_file):
         self.on_unload()
@@ -38,7 +37,7 @@ class My_Remote:
         self.mode = json.load(f)
         f.close()
 
-        self.current_mode_file=conf_file
+        self.current_mode_file = conf_file
         # load up the defaults
         self.on_load()
 
@@ -55,39 +54,39 @@ class My_Remote:
         # os.system("TK")
 
     def sleep(self, device, duration):
-        command="sleep %s" % duration
+        command = "sleep %s" % duration
         print("%s | %s" % (device, command))
         # TK sanitize parameters since we are running as root
         # os.system(command)
-        
+
     def callback(self, event):
         scan_code = event.scan_code
         name = event.name
-        if(name in self.mode):
-            self.process_code( self.mode[name] )
-            
+        if name in self.mode:
+            self.process_code(self.mode[name])
+
     def on_load(self):
         print("on_load: %s" % self.current_mode_file)
         # on load
         # currently serial, but ideally parallelized so that multiple
-        # codes could be sent across different devices, with each 
+        # codes could be sent across different devices, with each
         # device getting it's own queue that can push to a single queue
         # that is then sent out the IR/RF hardware.
-        if("on_load" in self.mode):
-            for entry in self.mode['on_load']:
+        if "on_load" in self.mode:
+            for entry in self.mode["on_load"]:
                 for macro in entry:
                     for code in entry[macro]:
-                        self.process_code( code )
+                        # need to handle macros as well.
+                        self.process_code(code)
 
     def on_unload(self):
         print("on_unload: %s" % self.current_mode_file)
-        if("on_unload" in self.mode):
-            for entry in self.mode['on_unload']:
+        if "on_unload" in self.mode:
+            for entry in self.mode["on_unload"]:
                 for macro in entry:
                     for code in entry[macro]:
-                        self.process_code( code )
-        self.mode={}
-
+                        self.process_code(code)
+        self.mode = {}
 
     def event_loop(self):
         keyboard.on_release(callback=self.callback, suppress=True)
@@ -95,5 +94,5 @@ class My_Remote:
 
 
 if __name__ == "__main__":
-    my_remote = My_Remote('/home/pi/my_remote/json/my_stb.json')
+    my_remote = My_Remote("/home/pi/my_remote/json/common.json")
     my_remote.event_loop()

@@ -1,10 +1,10 @@
 # Introduction
 
-With the [Logitech announcement closing down the Harmony remote line](https://www.theverge.com/2021/4/10/22377015/logitech-discontinues-harmony-universal-remotes), I am finding myself looking towards the future of remote controls.  
+With the [Logitech announcement closing down the Harmony remote line](https://www.theverge.com/2021/4/10/22377015/logitech-discontinues-harmony-universal-remotes), I am finding myself looking towards the future of remote controls.
 
 I was along time user of the beloved RadioShack [15-2116](https://www.mythtv.org/wiki/RadioShack_15-2116_Universal_Remote) with the [JP1](https://en.wikipedia.org/wiki/JP1_remote) functionality.  I used it for years, buying them on ebay long after RadioShack stopped making them.  It was a bit of an effort to set up but once it was working, it just worked.  But technology progressed and I grew frustrated at having to re-learn how to program my remote every time I wanted to change something or add a device.  I moved to the Harmony Hub with companion remote because it offered most of what I wanted and had a workable interface for programming the remote.  But now Harmony is dead and I want to find another solution.
 
-There are lots of apps that use the smart phone as an interface but I prefer my remotes have physical button devices that work fast and I can use without looking at the remote.  While there are other commercial options for universal remotes I'm reluctant to buy into another company's infrastructure knowing they could shut down at any point. 
+There are lots of apps that use the smart phone as an interface but I prefer my remotes have physical button devices that work fast and I can use without looking at the remote.  While there are other commercial options for universal remotes I'm reluctant to buy into another company's infrastructure knowing they could shut down at any point.
 
 That leaves me with building my own remote control infrastructure.  I've decided to start doing that and documenting my efforts here.  I'm not looking to create an all-in-one remote that does everything.  I want to create a remote that does the 95% of a users needs.  That said I know that people want different things then what I want so making a programmable remote is the logical step.
 
@@ -31,9 +31,9 @@ It's basically a [URC1280](https://www.oneforall.com/universal-remotes/urc-1280-
 
 # Design
 
-My Remote uses the hub model.  A low power device (like a Raspberry Pi) will handle the modes, with the actual remote being just a "dumb" device that send signals to the hub.  The hub will decide what happens when the play button is pressed depending on the state of the hub. 
+My Remote uses the hub model.  A low power device (like a Raspberry Pi) will handle the modes, with the actual remote being just a "dumb" device that send signals to the hub.  The hub will decide what happens when the play button is pressed depending on the state of the hub.
 
-The hub will have modes.  My Remote will do different things based on the current mode it is in.  If it's in DVD mode, it will send the PLAY button press using the DVD PLAY IR code.  If it's in STB mode, then an UP press will be sent to the STB. 
+The hub will have modes.  My Remote will do different things based on the current mode it is in.  If it's in DVD mode, it will send the PLAY button press using the DVD PLAY IR code.  If it's in STB mode, then an UP press will be sent to the STB.
 
 My Remote tracks it's mode only.  The hub doesn't know the state of the devices.  That was one thing I disliked about the Harmony Remotes.  They were supposed to "know" what state my devices were in.  Often it failed.  It wasn't a problem with the Harmony, it's just that the devices could get into all sorts of states and with the lack of discrete toggles (power, inputs, etc.) that easily confused the Harmony system.  My Remote won't have to deal with that logic.
 
@@ -52,7 +52,7 @@ A standard piece of hardware for the home hacker.  Linux support and expandabili
 Probably overkill for my needs but it it has an IR received and two transmitters.
 https://github.com/AnaviTechnology/anavi-docs/blob/master/anavi-infrared-phat/anavi-infrared-phat.md
 
-## [L8STAR G20S Pro](https://www.aliexpress.com/item/1005001714763038.html) 
+## [L8STAR G20S Pro](https://www.aliexpress.com/item/1005001714763038.html)
 
 It's not exactly what I want for a remote, but it does RF and can act like a keyboard (I think).  I can use it for development and for only $10 shipped, it's not a terrible option.
 
@@ -64,5 +64,3 @@ It's not exactly what I want for a remote, but it does RF and can act like a key
 * https://remotesource.net/full-remote-catalog/
 * https://github.com/boppreh/keyboard
 * https://flirc.tv/more/flirc-usb
-
-

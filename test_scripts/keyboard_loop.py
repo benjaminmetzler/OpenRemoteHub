@@ -1,5 +1,6 @@
 import keyboard
 
+
 class My_Remote:
     def __init__(self):
         print("waiting for keystroke")
@@ -12,7 +13,8 @@ class My_Remote:
     def start(self):
         keyboard.on_release(callback=self.callback, suppress=True)
         keyboard.wait()
-   
+
+
 if __name__ == "__main__":
     my_remote = My_Remote()
     my_remote.start()
