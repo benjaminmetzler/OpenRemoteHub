@@ -19,6 +19,8 @@ class My_Remote:
             self.load_mode(code["file"])
         elif code["type"] == "sleep":
             self.sleep(code["device"], code["duration"])
+        elif code["type"] == "macro":
+            print("macro...Recursive")
         else:
             print("Unknown type(%s)" % self.code["type"])
 
@@ -75,17 +77,14 @@ class My_Remote:
         if "on_load" in self.mode:
             for entry in self.mode["on_load"]:
                 for macro in entry:
-                    for code in entry[macro]:
-                        # need to handle macros as well.
-                        self.process_code(code)
+                    self.process_code(entry[macro])
 
     def on_unload(self):
         print("on_unload: %s" % self.current_mode_file)
         if "on_unload" in self.mode:
             for entry in self.mode["on_unload"]:
                 for macro in entry:
-                    for code in entry[macro]:
-                        self.process_code(code)
+                    self.process_code(entry[macro])
         self.mode = {}
 
     def event_loop(self):

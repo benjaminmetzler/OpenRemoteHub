@@ -1,21 +1,15 @@
 {
-    "on_load":[
-        {
-            "macro":[
-                { "type":"ir","code":"KEY_HDMI_01" , "device":"toshiba_tv" },
-                { "type":"sleep","duration":"2" , "device":"toshiba_tv" },
-                { "type":"ir","code":"KEY_POWER_OFF" , "device":"toshiba_tv" }
-            ]
-        },
-
-        {
-            "macro": [
-                { "type": "ir", "code":"KEY_HDMI_01" , "device": "yamaha_receiver" },
-                { "type":"sleep","duration":"0.5" , "device":"toshiba_tv" },
-                { "type": "ir", "code":"KEY_POWER_OFF" , "device": "yamaha_receiver" }
-            ]
-        }
-    ],
+    "on_load": {
+        "type": "macro",
+        "macro": [
+            { "type": "ir", "code": "KEY_HDMI_01", "device": "toshiba_tv" },
+            { "type": "sleep","duration": "2", "device": "toshiba_tv" },
+            { "type": "ir","code": "KEY_POWER_OFF", "device": "toshiba_tv" },
+            { "type": "ir", "code": "KEY_HDMI_01", "device": "yamaha_receiver" },
+            { "type": "sleep","duration": "0.5", "device": "toshiba_tv" },
+            { "type": "ir", "code": "KEY_POWER_OFF", "device": "yamaha_receiver" }
+        ]
+    },
 
     "on_unload": {
 
