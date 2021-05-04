@@ -16,13 +16,7 @@
         }
 ],
     "on_unload": [
-        {
-            "macro": [
-                { "device": "toshiba_tv", "type": "ir", "code":"POWER_ON" },
-                { "device": "toshiba_tv", "type": "sleep", "duration": "2s" },
-                { "device": "toshiba_tv", "type": "ir", "code":"INPUT_HDMI_1" }
-            ]
-        }
+
     ],
 
     "1":{
