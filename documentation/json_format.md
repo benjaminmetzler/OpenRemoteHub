@@ -2,36 +2,56 @@
 
 MyRemote state is determined by the loaded mode file.  This is independent of the current state of the controlled devices.
 
-MyRemote uses a json formated file to store and configure the remote depending on the button pressed on the remote.
+MyRemote uses a json formatted file to store and configure the remote depending on the button pressed on the remote.
+
+| field    | values                                                                             |
+| -------- | ---------------------------------------------------------------------------------- |
+| type     | Required Action to take.  Valid values are `ir`, `bluetooth`, `sleep`, `load`       |
+| device   | Name of the device to control as defined in lirc.                                  |
+| code     | Required if type is `ir` or `bluetooth`. Code to transmit on the specified channel |
+| file     | Required if type is `load`.  Specifies the name of the file to load.               |
+| duration | Required if type is `sleep`.  Specifies the duration to sleep in seconds           |
+|          |                                                                                    |
+
+```json
+    "up":{
+        "type": "bluetooth",
+        "device":"example_stb",
+        "code":"KEY_UP"
+    },
 
 ## Remote Button Presses
 
-When a button press is received by MyRemote, one of three things can happen.
+When a button press is received by MyRemote, one of four things can happen.
 
 ### Send IR Signal
 
 ```json
     "up":{
-        "device":"example_stb",
-        "code":"KEY_UP"
+        "type": "bluetooth",
+        "code":"KEY_UP",
+        "device":"example_stb"
     },
 ```
-The above configuration will instruct MyRemote to send the example_stb a KEY_UP code.  Medium is determined by the device configuration.  This can be used to configure multiple devices in a give mode, for instance navigation assigned to device_1 and volume buttons assigned to device_2
+The above configuration will instruct MyRemote to send the example_stb a KEY_UP code via the bluetooth channel.  Medium is determined by the device configuration.  This can be used to configure multiple devices in a give mode, for instance navigation assigned to device_1 and volume buttons assigned to device_2
 
 ### Load Another Mode File
 
 ```json
     "tv":{
-       "switch_mode":"tv.json"
+       "load":"tv.json"
     },
 ```
 The above configuration will instruct MyRemote to load the tv.json mode file.  This is used to switch the mode of the remote.
 
+### Run Another Mode File
 
-This functioanlty can also be used to act as a macro.  For instance
+This functionality allows you to store common commands in a single file w/o loading it to run.
+
+This functionally can be used to act as a macro.  For instance
 ``` json
     "power": {
-        "load":"power_off.json"
+        "run":"power_off.json"
     },
 ```
 
@@ -41,31 +61,29 @@ In this example when the power button is pressed, MyRemote will load the `power_
 {
     "on_load":[
         {
-            "device":"example_tv",
-            "code":"KEY_HDMI_01",
-            "code2":"KEY_POWER_OFF"
+            "macro":[
+                { "type":"ir","code":"KEY_HDMI_01", "device":"toshiba_tv", },
+                { "type":"sleep","duration":"2", "device":"toshiba_tv" }
+                { "type":"ir","code":"KEY_POWER_OFF", "device":"toshiba_tv" }
+            ]
         },
+
         {
-            "device":"example_tv",
-            "code":"KEY_HDMI_04",
-            "code2":"KEY_POWER_OFF"
-        },
-        {
-            "device":"example_stb",
-            "code":"KEY_POWER_OFF"
-        },
-        {
-            "device":"example_dvd",
-            "code":"KEY_POWER_OFF"
-        },
+            "macro": [
+                { "type": "ir", "code":"KEY_HDMI_01", "device": "yamaha_receiver"  },
+                { "type":"sleep","duration":"0.5", "device":"toshiba_tv" }
+                { "type": "ir", "code":"KEY_POWER_OFF","device": "yamaha_receiver" }
+            ]
+        }
     ],
+
     "on_unload": {
 
     }
 }
 ```
 
-### Simulate a Button Press
+### Simulate a different Button Press
 
 ```json
     "setup": {
@@ -83,26 +101,28 @@ When a mode is loaded, MyRemote will invoke the `on_load` block.  This will carr
 ``` json
     "on_load":[
         {
-            "device":"example_tv",
-            "code":"KEY_POWER_ON",
-            "sleep": "2s",
-            "code2":"KEY_HDMI_01"
+            "macro": [
+                { "type": "ir", "code":"KEY_POWER_ON", "device": "example_tv" },
+                { "type": "sleep", "duration": "2s", "device": "example_tv" },
+                { "type": "ir", "code":"KEY_HDMI_01", "device": "example_tv" }
+            ]
         },
         {
-            "device":"example_receiver",
-            "code":"KEY_POWER_ON",
-            "sleep": "2s",
-            "code2":"KEY_HDMI_04"
+            "macro": [
+                { "type": "ir", "code":"KEY_POWER_ON", "device": "example_receiver"},
+                { "type": "ir", "code":"KEY_HDMI_04", "device": "example_receiver" }
+            ]
         }
     ],
 ```
-The above example shows that when the mode is loaded it will instruct the `example_tv` to send the `KEY_POWER_ON` command and then switch to HDMI1, with a 2 second sleep between the two actions.  The `example_receiver` will power on and then  switch to HDMI4, with a 2 second sleep between actions.  Any number of actions can be done.
+The above example shows that when the mode is loaded it will instruct the `example_tv` to send the `KEY_POWER_ON` command and then switch to HDMI1, with a 2 second sleep between the two actions.  The `example_receiver` will power on and then switch to HDMI4, with a 2 second sleep between actions.  Any number of actions can be done.
 
 ``` json
     "on_unload":[
         {
-            "device":"example_stb",
+            "type":"bluetooth",
             "code":"KEY_POWER_OFF",
+            "device":"example_stb"
         }
     ],
 ```
@@ -114,16 +134,20 @@ Common.json will be loaded with each mode file.  This allows for a common set of
 ``` json
 {
     "power": {
-        "switch_mode":"power_off.json"
+        "type": "load",
+        "file":"power_off.json"
     },
     "tv":{
-        "switch_mode":"power_off.json"
+        "type": "load",
+        "file":"tv.json"
     },
     "dvd":{
-       "switch_mode":"dvd.json"
+        "type": "load",
+       "file":"dvd.json"
     },
     "stb":{
-       "switch_mode":"stb.json"
+        "type": "load",
+       "file":"stb.json"
     },
 }
 ```

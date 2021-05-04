@@ -14,144 +14,144 @@
                 { "device": "yamaha_receiver", "type": "ir", "code":"INPUT_HDMI_4" }
             ]
         }
-],
+    ],
     "on_unload": [
 
     ],
 
     "1":{
-        "device":"toshiba_tv",
         "type": "ir",
-        "code":"INPUT_HDMI_1"
+        "code":"INPUT_HDMI_1",
+        "device":"toshiba_tv"
     },
     "2":{
-        "device":"toshiba_tv",
         "type": "ir",
-        "code":"INPUT_HDMI_2"
+        "code":"INPUT_HDMI_2",
+        "device":"toshiba_tv"
     },
     "3":{
-        "device":"toshiba_tv",
         "type": "ir",
-        "code":"INPUT_HDMI_3"
+        "code":"INPUT_HDMI_3",
+        "device":"toshiba_tv"
     },
-    "4":{
+    "4": {
         "type": "load",
         "file":"/home/pi/my_remote/json/my_stb.json"
     },
 
     "setup": {
-        "device":"example_stb",
         "type": "bluetooth",
-        "button":"menu"
+        "button":"menu",
+        "device":"example_stb"
     },
     "up":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_UP"
+        "code":"KEY_UP",
+        "device":"example_stb"
     },
     "down":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_DOWN"
+        "code":"KEY_DOWN",
+        "device":"example_stb"
     },
     "left":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_LEFT"
+        "code":"KEY_LEFT",
+        "device":"example_stb"
     },
     "right":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_RIGHT"
+        "code":"KEY_RIGHT",
+        "device":"example_stb"
     },
     "ok":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_OK"
+        "code":"KEY_OK",
+        "device":"example_stb"
     },
     "exit":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_EXIT"
+        "code":"KEY_EXIT",
+        "device":"example_stb"
     },
     "menu":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_MENU"
+        "code":"KEY_MENU",
+        "device":"example_stb"
     },
     "info":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_INFO"
+        "code":"KEY_INFO",
+        "device":"example_stb"
     },
     "guide":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_GUIDE"
+        "code":"KEY_GUIDE",
+        "device":"example_tb"
     },
     "volume_up":{
-        "device":"yamaha_receiver",
         "type": "ir",
-        "code":"KEY_VOLUME_UP"
+        "code":"KEY_VOLUME_UP",
+        "device":"yamaha_receiver"
     },
     "volume_down":{
-        "device":"yamaha_receiver",
         "type": "ir",
-        "code":"KEY_VOLUME_DOWN"
+        "code":"KEY_VOLUME_DOWN",
+        "device":"yamaha_receiver"
     },
     "volume_mute":{
-        "device":"yamaha_receiver",
         "type": "ir",
-        "code":"KEY_VOLUME_MUTE"
+        "code":"KEY_VOLUME_MUTE",
+        "device":"yamaha_receive"
     },
     "rew":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_REW"
+        "code":"KEY_REW",
+        "device":"example_stb"
     },
     "play":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_PLAY"
+        "code":"KEY_PLAY",
+        "device":"example_stb"
     },
     "ffwd":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_FFWD"
+        "code":"KEY_FFWD",
+        "device":"example_stb"
     },
     "stop":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_STOP"
+        "code":"KEY_STOP",
+        "device":"example_stb"
     },
     "pause":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_PAUSE"
+        "code":"KEY_PAUSE",
+        "device":"example_tb"
     },
     "record":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_RECORD"
+        "code":"KEY_RECORD",
+        "device":"example_sb"
     },
     "red":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_RED"
+        "code":"KEY_RED",
+        "device":"example_stb"
     },
     "green":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_GREEN"
+        "code":"KEY_GREEN",
+        "device":"example_stb"
     },
     "yellow":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_YELLOW"
+        "code":"KEY_YELLOW",
+        "device":"example_sb"
     },
     "blue":{
-        "device":"example_stb",
         "type": "bluetooth",
-        "code":"KEY_BLUE"
+        "code":"KEY_BLUE",
+        "device":"example_stb"
     }
 }
