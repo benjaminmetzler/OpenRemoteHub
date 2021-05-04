@@ -4,14 +4,14 @@ MyRemote state is determined by the loaded mode file.  This is independent of th
 
 MyRemote uses a json formatted file to store and configure the remote depending on the button pressed on the remote.
 
-| field    | values                                                                             |
-| -------- | ---------------------------------------------------------------------------------- |
-| type     | Required Action to take.  Valid values are `ir`, `bluetooth`, `sleep`, `load`       |
-| device   | Name of the device to control as defined in lirc.                                  |
-| code     | Required if type is `ir` or `bluetooth`. Code to transmit on the specified channel |
-| file     | Required if type is `load`.  Specifies the name of the file to load.               |
-| duration | Required if type is `sleep`.  Specifies the duration to sleep in seconds           |
-|          |                                                                                    |
+| field    | values                                                                                 |
+| -------- | -------------------------------------------------------------------------------------- |
+| type     | Required Action to take.  Valid values are `macro`, `ir`, `bluetooth`, `sleep`, `load` |
+| device   | Name of the device to control as defined in lirc.                                      |
+| code     | Required if type is `ir` or `bluetooth`. Code to transmit on the specified channel     |
+| file     | Required if type is `load`.  Specifies the name of the file to load.                   |
+| duration | Required if type is `sleep`.  Specifies the duration to sleep in seconds               |
+|          |                                                                                        |
 
 ```json
     "up":{

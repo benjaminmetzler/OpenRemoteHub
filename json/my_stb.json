@@ -11,10 +11,6 @@
         ]
     },
 
-    "on_unload": {
-
-    },
-
     "1":{
         "type": "ir",
         "code":"INPUT_HDMI_1",

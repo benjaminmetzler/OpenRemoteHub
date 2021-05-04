@@ -11,18 +11,23 @@ class My_Remote:
         self.load_mode(conf_file)
 
     def process_code(self, code):
-        if code["type"] == "ir":
-            self.send_ir(code["device"], code["code"])
-        elif code["type"] == "bluetooth":
-            self.bluetooth(code["device"], code["code"])
-        elif code["type"] == "load":
-            self.load_mode(code["file"])
-        elif code["type"] == "sleep":
-            self.sleep(code["device"], code["duration"])
-        elif code["type"] == "macro":
-            print("macro...Recursive")
+        if "type" in code:
+            if code["type"] == "ir":
+                self.send_ir(code["device"], code["code"])
+            elif code["type"] == "bluetooth":
+                self.bluetooth(code["device"], code["code"])
+            elif code["type"] == "load":
+                self.load_mode(code["file"])
+            elif code["type"] == "sleep":
+                self.sleep(code["device"], code["duration"])
+            elif code["type"] == "macro":
+                print()
+                for macro_code in code["macro"]:
+                    self.process_code(macro_code)
+            else:
+                print("Unknown type(%s)" % self.code["type"])
         else:
-            print("Unknown type(%s)" % self.code["type"])
+            print("Type not found: %s" % code)
 
     def load_mode(self, conf_file):
         self.on_unload()
@@ -72,19 +77,16 @@ class My_Remote:
         # on load
         # currently serial, but ideally parallelized so that multiple
         # codes could be sent across different devices, with each
-        # device getting it's own queue that can push to a single queue
-        # that is then sent out the IR/RF hardware.
+        # "device" getting it's own queue that can push to a single queue
+        # that is then sent out the IR/RF hardware, allowing sleeps to 
+        # be run in parallel with IR/RF sends.
         if "on_load" in self.mode:
-            for entry in self.mode["on_load"]:
-                for macro in entry:
-                    self.process_code(entry[macro])
+            self.process_code(self.mode["on_load"])
 
     def on_unload(self):
         print("on_unload: %s" % self.current_mode_file)
         if "on_unload" in self.mode:
-            for entry in self.mode["on_unload"]:
-                for macro in entry:
-                    self.process_code(entry[macro])
+            self.process_code(self.mode["on_unload"])
         self.mode = {}
 
     def event_loop(self):
