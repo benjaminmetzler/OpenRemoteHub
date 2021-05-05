@@ -16,17 +16,17 @@
 
     },
 
-    "1":{
+    "2":{
         "comment": "1",
         "type": "load",
         "file":"/home/pi/my_remote/json/my_stb.json"
     },
-    "2":{
+    "3":{
         "comment": "2",
         "type": "load",
         "file":"/home/pi/my_remote/json/my_dvd.json"
     },
-    "3":{
+    "4":{
         "comment": "3",
         "type": "load",
         "file":"/home/pi/my_remote/json/my_xbox.json"
@@ -55,11 +55,23 @@
         "type": "ir",
         "code": "KEY_RIGHT",
         "device": "lg_dvd"
+    },    
+    "109":{
+        "comment": "Pg-",
+        "type": "ir",
+        "code": "KEY_PREVIOUS",
+        "device": "lg_dvd"
+    },
+    "104":{
+        "comment": "Pg+",
+        "type": "ir",
+        "code": "KEY_NEXT",
+        "device": "lg_dvd"
     },
     "28":{
         "comment": "enter/okay",
         "type": "ir",
-        "code": "KEY_OK",
+        "code": "KEY_ENTER",
         "device": "lg_dvd"
     },
     "158":{
@@ -101,7 +113,7 @@
     "165":{
         "comment": "Rew",
         "type": "ir",
-        "code": "KEY_REW",
+        "code": "KEY_BACK",
         "device": "lg_dvd"
     },
     "164":{
@@ -113,7 +125,7 @@
     "163":{
         "comment": "FFWD",
         "type": "ir",
-        "code": "KEY_FFWD",
+        "code": "KEY_FORWARD",
         "device": "lg_dvd"
     }
 }

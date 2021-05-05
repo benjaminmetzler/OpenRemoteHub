@@ -71,11 +71,12 @@ class My_Remote:
         # os.system(command)
 
     def callback(self, event):
-        print("CALLBACK: %s" % event)
-        scan_code = event.scan_code
+        scan_code = str(event.scan_code)
         name = event.name
-        if name in self.mode:
+        print("callback: %s - %s (%s)" % (event, scan_code, name ))
+        if scan_code in self.mode:
             self.process_code(self.mode[scan_code])
+            # print(self.mode[scan_code])
 
     def on_load(self):
         print("on_load: %s" % self.current_mode_file)
