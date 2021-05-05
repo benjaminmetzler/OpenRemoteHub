@@ -1,7 +1,5 @@
 #! /bin/sh
 # https://github.com/AnaviTechnology/anavi-docs/blob/master/anavi-infrared-phat/anavi-infrared-phat.md#infrared-and-lirc
-# sudo systemctl restart lircd
-# journalctl -u lircd
 
 # Install the necessary packages
 sudo su -c "grep '^deb ' /etc/apt/sources.list | sed 's/^deb/deb-src/g' > /etc/apt/sources.list.d/deb-src.list"
