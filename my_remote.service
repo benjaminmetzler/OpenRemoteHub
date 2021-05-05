@@ -1,0 +1,13 @@
+[Unit]
+Description=My_Remote
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 -u /home/pi/my_remote/scripts/main.py
+WorkingDirectory=/home/pi/my_remote
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

@@ -59,5 +59,8 @@ sudo pip3 install -r requirements.txt
 sudo su -c "echo 'HandlePowerKey=ignore' >> /etc/systemd/logind.conf"
 sudo su -c "echo 'HandleSuspendKey=ignore' >> /etc/systemd/logind.conf"
 
+# Install the my_remote service
+sudo cp my_remote.service /etc/systemd/system/my_remote.service
+
 # make sure everything is up and running
 sudo shutdown -r 0
