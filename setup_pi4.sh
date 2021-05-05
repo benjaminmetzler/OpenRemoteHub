@@ -55,5 +55,9 @@ sudo systemctl enable lircd
 # install the my_remote python required packages
 sudo pip3 install -r requirements.txt
 
+# Prevent power buttons on remotes from putting the Raspberry Pi to sleep
+sudo su -c "echo 'HandlePowerKey=ignore' >> /etc/systemd/logind.conf"
+sudo su -c "echo 'HandleSuspendKey=ignore' >> /etc/systemd/logind.conf"
+
 # make sure everything is up and running
 sudo shutdown -r 0

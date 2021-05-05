@@ -9,9 +9,33 @@
         "type": "load",
         "file":"/home/pi/my_remote/json/my_dvd.json"
     },
-    "4":{
-        "comment": "3",
-        "type": "load",
-        "file":"/home/pi/my_remote/json/my_xbox.json"
+    "115":{
+        "comment": "Volume Up",
+        "type": "ir",
+        "code": "VOLUME_VOLUME_UP",
+        "device": "yamaha_receiver"
+    },
+    "114":{
+        "comment": "Volume Down",
+        "type": "ir",
+        "code": "VOLUME_VOLUME_DOWN",
+        "device": "yamaha_receiver"
+    },
+    "113":{
+        "comment": "Mute",
+        "type": "ir",
+        "code": "VOLUME_MUTE_TOGGLE",
+        "device": "yamaha_receiver"
+    },
+    "116":{
+        "comment": "power system off macro",
+        "type": "macro",
+        "macro": [
+            { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv" },
+            { "type": "ir", "code":"INPUT_HDMI_4" , "device": "yamaha_receiver" },
+            { "type": "sleep", "duration": "2s" , "device": "toshiba_tv" },
+            { "type": "ir", "code":"POWER_OFF" , "device": "toshiba_tv" },
+            { "type": "ir", "code":"POWER_OFF" , "device": "yamaha_receiver" }
+        ]
     }
 }

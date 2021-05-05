@@ -3,25 +3,11 @@
         "type": "macro",
         "macro": [
             { "type": "ir", "code":"POWER_ON" , "device": "toshiba_tv" },
+            { "type": "ir", "code":"POWER_ON" , "device": "yamaha_receiver" },
             { "type": "sleep", "duration": "2s" , "device": "toshiba_tv" },
             { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"POWER_ON" , "device": "yamaha_receiver" },
-            { "type": "sleep", "duration": "2s" , "device": "yamaha_receiver" },
             { "type": "ir", "code":"INPUT_HDMI_4" , "device": "yamaha_receiver" }
         ]
-    },
-
-    "1":{
-        "type": "load",
-        "file":"/home/pi/my_remote/json/my_stb.json"
-    },
-    "2":{
-        "type": "load",
-        "file":"/home/pi/my_remote/json/my_dvd.json"
-    },
-    "3":{
-        "type": "load",
-        "file":"/home/pi/my_remote/json/my_xbox.json"
     },
 
     "setup": {

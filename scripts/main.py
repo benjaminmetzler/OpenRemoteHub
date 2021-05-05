@@ -20,7 +20,6 @@ class My_Remote:
             elif code["type"] == "sleep":
                 self.sleep(code["device"], code["duration"])
             elif code["type"] == "macro":
-                print()
                 for macro_code in code["macro"]:
                     self.process_code(macro_code)
             else:
@@ -46,6 +45,8 @@ class My_Remote:
             self.mode = json.load(f)
             f.close()
 
+            self.mode.update(self.common)
+
             self.current_mode_file = conf_file
             # load up the defaults
             self.on_load()
@@ -68,7 +69,7 @@ class My_Remote:
         command = "sleep %s" % duration
         print("%s | %s" % (device, command))
         # TK sanitize parameters since we are running as root
-        # os.system(command)
+        os.system(command)
 
     def callback(self, event):
         scan_code = str(event.scan_code)

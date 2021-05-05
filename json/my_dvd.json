@@ -4,32 +4,15 @@
         "type": "macro",
         "macro": [
             { "type": "ir", "code":"POWER_ON" , "device": "toshiba_tv" },
+            { "type": "ir", "code":"POWER_ON" , "device": "yamaha_receiver" },
             { "type": "sleep", "duration": "2s" , "device": "toshiba_tv" },
             { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"POWER_ON" , "device": "yamaha_receiver" },
-            { "type": "sleep", "duration": "2s" , "device": "yamaha_receiver" },
-            { "type": "ir", "code":"INPUT_HDMI_3" , "device": "yamaha_receiver" }
+            { "type": "ir", "code":"INPUT_HDMI_1" , "device": "yamaha_receiver" }
         ]
     },
 
     "on_unload": {
 
-    },
-
-    "2":{
-        "comment": "1",
-        "type": "load",
-        "file":"/home/pi/my_remote/json/my_stb.json"
-    },
-    "3":{
-        "comment": "2",
-        "type": "load",
-        "file":"/home/pi/my_remote/json/my_dvd.json"
-    },
-    "4":{
-        "comment": "3",
-        "type": "load",
-        "file":"/home/pi/my_remote/json/my_xbox.json"
     },
 
     "103":{
@@ -77,7 +60,7 @@
     "158":{
         "comment": "back",
         "type": "ir",
-        "code": "KEY_EXIT",
+        "code": "KEY_BACK",
         "device": "lg_dvd"
     },
     "127":{
@@ -89,26 +72,8 @@
     "172":{
         "comment": "home",
         "type": "ir",
-        "code": "KEY_GUIDE",
+        "code": "KEY_MENU",
         "device": "lg_dvd"
-    },
-    "115":{
-        "comment": "Volume Up",
-        "type": "ir",
-        "code": "KEY_VOLUME_UP",
-        "device": "yamaha_receiver"
-    },
-    "114":{
-        "comment": "Volume Down",
-        "type": "ir",
-        "code": "KEY_VOLUME_DOWN",
-        "device": "yamaha_receiver"
-    },
-    "113":{
-        "comment": "Mute",
-        "type": "ir",
-        "code": "KEY_VOLUME_MUTE",
-        "device": "yamaha_receiver"
     },
     "165":{
         "comment": "Rew",
