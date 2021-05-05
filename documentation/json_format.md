@@ -1,121 +1,92 @@
 # Introduction
 
-MyRemote state is determined by the loaded mode file.  This is independent of the current state of the controlled devices.
+My_Remote state is determined by the loaded mode file.  This is independent of the current state of the controlled devices.
 
-MyRemote uses a json formatted file to store and configure the remote depending on the button pressed on the remote.
+My_Remote uses a json formatted file to store and configure the remote depending on the button pressed on the remote.  The objects are named after the scan_code received by My_Remote.  For instance the `Enter` key will have a scan_code of `28`.  Each object will contain key:value pairs defining the action and any required key:value pairs.  The valid keys are listed below.
 
-| field    | values                                                                                 |
-| -------- | -------------------------------------------------------------------------------------- |
-| type     | Required Action to take.  Valid values are `macro`, `ir`, `bluetooth`, `sleep`, `load` |
-| device   | Name of the device to control as defined in lirc.                                      |
-| code     | Required if type is `ir` or `bluetooth`. Code to transmit on the specified channel     |
-| file     | Required if type is `load`.  Specifies the name of the file to load.                   |
-| duration | Required if type is `sleep`.  Specifies the duration to sleep in seconds               |
-|          |                                                                                        |
+| Key      | Data                                                                                                       |
+| -------- | ---------------------------------------------------------------------------------------------------------- |
+| type     | Required.  Action to take.  Valid values are `ir`, `bluetooth`, `sleep`, `load`, and `macro`               |
+| device   | Name of the device to control as defined in lirc or via bluetooth.                                         |
+| code     | Required if type is `ir` or `bluetooth`. Code to transmit on the specified channel to the specified device |
+| file     | Required if type is `load`.  Specifies the name of the file to load. This will clear out the current mode. |
+| duration | Required if type is `sleep`.  Specifies the duration to sleep in seconds                                   |
+| macro    | Multiple of the above to form a macro                                                                      |
+| comment  | Optional field that is not used by the code but can be used for block info                                 |
 
-```json
-    "up":{
-        "type": "bluetooth",
-        "device":"example_stb",
-        "code":"KEY_UP"
-    },
+Possible actions are demonstrated below.
 
-## Remote Button Presses
-
-When a button press is received by MyRemote, one of four things can happen.
-
-### Send IR Signal
+### Send IR/Bluetooth Command
 
 ```json
-    "up":{
-        "type": "bluetooth",
+    "103":{
+        "comment": "An up button is pressed",
+        "type": "ir",
         "code":"KEY_UP",
         "device":"example_stb"
     },
 ```
-The above configuration will instruct MyRemote to send the example_stb a KEY_UP code via the bluetooth channel.  Medium is determined by the device configuration.  This can be used to configure multiple devices in a give mode, for instance navigation assigned to device_1 and volume buttons assigned to device_2
+The above configuration will instruct My_Remote to send the example_stb a KEY_UP code via the bluetooth channel.  Medium is determined by the type.  Objects for different devices can be present in the mode file.
+
+```json
+    "103":{
+        "comment": "An up button is pressed",
+        "type": "bluetooth",
+        "code":"103",
+        "device":"example_stb"
+    },
+```
+
+The next example does the same thing as the first, but with bluetooth.
+
+### Sleep
+The `sleep` command is used in macros.  While it can be used for it's own action, it doesn't make much sense as it will just sleep the system for the `duration` on the button press.
 
 ### Load Another Mode File
 
 ```json
-    "tv":{
-       "load":"tv.json"
+    "3":{
+       "load":"/home/pi/my_remote/json/my_dvd.json"
     },
 ```
-The above configuration will instruct MyRemote to load the tv.json mode file.  This is used to switch the mode of the remote.
+The above configuration will instruct My_Remote to load the my_dvd.json mode file.  This is used to switch the mode of the remote.
 
-### Run Another Mode File
-
-This functionality allows you to store common commands in a single file w/o loading it to run.
-
-This functionally can be used to act as a macro.  For instance
+### Macros
 ``` json
-    "power": {
-        "run":"power_off.json"
-    },
-```
-
-In this example when the power button is pressed, MyRemote will load the `power_off.json` which looks like the below.
-
-``` json
-{
-    "on_load":[
-        {
-            "macro":[
-                { "type":"ir","code":"KEY_HDMI_01", "device":"toshiba_tv", },
-                { "type":"sleep","duration":"2", "device":"toshiba_tv" }
-                { "type":"ir","code":"KEY_POWER_OFF", "device":"toshiba_tv" }
-            ]
-        },
-
-        {
-            "macro": [
-                { "type": "ir", "code":"KEY_HDMI_01", "device": "yamaha_receiver"  },
-                { "type":"sleep","duration":"0.5", "device":"toshiba_tv" }
-                { "type": "ir", "code":"KEY_POWER_OFF","device": "yamaha_receiver" }
-            ]
-        }
-    ],
-
-    "on_unload": {
-
+    "116":{
+        "comment": "power system off macro",
+        "type": "macro",
+        "macro": [
+            { "type": "ir", "code":"INPUT_HDMI_1" , "device": "example_tv" },
+            { "type": "ir", "code":"INPUT_HDMI_4" , "device": "example_receiver" },
+            { "type": "sleep", "duration": "2s"  },
+            { "type": "ir", "code":"POWER_OFF" , "device": "example_tv" },
+            { "type": "ir", "code":"POWER_OFF" , "device": "example_receiver" }
+        ]
     }
-}
 ```
 
-### Simulate a different Button Press
-
-```json
-    "setup": {
-        "device":"example_stb",
-        "button":"menu"
-    },
-```
-The above configuration will instruct MyRemote to call the menu button block when the setup button is called.  This allows multiple buttons to be linked to one action.
+Macros can be used to group multiple actions on a key press.  In the above example, the `power` button (`116`) will invoke a macro that will switch the `example_tv` and `example_receiver` to the default HDMI ports and then power off the devices.  Macros can be any length and potentially call other macros or load files (both to be tested).
 
 ## Default Actions
 
 There are two optional actions defined for mode files: `on_load` and `on_unload`.
 
-When a mode is loaded, MyRemote will invoke the `on_load` block.  This will carry out any number of steps as shown below.
+When a mode is loaded, My_Remote will invoke the `on_load` block.  This will carry out any number of steps as shown below.
 ``` json
     "on_load":[
         {
             "macro": [
                 { "type": "ir", "code":"KEY_POWER_ON", "device": "example_tv" },
-                { "type": "sleep", "duration": "2s", "device": "example_tv" },
-                { "type": "ir", "code":"KEY_HDMI_01", "device": "example_tv" }
-            ]
-        },
-        {
-            "macro": [
                 { "type": "ir", "code":"KEY_POWER_ON", "device": "example_receiver"},
+                { "type": "sleep", "duration": "2s", "device": "example_tv" },
+                { "type": "ir", "code":"KEY_HDMI_01", "device": "example_tv" },
                 { "type": "ir", "code":"KEY_HDMI_04", "device": "example_receiver" }
             ]
         }
     ],
 ```
-The above example shows that when the mode is loaded it will instruct the `example_tv` to send the `KEY_POWER_ON` command and then switch to HDMI1, with a 2 second sleep between the two actions.  The `example_receiver` will power on and then switch to HDMI4, with a 2 second sleep between actions.  Any number of actions can be done.
+The above example shows that when the mode is loaded it will instruct My_Remote to send the power on commands to the tv and receiver and then tell them to switch to the correct HDMI ports.  Any number of actions can be done in a macro.
 
 ``` json
     "on_unload":[
@@ -130,25 +101,38 @@ The above example shows that when the mode is unloaded it will instruct the `exa
 
 ## Common.json
 
-Common.json will be loaded with each mode file.  This allows for a common set of macros to be defined across multiple remotes, such as a set of device buttons used to switch modes as shown below.
+Common.json will be loaded with each mode file.  This allows for a common set of macros to be defined across multiple remotes, such as a set of device buttons used to switch modes as shown below.  In the below example, the volume and mute buttons are always mapped to the `example_receiver` and the power button will call a `macro` to shut the system down.  These actions will be available regardless of the active mode.
+
 ``` json
-{
-    "power": {
-        "type": "load",
-        "file":"power_off.json"
+    "115":{
+        "comment": "Volume Up",
+        "type": "ir",
+        "code": "VOLUME_UP",
+        "device": "example_receiver"
     },
-    "tv":{
-        "type": "load",
-        "file":"tv.json"
+    "114":{
+        "comment": "Volume Down",
+        "type": "ir",
+        "code": "VOLUME_DOWN",
+        "device": "example_receiver"
     },
-    "dvd":{
-        "type": "load",
-       "file":"dvd.json"
+    "113":{
+        "comment": "Mute",
+        "type": "ir",
+        "code": "MUTE_TOGGLE",
+        "device": "example_receiver"
     },
-    "stb":{
-        "type": "load",
-       "file":"stb.json"
-    },
+    "116":{
+        "comment": "power system off macro",
+        "type": "macro",
+        "macro": [
+            { "type": "ir", "code":"INPUT_HDMI_1" , "device": "example_tv" },
+            { "type": "ir", "code":"INPUT_HDMI_4" , "device": "example_receiver" },
+            { "type": "sleep", "duration": "2s" , "device": "example_tv" },
+            { "type": "ir", "code":"POWER_OFF" , "device": "example_tv" },
+            { "type": "ir", "code":"POWER_OFF" , "device": "example_receiver" }
+        ]
+    }
 }
 ```
 
