@@ -1,27 +1,21 @@
-def send_code(self, name):
-    if name in self.mode:
-        if self.mode[name]["type"] == "ir":
-            self.send_ir(self.mode[name]["device"], self.mode[name]["code"])
-        if self.mode[name]["type"] == "rf":
-            self.send_rf(self.mode[name]["device"], self.mode[name]["code"])
+import json
+import keyboard
+import os
+
+class My_Remote:
+    def __init__(self, conf_file):
+        self.mode = {}
+
+    def callback(self, event):
+        scan_code = event.scan_code
+        name = event.name
+        print("%s(%s)" % (scan_code, name))
+
+    def event_loop(self):
+        keyboard.on_release(callback=self.callback, suppress=True)
+        keyboard.wait()
 
 
-def send_ir(self, device, code):
-    print(" %s --> send_ir(%s)" % (device, code))
-    # TK sanitize parameters since we are running as root
-    os.system("irsend SEND_ONCE %s %s" % (device, code))
-
-
-def send_rf(self, device, code):
-    print(" %s --> send_ir(%s)" % (device, code))
-
-
-# read the common file
-f = open("/home/pi/my_remote/test_scripts/common.json")
-common = json.load(f)
-f.close()
-
-# read the configuration file
-f = open(conf_file)
-mode = json.load(f)
-f.close()
+if __name__ == "__main__":
+    my_remote = My_Remote("/home/pi/my_remote/json/my_stb.json")
+    my_remote.event_loop()

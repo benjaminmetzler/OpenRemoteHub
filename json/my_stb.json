@@ -12,23 +12,16 @@
     },
 
     "1":{
-        "type": "ir",
-        "code":"INPUT_HDMI_1",
-        "device":"toshiba_tv"
-    },
-    "2":{
-        "type": "ir",
-        "code":"INPUT_HDMI_2",
-        "device":"toshiba_tv"
-    },
-    "3":{
-        "type": "ir",
-        "code":"INPUT_HDMI_3",
-        "device":"toshiba_tv"
-    },
-    "4": {
         "type": "load",
         "file":"/home/pi/my_remote/json/my_stb.json"
+    },
+    "2":{
+        "type": "load",
+        "file":"/home/pi/my_remote/json/my_dvd.json"
+    },
+    "3":{
+        "type": "load",
+        "file":"/home/pi/my_remote/json/my_xbox.json"
     },
 
     "setup": {

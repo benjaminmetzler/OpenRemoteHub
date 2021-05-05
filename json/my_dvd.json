@@ -1,13 +1,14 @@
 {
     "on_load": {
+        "comment": "",
         "type": "macro",
         "macro": [
-            { "type": "ir", "code":"KEY_POWER_ON", "device": "toshiba_tv" },
-            { "type": "sleep", "duration": "2s", "device": "toshiba_tv" },
-            { "type": "ir", "code":"KEY_HDMI_01", "device": "toshiba_tv" },
-            { "type": "ir", "code":"KEY_POWER_ON" , "device": "yamaha_receiver"},
-            { "type": "sleep", "duration": "2s" , "device": "yamaha_receiver"},
-            { "type": "ir", "code":"KEY_HDMI_04" , "device": "yamaha_receiver"}
+            { "type": "ir", "code":"POWER_ON" , "device": "toshiba_tv" },
+            { "type": "sleep", "duration": "2s" , "device": "toshiba_tv" },
+            { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv" },
+            { "type": "ir", "code":"POWER_ON" , "device": "yamaha_receiver" },
+            { "type": "sleep", "duration": "2s" , "device": "yamaha_receiver" },
+            { "type": "ir", "code":"INPUT_HDMI_3" , "device": "yamaha_receiver" }
         ]
     },
 
@@ -15,119 +16,104 @@
 
     },
 
-    "setup": {
-        "type": "ir",
-        "code": "menu",
-        "device": "lg_dvd"
+    "1":{
+        "comment": "1",
+        "type": "load",
+        "file":"/home/pi/my_remote/json/my_stb.json"
     },
-    "up":{
+    "2":{
+        "comment": "2",
+        "type": "load",
+        "file":"/home/pi/my_remote/json/my_dvd.json"
+    },
+    "3":{
+        "comment": "3",
+        "type": "load",
+        "file":"/home/pi/my_remote/json/my_xbox.json"
+    },
+
+    "103":{
+        "comment": "up",
         "type": "ir",
         "code": "KEY_UP",
         "device": "lg_dvd"
     },
-    "down":{
+    "108":{
+        "comment": "down",
         "type": "ir",
         "code": "KEY_DOWN",
         "device": "lg_dvd"
     },
-    "left":{
+    "105":{
+        "comment": "left",
         "type": "ir",
         "code": "KEY_LEFT",
         "device": "lg_dvd"
     },
-    "right":{
+    "106":{
+        "comment": "right",
         "type": "ir",
         "code": "KEY_RIGHT",
         "device": "lg_dvd"
     },
-    "ok":{
+    "28":{
+        "comment": "enter/okay",
         "type": "ir",
         "code": "KEY_OK",
         "device": "lg_dvd"
     },
-    "exit":{
+    "158":{
+        "comment": "back",
         "type": "ir",
         "code": "KEY_EXIT",
         "device": "lg_dvd"
     },
-    "menu":{
+    "127":{
+        "comment": "menu",
         "type": "ir",
         "code": "KEY_MENU",
         "device": "lg_dvd"
     },
-    "info":{
-        "type": "ir",
-        "code": "KEY_INFO",
-        "device": "lg_dvd"
-    },
-    "guide":{
+    "172":{
+        "comment": "home",
         "type": "ir",
         "code": "KEY_GUIDE",
         "device": "lg_dvd"
     },
-    "volume_up":{
+    "115":{
+        "comment": "Volume Up",
         "type": "ir",
         "code": "KEY_VOLUME_UP",
         "device": "yamaha_receiver"
     },
-    "volume_down":{
+    "114":{
+        "comment": "Volume Down",
         "type": "ir",
         "code": "KEY_VOLUME_DOWN",
         "device": "yamaha_receiver"
     },
-    "volume_mute":{
+    "113":{
+        "comment": "Mute",
         "type": "ir",
         "code": "KEY_VOLUME_MUTE",
         "device": "yamaha_receiver"
     },
-    "rew":{
+    "165":{
+        "comment": "Rew",
         "type": "ir",
         "code": "KEY_REW",
         "device": "lg_dvd"
     },
-    "play":{
+    "164":{
+        "comment": "Play/Pause",
         "type": "ir",
         "code": "KEY_PLAY",
         "device": "lg_dvd"
     },
-    "ffwd":{
+    "163":{
+        "comment": "FFWD",
         "type": "ir",
         "code": "KEY_FFWD",
-        "device": "lg_dvd"
-    },
-    "stop":{
-        "type": "ir",
-        "code": "KEY_STOP",
-        "device": "lg_dvd"
-    },
-    "pause":{
-        "type": "ir",
-        "code": "KEY_PAUSE",
-        "device": "lg_dvd"
-    },
-    "record":{
-        "type": "ir",
-        "code": "KEY_RECORD",
-        "device": "lg_dvd"
-    },
-    "red":{
-        "type": "ir",
-        "code": "KEY_RED",
-        "device": "lg_dvd"
-    },
-    "green":{
-        "type": "ir",
-        "code": "KEY_GREEN",
-        "device": "lg_dvd"
-    },
-    "yellow":{
-        "type": "ir",
-        "code": "KEY_YELLOW",
-        "device": "lg_dvd"
-    },
-    "blue":{
-        "type": "ir",
-        "code": "KEY_BLUE",
         "device": "lg_dvd"
     }
 }

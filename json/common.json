@@ -1,14 +1,17 @@
 {
-    "dvd":{
+    "1":{
+        "comment": "1",
         "type": "load",
-        "file": "/home/pi/my_remote/json/my_dvd.json"
+        "file":"/home/pi/my_remote/json/my_stb.json"
     },
-    "4":{
+    "2":{
+        "comment": "2",
         "type": "load",
-        "file": "/home/pi/my_remote/json/my_stb.json"
+        "file":"/home/pi/my_remote/json/my_dvd.json"
     },
-    "xbox":{
+    "3":{
+        "comment": "3",
         "type": "load",
-        "file": "/home/pi/my_remote/json/my_xbox.json"
+        "file":"/home/pi/my_remote/json/my_xbox.json"
     }
 }

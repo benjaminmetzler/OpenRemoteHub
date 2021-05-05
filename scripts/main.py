@@ -1,14 +1,13 @@
 import json
 import keyboard
 import os
-from jsonmerge import merge
-
+import pathlib
 
 class My_Remote:
     def __init__(self, conf_file):
         self.mode = {}
         self.current_mode_file = ""
-        self.load_mode(conf_file)
+        self.load(conf_file)
 
     def process_code(self, code):
         if "type" in code:
@@ -17,7 +16,7 @@ class My_Remote:
             elif code["type"] == "bluetooth":
                 self.bluetooth(code["device"], code["code"])
             elif code["type"] == "load":
-                self.load_mode(code["file"])
+                self.load(code["file"])
             elif code["type"] == "sleep":
                 self.sleep(code["device"], code["duration"])
             elif code["type"] == "macro":
@@ -29,24 +28,29 @@ class My_Remote:
         else:
             print("Type not found: %s" % code)
 
-    def load_mode(self, conf_file):
-        self.on_unload()
+    def load(self, conf_file):
+        file = pathlib.Path(conf_file)
+        if file.exists ():
 
-        # read the common file
-        # TK should we have an on_load and on_unload in the common.json?
-        # TK how should they be handled?
-        f = open("/home/pi/my_remote/json/common.json")
-        self.common = json.load(f)
-        f.close()
+            self.on_unload()
 
-        # read the configuration file
-        f = open(conf_file)
-        self.mode = json.load(f)
-        f.close()
+            # read the common file
+            # TK should we have an on_load and on_unload in the common.json?
+            # TK how should they be handled?
+            f = open("/home/pi/my_remote/json/common.json")
+            self.common = json.load(f)
+            f.close()
 
-        self.current_mode_file = conf_file
-        # load up the defaults
-        self.on_load()
+            # read the configuration file
+            f = open(conf_file)
+            self.mode = json.load(f)
+            f.close()
+
+            self.current_mode_file = conf_file
+            # load up the defaults
+            self.on_load()
+        else:
+            print("Unable to find: %s" % conf_file)
 
     def send_ir(self, device, code):
         command = "irsend SEND_ONCE %s %s" % (device, code)
@@ -67,10 +71,11 @@ class My_Remote:
         # os.system(command)
 
     def callback(self, event):
+        print("CALLBACK: %s" % event)
         scan_code = event.scan_code
         name = event.name
         if name in self.mode:
-            self.process_code(self.mode[name])
+            self.process_code(self.mode[scan_code])
 
     def on_load(self):
         print("on_load: %s" % self.current_mode_file)
