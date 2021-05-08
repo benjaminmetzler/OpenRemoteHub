@@ -61,3 +61,4 @@ It's not exactly what I want for a remote, but it does RF and can act like a key
 * https://remotesource.net/full-remote-catalog/
 * https://github.com/boppreh/keyboard
 * https://flirc.tv/more/flirc-usb
+* https://github.com/ruundii/bthidhub
