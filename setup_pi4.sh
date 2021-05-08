@@ -24,7 +24,8 @@ sudo apt install -y vim \
                     libx11-dev \
                     python3-dev \
                     python3-setuptools \
-                    python3-pip
+                    python3-pip \
+                    adb
 
 # Build the patched version of lirc for the anava IR adapter
 mkdir ~/lirc-src

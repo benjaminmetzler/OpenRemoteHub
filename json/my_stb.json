@@ -6,123 +6,63 @@
             { "type": "ir", "code":"POWER_ON" , "device": "yamaha_receiver" },
             { "type": "sleep", "duration": "2s" , "device": "toshiba_tv" },
             { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"INPUT_HDMI_4" , "device": "yamaha_receiver" }
+            { "type": "ir", "code":"INPUT_HDMI_4" , "device": "yamaha_receiver" },
+            { "type": "adb", "code":"CONNECT", "device": "192.168.0.146"}
         ]
     },
+    "on_unload":{
+        "type": "macro",
+        "macro": [
+            { "type": "adb", "code":"DISCONNECT", "device": "192.168.0.146"}
+        ] 
+    },
 
-    "setup": {
-        "type": "bluetooth",
-        "button":"menu",
-        "device":"example_stb"
+    "172": {
+        "comment":"home/menu",
+        "type": "adb",
+        "code":"3",
+        "device":"192.168.0.146"
     },
-    "up":{
-        "type": "bluetooth",
-        "code":"KEY_UP",
-        "device":"example_stb"
+    "103":{
+        "comment":"KEYCODE_DPAD_UP", 
+        "type": "adb",
+        "code":"19",
+        "device":"192.168.0.146"
     },
-    "down":{
-        "type": "bluetooth",
-        "code":"KEY_DOWN",
-        "device":"example_stb"
+    "108":{
+        "comment":"KEYCODE_DPAD_DOWN", 
+        "type": "adb",
+        "code":"20",
+        "device":"192.168.0.146"
     },
-    "left":{
-        "type": "bluetooth",
-        "code":"KEY_LEFT",
-        "device":"example_stb"
+    "105":{
+        "comment":"KEYCODE_DPAD_LEFT", 
+        "type": "adb",
+        "code":"21",
+        "device":"192.168.0.146"
     },
-    "right":{
-        "type": "bluetooth",
-        "code":"KEY_RIGHT",
-        "device":"example_stb"
+    "106":{
+        "comment":"KEYCODE_DPAD_RIGHT", 
+        "type": "adb",
+        "code":"22",
+        "device":"192.168.0.146"
     },
-    "ok":{
-        "type": "bluetooth",
-        "code":"KEY_OK",
-        "device":"example_stb"
+    "28":{
+        "comment":"KEY_OK", 
+        "type": "adb",
+        "code":"23",
+        "device":"192.168.0.146"
     },
-    "exit":{
-        "type": "bluetooth",
-        "code":"KEY_EXIT",
-        "device":"example_stb"
+    "158":{
+        "comment":"KEY_EXIT", 
+        "type": "adb",
+        "code":"4",
+        "device":"192.168.0.146"
     },
-    "menu":{
-        "type": "bluetooth",
-        "code":"KEY_MENU",
-        "device":"example_stb"
-    },
-    "info":{
-        "type": "bluetooth",
-        "code":"KEY_INFO",
-        "device":"example_stb"
-    },
-    "guide":{
-        "type": "bluetooth",
-        "code":"KEY_GUIDE",
-        "device":"example_tb"
-    },
-    "volume_up":{
-        "type": "ir",
-        "code":"KEY_VOLUME_UP",
-        "device":"yamaha_receiver"
-    },
-    "volume_down":{
-        "type": "ir",
-        "code":"KEY_VOLUME_DOWN",
-        "device":"yamaha_receiver"
-    },
-    "volume_mute":{
-        "type": "ir",
-        "code":"KEY_VOLUME_MUTE",
-        "device":"yamaha_receive"
-    },
-    "rew":{
-        "type": "bluetooth",
-        "code":"KEY_REW",
-        "device":"example_stb"
-    },
-    "play":{
-        "type": "bluetooth",
-        "code":"KEY_PLAY",
-        "device":"example_stb"
-    },
-    "ffwd":{
-        "type": "bluetooth",
-        "code":"KEY_FFWD",
-        "device":"example_stb"
-    },
-    "stop":{
-        "type": "bluetooth",
-        "code":"KEY_STOP",
-        "device":"example_stb"
-    },
-    "pause":{
-        "type": "bluetooth",
-        "code":"KEY_PAUSE",
-        "device":"example_tb"
-    },
-    "record":{
-        "type": "bluetooth",
-        "code":"KEY_RECORD",
-        "device":"example_sb"
-    },
-    "red":{
-        "type": "bluetooth",
-        "code":"KEY_RED",
-        "device":"example_stb"
-    },
-    "green":{
-        "type": "bluetooth",
-        "code":"KEY_GREEN",
-        "device":"example_stb"
-    },
-    "yellow":{
-        "type": "bluetooth",
-        "code":"KEY_YELLOW",
-        "device":"example_sb"
-    },
-    "blue":{
-        "type": "bluetooth",
-        "code":"KEY_BLUE",
-        "device":"example_stb"
+    "127":{
+        "comment":"KEY_MENU", 
+        "type": "adb",
+        "code":"82",
+        "device":"192.168.0.146"
     }
 }

@@ -10,11 +10,14 @@ class My_Remote:
         self.load(conf_file)
 
     def process_code(self, code):
+        print(code)
         if "type" in code:
             if code["type"] == "ir":
                 self.send_ir(code["device"], code["code"])
             elif code["type"] == "bluetooth":
                 self.bluetooth(code["device"], code["code"])
+            elif code["type"] == "adb":
+                self.send_adb(code["device"], code["code"])
             elif code["type"] == "load":
                 self.load(code["file"])
             elif code["type"] == "sleep":
@@ -55,6 +58,17 @@ class My_Remote:
 
     def send_ir(self, device, code):
         command = "irsend SEND_ONCE %s %s" % (device, code)
+        print("%s | %s" % (device, command))
+        # TK sanitize parameters since we are running as root
+        os.system(command)
+
+    def send_adb(self, device, code):
+        if(code == "CONNECT"):
+            command = "adb connect %s" % device
+        elif(code == "DISCONNECT"):
+            command = "adb disconnect"
+        else:
+            command = "adb shell input keyevent %s" % code
         print("%s | %s" % (device, command))
         # TK sanitize parameters since we are running as root
         os.system(command)
