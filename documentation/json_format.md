@@ -16,7 +16,9 @@ My_Remote uses a json formatted file to store and configure the remote depending
 
 Possible actions are demonstrated below.
 
-### Send IR/Bluetooth Command
+### Send IR/ADB/Bluetooth Command
+
+#### IR
 
 ```json
     "103":{
@@ -26,7 +28,25 @@ Possible actions are demonstrated below.
         "device":"example_stb"
     },
 ```
+
 The above configuration will instruct My_Remote to send the example_stb a KEY_UP code via the bluetooth channel.  Medium is determined by the type.  Objects for different devices can be present in the mode file.
+
+#### ADB
+
+```json
+    "103":{
+        "comment":"KEYCODE_DPAD_UP",
+        "type": "adb",
+        "code":"19",
+        "device":"192.168.0.146"
+    },
+```
+
+The above will send a command to the device.  `adb` also allows additional options for code: `CONNECT` and `DISCONNECT`.  Use of these options will cause my_remote to issue an `adb connect` or `adb disconnect`.  See [here](nvidia_adb.md) for more information on using adb for device control.
+
+#### Bluetooth
+
+Note: Bluetooth is not currently implemented.
 
 ```json
     "103":{

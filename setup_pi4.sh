@@ -4,6 +4,7 @@
 # Install the necessary packages
 sudo su -c "grep '^deb ' /etc/apt/sources.list | sed 's/^deb/deb-src/g' > /etc/apt/sources.list.d/deb-src.list"
 sudo apt update
+sudo apt upgrade -y
 sudo apt install -y vim \
                     devscripts \
                     dh-exec \
@@ -29,7 +30,7 @@ sudo apt install -y vim \
 
 # Build the patched version of lirc for the anava IR adapter
 mkdir ~/lirc-src
-cd ~/lirc-src
+pushd ~/lirc-src
 apt source lirc
 wget https://raw.githubusercontent.com/neuralassembly/raspi/master/lirc-gpio-ir-0.10.patch
 patch -p0 -i lirc-gpio-ir-0.10.patch
@@ -52,6 +53,7 @@ sudo su -c "echo 'dtoverlay=gpio-ir-tx,gpio_pin=17' >> /boot/config.txt"
 sudo systemctl enable lircd
 
 # install the my_remote python required packages
+popd ../
 sudo pip3 install -r requirements.txt
 
 # Prevent power buttons on remotes from putting the Raspberry Pi to sleep
