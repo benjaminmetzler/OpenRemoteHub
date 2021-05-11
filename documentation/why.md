@@ -1,4 +1,4 @@
-# My_Remote
+# my_remote
 
 ## Introduction
 

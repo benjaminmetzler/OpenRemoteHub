@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 # https://github.com/AnaviTechnology/anavi-docs/blob/master/anavi-infrared-phat/anavi-infrared-phat.md#infrared-and-lirc
 
 # Install the necessary packages
@@ -53,12 +53,17 @@ sudo su -c "echo 'dtoverlay=gpio-ir-tx,gpio_pin=17' >> /boot/config.txt"
 sudo systemctl enable lircd
 
 # install the my_remote python required packages
-popd ../
-sudo pip3 install -r requirements.txt
+popd
+virtualenv venv
+source venv/bin/activate
+pip3 install -r requirements.txt
 
 # Prevent power buttons on remotes from putting the Raspberry Pi to sleep
 sudo su -c "echo 'HandlePowerKey=ignore' >> /etc/systemd/logind.conf"
 sudo su -c "echo 'HandleSuspendKey=ignore' >> /etc/systemd/logind.conf"
+
+# copy the sample lirc IR defintion files
+sudo cp ir_database/*.conf /etc/lirc/lircd.conf.d/
 
 # Install the my_remote service
 sudo cp my_remote.service /etc/systemd/system/my_remote.service

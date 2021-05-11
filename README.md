@@ -1,6 +1,6 @@
-# My_Remote
+# my_remote
 
-My_Remote is a universal remote hub for the Raspberry PI.  It translates keyboard presses into IR/Bluetooth (TBD)/adb commands for remote controlled devices.  It's goal is to provide a single way for controlling remote controlled devices.
+my_remote is a universal remote hub for the Raspberry PI.  It translates keyboard presses into IR/Bluetooth (TBD)/adb commands for remote controlled devices.  It's goal is to provide a single way for controlling remote controlled devices.
 
 ## Progress
 
@@ -16,19 +16,29 @@ My_Remote is a universal remote hub for the Raspberry PI.  It translates keyboar
 
 ## Installation
 
-My_Remote runs on a (Raspberry PI)[https://www.raspberrypi.org/] with an [IR interface](https://www.crowdsupply.com/anavi-technology/infrared-phat).
+my_remote runs on a (Raspberry PI)[https://www.raspberrypi.org/] with an [IR interface](https://www.crowdsupply.com/anavi-technology/infrared-phat).
 
-1. [Boot a Raspberry PI with the Raspberry PI OS Lite (32-bit) image.](https://www.raspberrypi.org/documentation/installation/installing-images/). You should be able to use any Raspberry PI with a
-2. Insert the SD card into the Raspberry PI and boot.
-3. Connect to the PI with ssh.
-4. Clone the repo: `git clone git@github.com:benjaminmetzler/my_remote.git`
-5. Change into the local directory: `cd my_remote`
-6. Run the setup: `./setup_pi4.sh`
-7. Reboot the PI
-8. ssh back into the PI
-9. Start the my_remote service: `sudo systemctl start my_remote`
+1. [Boot a Raspberry Pi with the `Raspberry Pi OS Lite (32-bit)` image](https://www.raspberrypi.org/documentation/installation/installing-images/). Tested version is 03-04-0201.
+    * Make sure to enable ssh as a directly connected keyboard could be captured by my_remote.
+1. Insert the SD card into the raspberry pi and power it up.
+1. Connect to the pi with ssh.
+1. Update the pi and install git.
+    * `sudo apt update; sudo apt -y upgrade; sudo apt install -y git`
+1. Clone the repo.
+    * `git clone https://github.com/benjaminmetzler/my_remote.git`
+1. Change into the local directory
+    * `cd my_remote`
+1. Run the setup.
+    * `sh setup_pi4.sh`
+1. Reboot the pi
+    * `sudo reboot`
+1. ssh back into the pi
+1. Start the my_remote service
+    * `sudo systemctl start my_remote`
+1. To view the logs of the my_remote service:
+    * `journalctl -u my_remote -f`
 
-The My_Remote service will start and listen for keystrokes from a directly connected keyboard.  Depending on the keystroke, My_Remote will take different actions.
+The my_remote service will start and listen for keystrokes from a directly connected keyboard.  Depending on the keystroke, my_remote will take different actions.  When first booted, it will load the `json/common.json` file.
 
 ## Design
 
@@ -38,10 +48,11 @@ my_remote takes input from a keyboard or an HID remote and converts it into an a
 
 ## Contributing
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.  Help with a functional bluetooth HID is greatly appreciated.
+Pull requests are welcome. Help with enabling the Raspberry Pi as a functional bluetooth HID to an android device (think Nvidia Shield) is greatly appreciated.  For major changes, please open an issue first to discuss what you would like to change.
 
 # Links
 
+* https://github.com/AnaviTechnology/anavi-docs/blob/master/anavi-infrared-phat/anavi-infrared-phat.md
 * https://globalcache.zendesk.com/hc/en-us/articles/360034968311-iConvert-Converting-IR-code-formats
 * https://www.instructables.com/Transforming-Raspberry-Pi-Into-a-Remote-Control/
 * https://projects-raspberry.com/emulate-a-bluetooth-keyboard-with-the-raspberry-pi/

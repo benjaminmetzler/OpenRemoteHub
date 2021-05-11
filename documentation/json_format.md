@@ -1,8 +1,8 @@
 # Introduction
 
-My_Remote state is determined by the loaded mode file.  This is independent of the current state of the controlled devices.
+my_remote state is determined by the loaded mode file.  This is independent of the current state of the controlled devices.
 
-My_Remote uses a json formatted file to store and configure the remote depending on the button pressed on the remote.  The objects are named after the scan_code received by My_Remote.  For instance the `Enter` key will have a scan_code of `28`.  Each object will contain key:value pairs defining the action and any required key:value pairs.  The valid keys are listed below.
+my_remote uses a json formatted file to store and configure the remote depending on the button pressed on the remote.  The objects are named after the scan_code received by my_remote.  For instance the `Enter` key will have a scan_code of `28`.  Each object will contain key:value pairs defining the action and any required key:value pairs.  The valid keys are listed below.
 
 | Key      | Data                                                                                                       |
 | -------- | ---------------------------------------------------------------------------------------------------------- |
@@ -29,7 +29,7 @@ Possible actions are demonstrated below.
     },
 ```
 
-The above configuration will instruct My_Remote to send the example_stb a KEY_UP code via the bluetooth channel.  Medium is determined by the type.  Objects for different devices can be present in the mode file.
+The above configuration will instruct my_remote to send the example_stb a KEY_UP code via the bluetooth channel.  Medium is determined by the type.  Objects for different devices can be present in the mode file.
 
 #### ADB
 
@@ -69,7 +69,7 @@ The `sleep` command is used in macros.  While it can be used for it's own action
        "load":"/home/pi/my_remote/json/my_dvd.json"
     },
 ```
-The above configuration will instruct My_Remote to load the my_dvd.json mode file.  This is used to switch the mode of the remote.
+The above configuration will instruct my_remote to load the my_dvd.json mode file.  This is used to switch the mode of the remote.
 
 ### Macros
 ``` json
@@ -92,7 +92,7 @@ Macros can be used to group multiple actions on a key press.  In the above examp
 
 There are two optional actions defined for mode files: `on_load` and `on_unload`.
 
-When a mode is loaded, My_Remote will invoke the `on_load` block.  This will carry out any number of steps as shown below.
+When a mode is loaded, my_remote will invoke the `on_load` block.  This will carry out any number of steps as shown below.
 ``` json
     "on_load":[
         {
@@ -106,7 +106,7 @@ When a mode is loaded, My_Remote will invoke the `on_load` block.  This will car
         }
     ],
 ```
-The above example shows that when the mode is loaded it will instruct My_Remote to send the power on commands to the tv and receiver and then tell them to switch to the correct HDMI ports.  Any number of actions can be done in a macro.
+The above example shows that when the mode is loaded it will instruct my_remote to send the power on commands to the tv and receiver and then tell them to switch to the correct HDMI ports.  Any number of actions can be done in a macro.
 
 ``` json
     "on_unload":[

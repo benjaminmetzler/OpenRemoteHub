@@ -1,9 +1,9 @@
 [Unit]
-Description=My_Remote
+Description=my_remote
 After=network.target
 
 [Service]
-ExecStart=/usr/bin/python3 -u /home/pi/my_remote/scripts/main.py
+ExecStart=sh /home/pi/my_remote/main.sh
 WorkingDirectory=/home/pi/my_remote
 StandardOutput=inherit
 StandardError=inherit

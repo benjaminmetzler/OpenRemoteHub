@@ -7,14 +7,15 @@
             { "type": "sleep", "duration": "2s" , "device": "toshiba_tv" },
             { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv" },
             { "type": "ir", "code":"INPUT_HDMI_4" , "device": "yamaha_receiver" },
-            { "type": "adb", "code":"CONNECT", "device": "192.168.0.146"}
+            { "type": "adb", "code":"CONNECT", "device": "192.168.0.146"},
+            { "type": "adb", "code":"KEYCODE_POWER", "device": "192.168.0.146"}
         ]
     },
     "on_unload":{
         "type": "macro",
         "macro": [
             { "type": "adb", "code":"DISCONNECT", "device": "192.168.0.146"}
-        ] 
+        ]
     },
 
     "172": {
@@ -24,43 +25,43 @@
         "device":"192.168.0.146"
     },
     "103":{
-        "comment":"KEYCODE_DPAD_UP", 
+        "comment":"KEYCODE_DPAD_UP",
         "type": "adb",
         "code":"19",
         "device":"192.168.0.146"
     },
     "108":{
-        "comment":"KEYCODE_DPAD_DOWN", 
+        "comment":"KEYCODE_DPAD_DOWN",
         "type": "adb",
         "code":"20",
         "device":"192.168.0.146"
     },
     "105":{
-        "comment":"KEYCODE_DPAD_LEFT", 
+        "comment":"KEYCODE_DPAD_LEFT",
         "type": "adb",
         "code":"21",
         "device":"192.168.0.146"
     },
     "106":{
-        "comment":"KEYCODE_DPAD_RIGHT", 
+        "comment":"KEYCODE_DPAD_RIGHT",
         "type": "adb",
         "code":"22",
         "device":"192.168.0.146"
     },
     "28":{
-        "comment":"KEY_OK", 
+        "comment":"KEY_OK",
         "type": "adb",
         "code":"23",
         "device":"192.168.0.146"
     },
     "158":{
-        "comment":"KEY_EXIT", 
+        "comment":"KEY_EXIT",
         "type": "adb",
         "code":"4",
         "device":"192.168.0.146"
     },
     "127":{
-        "comment":"KEY_MENU", 
+        "comment":"KEY_MENU",
         "type": "adb",
         "code":"82",
         "device":"192.168.0.146"
