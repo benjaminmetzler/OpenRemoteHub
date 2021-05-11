@@ -3,11 +3,11 @@
 To connect the Nvidia shield to my_remote:
 
 1. Enable Developer Mode on the Nvidia Shield
-    a. Go to `Settings` -> `Device Preferences` -> `About`
-    a. Scroll to the bottom and tap `Build Number` seven (or more) times.
-    a. After seven clicks the Nvidia Shield will pop up a message about entering developer mode.
-    a. Exit back to `Device Preferences` and navigate down to `Developer options`.
-    a. Enable `Network debugging` and note the IP address.
+   1. Go to `Settings` -> `Device Preferences` -> `About`
+   1. Scroll to the bottom and tap `Build Number` seven (or more) times.
+   1. After seven clicks the Nvidia Shield will pop up a message about entering developer mode.
+   1. Exit back to `Device Preferences` and navigate down to `Developer options`.
+   1. Enable `Network debugging` and note the IP address.
 
 1. `ssh` into the raspberry pi and type `adb connect IP_ADDRESS` where IP_ADDRESS is the IP address noted above.
 1. On the Nvidia Shield it will prompt to `Allow Network debugging`.  Click the `Always allow from this computer` box and then click OK.
