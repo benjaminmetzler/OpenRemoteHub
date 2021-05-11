@@ -6,7 +6,7 @@ my_remote uses a json formatted file to store and configure the remote depending
 
 | Key      | Data                                                                                                       |
 | -------- | ---------------------------------------------------------------------------------------------------------- |
-| type     | Required.  Action to take.  Valid values are `ir`, `bluetooth`, `sleep`, `load`, and `macro`               |
+| type     | Required.  Action to take.  Valid values are `ir`, `adb`, `bluetooth` (TBD), `sleep`, `load`, and `macro`  |
 | device   | Name of the device to control as defined in lirc or via bluetooth.                                         |
 | code     | Required if type is `ir` or `bluetooth`. Code to transmit on the specified channel to the specified device |
 | file     | Required if type is `load`.  Specifies the name of the file to load. This will clear out the current mode. |
