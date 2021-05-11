@@ -18,7 +18,7 @@ my_remote is a universal remote hub for the Raspberry PI.  It translates keyboar
 
 my_remote runs on a (Raspberry PI)[https://www.raspberrypi.org/] with an [IR interface](https://www.crowdsupply.com/anavi-technology/infrared-phat).
 
-1. [Boot a Raspberry Pi with the `Raspberry Pi OS Lite (32-bit)` image](https://www.raspberrypi.org/documentation/installation/installing-images/). Tested version is 03-04-0201.
+1. [Boot a Raspberry Pi with the `Raspberry Pi OS Lite (32-bit)` image](https://www.raspberrypi.org/documentation/installation/installing-images/). Tested version is 03-04-2021.
     * Make sure to enable ssh as a directly connected keyboard could be captured by my_remote.
 1. Insert the SD card into the raspberry pi and power it up.
 1. Connect to the pi with ssh.
