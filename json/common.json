@@ -1,11 +1,15 @@
 {
     "2":{
-        "comment": "1",
+        "comment": "1 key",
         "type": "load",
-        "file":"/home/pi/my_remote/json/my_stb.json"
+        "file":"/home/pi/my_remote/json/my_stb.json",
+        "long_press": {
+            "type": "load",
+            "file":"/home/pi/my_remote/json/my_dvd.json"
+        }
     },
     "3":{
-        "comment": "2",
+        "comment": "2 key",
         "type": "load",
         "file":"/home/pi/my_remote/json/my_dvd.json"
     },

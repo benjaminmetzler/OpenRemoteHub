@@ -2,15 +2,19 @@ import json
 import keyboard
 import os
 import pathlib
+import time
+
 
 class My_Remote:
     def __init__(self, conf_file):
         self.mode = {}
         self.current_mode_file = ""
         self.load(conf_file)
+        self.key_presses = {}
 
-    def process_code(self, code):
-        print(code)
+    def process_code(self, code, long_press):
+        if long_press and "long_press" in code:
+            code = code["long_press"]
         if "type" in code:
             if code["type"] == "ir":
                 self.send_ir(code["device"], code["code"])
@@ -24,7 +28,7 @@ class My_Remote:
                 self.sleep(code["device"], code["duration"])
             elif code["type"] == "macro":
                 for macro_code in code["macro"]:
-                    self.process_code(macro_code)
+                    self.process_code(macro_code, long_press)
             else:
                 print("Unknown type(%s)" % self.code["type"])
         else:
@@ -32,7 +36,7 @@ class My_Remote:
 
     def load(self, conf_file):
         file = pathlib.Path(conf_file)
-        if file.exists ():
+        if file.exists():
 
             self.on_unload()
 
@@ -57,18 +61,18 @@ class My_Remote:
             print("Unable to find: %s" % conf_file)
 
     def send_ir(self, device, code):
-        command = "irsend SEND_ONCE %s %s" % (device, code)
+        command = 'irsend SEND_ONCE "%s" "%s"' % (device, code)
         print("%s | %s" % (device, command))
         # TK sanitize parameters since we are running as root
         os.system(command)
 
     def send_adb(self, device, code):
-        if(code == "CONNECT"):
+        if code == "CONNECT":
             command = "adb connect %s" % device
-        elif(code == "DISCONNECT"):
+        elif code == "DISCONNECT":
             command = "adb disconnect"
         else:
-            command = "adb shell input keyevent %s" % code
+            command = 'adb shell input keyevent "%s"' % code
         print("%s | %s" % (device, command))
         # TK sanitize parameters since we are running as root
         os.system(command)
@@ -80,38 +84,57 @@ class My_Remote:
         # os.system("TK")
 
     def sleep(self, device, duration):
-        command = "sleep %s" % duration
+        command = 'sleep "%s"' % duration
         print("%s | %s" % (device, command))
         # TK sanitize parameters since we are running as root
         os.system(command)
 
-    def callback(self, event):
+    def callback_key_up(self, event):
+        long_press = False
         scan_code = str(event.scan_code)
         name = event.name
-        print("callback: %s - %s (%s)" % (event, scan_code, name ))
+        print("callback_key_up: %s - %s (%s)" % (event, scan_code, name))
         if scan_code in self.mode:
-            self.process_code(self.mode[scan_code])
-            # print(self.mode[scan_code])
+            if scan_code in self.key_presses:
+                current_time = time.time()
+                time_diff = current_time - self.key_presses[scan_code]
+                del self.key_presses[scan_code]
+                print("key_press_duration=%s" % time_diff)
+
+                # NOTE: If the time of a keypress is greater than 1 second
+                # then handle this as a long press
+                if time_diff > 1:
+                    long_press = True
+
+                self.process_code(self.mode[scan_code], long_press)
+
+    def callback_key_down(self, event):
+        # This callback adds the keypress to the dictionary along
+        # with the current time so that when the key is released
+        # the time can be used to determine if it was a long
+        # or short press, allowing different actions for the same key.
+        scan_code = str(event.scan_code)
+        name = event.name
+        print("callback_key_down: %s - %s (%s)" % (event, scan_code, name))
+        if scan_code in self.mode:
+            if scan_code not in self.key_presses:
+                self.key_presses[scan_code] = time.time()
+            print(self.key_presses)
 
     def on_load(self):
         print("on_load: %s" % self.current_mode_file)
-        # on load
-        # currently serial, but ideally parallelized so that multiple
-        # codes could be sent across different devices, with each
-        # "device" getting it's own queue that can push to a single queue
-        # that is then sent out the IR/RF hardware, allowing sleeps to 
-        # be run in parallel with IR/RF sends.
         if "on_load" in self.mode:
-            self.process_code(self.mode["on_load"])
+            self.process_code(self.mode["on_load"], False)
 
     def on_unload(self):
         print("on_unload: %s" % self.current_mode_file)
         if "on_unload" in self.mode:
-            self.process_code(self.mode["on_unload"])
+            self.process_code(self.mode["on_unload"], False)
         self.mode = {}
 
     def event_loop(self):
-        keyboard.on_release(callback=self.callback, suppress=True)
+        keyboard.on_press(callback=self.callback_key_down, suppress=True)
+        keyboard.on_release(callback=self.callback_key_up, suppress=True)
         keyboard.wait()
 
 

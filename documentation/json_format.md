@@ -1,18 +1,19 @@
 # Introduction
 
-my_remote state is determined by the loaded mode file.  This is independent of the current state of the controlled devices.
+My_Remote state is determined by the loaded mode file.  This is independent of the current state of the controlled devices.
 
-my_remote uses a json formatted file to store and configure the remote depending on the button pressed on the remote.  The objects are named after the scan_code received by my_remote.  For instance the `Enter` key will have a scan_code of `28`.  Each object will contain key:value pairs defining the action and any required key:value pairs.  The valid keys are listed below.
+My_Remote uses a json formatted file to store and configure the remote depending on the button pressed on the remote.  The objects are named after the scan_code received by My_Remote.  For instance the `Enter` key will have a scan_code of `28`.  Each object will contain key:value pairs defining the action and any required key:value pairs.  The valid keys are listed below.
 
-| Key      | Data                                                                                                       |
-| -------- | ---------------------------------------------------------------------------------------------------------- |
-| type     | Required.  Action to take.  Valid values are `ir`, `bluetooth`, `sleep`, `load`, and `macro`               |
-| device   | Name of the device to control as defined in lirc or via bluetooth.                                         |
-| code     | Required if type is `ir` or `bluetooth`. Code to transmit on the specified channel to the specified device |
-| file     | Required if type is `load`.  Specifies the name of the file to load. This will clear out the current mode. |
-| duration | Required if type is `sleep`.  Specifies the duration to sleep in seconds                                   |
-| macro    | Multiple of the above to form a macro                                                                      |
-| comment  | Optional field that is not used by the code but can be used for block info                                 |
+| Key        | Data                                                                                                       |
+| ---------- | ---------------------------------------------------------------------------------------------------------- |
+| type       | Required.  Action to take.  Valid values are `ir`, `bluetooth`, `sleep`, `load`, and `macro`               |
+| device     | Name of the device to control as defined in lirc or via bluetooth.                                         |
+| code       | Required if type is `ir` or `bluetooth`. Code to transmit on the specified channel to the specified device |
+| file       | Required if type is `load`.  Specifies the name of the file to load. This will clear out the current mode. |
+| duration   | Required if type is `sleep`.  Specifies the duration to sleep in seconds                                   |
+| macro      | Multiple of the above to form a macro                                                                      |
+| comment    | Optional field that is not used by the code but can be used for block info                                 |
+| long_press | An actions to take if a long press ( > 1 second) is detected                                               |
 
 Possible actions are demonstrated below.
 
@@ -25,11 +26,15 @@ Possible actions are demonstrated below.
         "comment": "An up button is pressed",
         "type": "ir",
         "code":"KEY_UP",
-        "device":"example_stb"
+        "device":"example_stb",
+        "long_press": {
+            "type": "load",
+            "file":"/home/pi/my_remote/json/my_dvd.json"
+        }
     },
 ```
 
-The above configuration will instruct my_remote to send the example_stb a KEY_UP code via the bluetooth channel.  Medium is determined by the type.  Objects for different devices can be present in the mode file.
+The above configuration will instruct My_Remote to send the example_stb a KEY_UP code via the IR channel.  Medium is determined by the type.
 
 #### ADB
 
@@ -66,10 +71,14 @@ The `sleep` command is used in macros.  While it can be used for it's own action
 
 ```json
     "3":{
-       "load":"/home/pi/my_remote/json/my_dvd.json"
+       "load":"/home/pi/my_remote/json/my_dvd.json",
+        "long_press": {
+            "type": "load",
+            "file":"/home/pi/my_remote/json/my_stb.json"
+        }
     },
 ```
-The above configuration will instruct my_remote to load the my_dvd.json mode file.  This is used to switch the mode of the remote.
+The above configuration will instruct My_Remote to load the my_dvd.json mode file.  This is used to switch the mode of the remote.  An alternative action will load the my_stb.json mode file if the key is held for longer then 1 second.
 
 ### Macros
 ``` json
@@ -92,7 +101,7 @@ Macros can be used to group multiple actions on a key press.  In the above examp
 
 There are two optional actions defined for mode files: `on_load` and `on_unload`.
 
-When a mode is loaded, my_remote will invoke the `on_load` block.  This will carry out any number of steps as shown below.
+When a mode is loaded, My_Remote will invoke the `on_load` block.  This will carry out any number of steps as shown below.
 ``` json
     "on_load":[
         {
@@ -106,7 +115,7 @@ When a mode is loaded, my_remote will invoke the `on_load` block.  This will car
         }
     ],
 ```
-The above example shows that when the mode is loaded it will instruct my_remote to send the power on commands to the tv and receiver and then tell them to switch to the correct HDMI ports.  Any number of actions can be done in a macro.
+The above example shows that when the mode is loaded it will instruct My_Remote to send the power on commands to the tv and receiver and then tell them to switch to the correct HDMI ports.  Any number of actions can be done in a macro.
 
 ``` json
     "on_unload":[
