@@ -11,7 +11,7 @@ my_remote can handle any device that acts like an HID keyboard.  Most remotes so
     }
 ```
 
-The above maps the scancode 104 to the KEY_RIGHT.  Depending on your HID controller it use the standard codes or it's own mapping.  They only way to figure it out is to print the scancode sent by the HID controller.  The below script (found [here](../scripts/keyboard_loop.py)) will print out the scan codes received by from an HID controller.  Run the script and it will print out the scan codes of any button press it receives.
+The above maps the scancode 104 to the KEY_RIGHT.  Depending on your HID controller it use the standard codes or it's own mapping.  The only way to figure it out is to print the scancode sent by the HID controller.  The below script (found [here](../scripts/keyboard_loop.py)) will print out the scan codes received by from an HID controller.  Run the script and it will print out the scan codes of any button press it receives.
 
 ```python
 import keyboard
