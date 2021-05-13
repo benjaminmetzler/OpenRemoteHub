@@ -6,64 +6,52 @@
             { "type": "ir", "code":"POWER_ON" , "device": "yamaha_receiver" },
             { "type": "sleep", "duration": "2s" , "device": "toshiba_tv" },
             { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"INPUT_HDMI_4" , "device": "yamaha_receiver" },
-            { "type": "adb", "code":"CONNECT", "device": "192.168.0.146"},
-            { "type": "adb", "code":"KEYCODE_POWER", "device": "192.168.0.146"}
+            { "type": "ir", "code":"INPUT_HDMI_4" , "device": "yamaha_receiver" }
         ]
     },
     "on_unload":{
-        "type": "macro",
-        "macro": [
-            { "type": "adb", "code":"DISCONNECT", "device": "192.168.0.146"}
-        ]
     },
 
-    "172": {
-        "comment":"home/menu",
-        "type": "adb",
-        "code":"3",
-        "device":"192.168.0.146"
+    "28": {
+        "comment":"Ok",
+        "type": "ir",
+        "code":"KEY_OK",
+        "device":"Sony_RMT-D126A"
     },
     "103":{
-        "comment":"KEYCODE_DPAD_UP",
-        "type": "adb",
-        "code":"19",
-        "device":"192.168.0.146"
+        "comment":"KEY_UP",
+        "type": "ir",
+        "code":"KEY_UP",
+        "device":"Sony_RMT-D126A"
     },
     "108":{
-        "comment":"KEYCODE_DPAD_DOWN",
-        "type": "adb",
-        "code":"20",
-        "device":"192.168.0.146"
+        "comment":"KEY_DOWN",
+        "type": "ir",
+        "code":"KEY_DOWN",
+        "device":"Sony_RMT-D126A"
     },
     "105":{
-        "comment":"KEYCODE_DPAD_LEFT",
-        "type": "adb",
-        "code":"21",
-        "device":"192.168.0.146"
+        "comment":"KEY_LEFT",
+        "type": "ir",
+        "code":"KEY_LEFT",
+        "device":"Sony_RMT-D126A"
     },
     "106":{
-        "comment":"KEYCODE_DPAD_RIGHT",
-        "type": "adb",
-        "code":"22",
-        "device":"192.168.0.146"
-    },
-    "28":{
-        "comment":"KEY_OK",
-        "type": "adb",
-        "code":"23",
-        "device":"192.168.0.146"
+        "comment":"KEY_RIGHT",
+        "type": "ir",
+        "code":"KEY_RIGHT",
+        "device":"Sony_RMT-D126A"
     },
     "158":{
-        "comment":"KEY_EXIT",
-        "type": "adb",
-        "code":"4",
-        "device":"192.168.0.146"
+        "comment":"Back",
+        "type": "ir",
+        "code":"KEY_TITLE",
+        "device":"Sony_RMT-D126A"
     },
-    "127":{
-        "comment":"KEY_MENU",
-        "type": "adb",
-        "code":"82",
-        "device":"192.168.0.146"
+    "172":{
+        "comment":"Menu",
+        "type": "ir",
+        "code":"KEY_MENU",
+        "device":"Sony_RMT-D126A"
     }
 }
