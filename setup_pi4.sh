@@ -62,11 +62,18 @@ pip3 install -r requirements.txt
 sudo su -c "echo 'HandlePowerKey=ignore' >> /etc/systemd/logind.conf"
 sudo su -c "echo 'HandleSuspendKey=ignore' >> /etc/systemd/logind.conf"
 
+# Disable tty session to prevent the keyboard access from the remote
+# from locking the system
+sudo su -c "echo 'NAutoVTs=0' >> /etc/systemd/logind.conf"
+sudo su -c "echo 'eserveVT=0' >> /etc/systemd/logind.conf"
+systemctl disable getty@tty1.service
+
 # copy the sample lirc IR defintion files
 sudo cp ir_database/*.conf /etc/lirc/lircd.conf.d/
 
-# Install the my_remote service
+# Install and enable the my_remote service
 sudo cp my_remote.service /etc/systemd/system/my_remote.service
+sudo systemctl enable my_remote
 
 # make sure everything is up and running
 sudo shutdown -r 0

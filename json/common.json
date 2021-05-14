@@ -35,7 +35,12 @@
             { "type": "ir", "code":"INPUT_HDMI_4" , "device": "yamaha_receiver" },
             { "type": "sleep", "duration": "2s" , "device": "toshiba_tv" },
             { "type": "ir", "code":"POWER_OFF" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"POWER_OFF" , "device": "yamaha_receiver" }
+            { "type": "ir", "code":"POWER_OFF" , "device": "yamaha_receiver" },
+            { "type": "ir", "code":"KEY_HOME" , "device": "nvidia_shield" },
+            { "type": "ir", "code":"KEY_HOME" , "device": "nvidia_shield" },
+            { "type": "ir", "code":"KEY_HOME" , "device": "nvidia_shield" },
+            { "type": "ir", "code":"KEY_HOME" , "device": "nvidia_shield" },
+            { "type": "ir", "code":"KEY_POWER_ON" , "device": "nvidia_shield" }
         ]
     }
 }

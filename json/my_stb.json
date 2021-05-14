@@ -2,6 +2,7 @@
     "on_load":{
         "type": "macro",
         "macro": [
+            { "type": "ir", "code":"KEY_POWER_ON" , "device": "nvidia_shield" },
             { "type": "ir", "code":"POWER_ON" , "device": "toshiba_tv" },
             { "type": "ir", "code":"POWER_ON" , "device": "yamaha_receiver" },
             { "type": "sleep", "duration": "2s" , "device": "toshiba_tv" },
@@ -16,42 +17,42 @@
         "comment":"Ok",
         "type": "ir",
         "code":"KEY_OK",
-        "device":"Sony_RMT-D126A"
+        "device":"nvidia_shield"
     },
     "103":{
         "comment":"KEY_UP",
         "type": "ir",
         "code":"KEY_UP",
-        "device":"Sony_RMT-D126A"
+        "device":"nvidia_shield"
     },
     "108":{
         "comment":"KEY_DOWN",
         "type": "ir",
         "code":"KEY_DOWN",
-        "device":"Sony_RMT-D126A"
+        "device":"nvidia_shield"
     },
     "105":{
         "comment":"KEY_LEFT",
         "type": "ir",
         "code":"KEY_LEFT",
-        "device":"Sony_RMT-D126A"
+        "device":"nvidia_shield"
     },
     "106":{
         "comment":"KEY_RIGHT",
         "type": "ir",
         "code":"KEY_RIGHT",
-        "device":"Sony_RMT-D126A"
+        "device":"nvidia_shield"
     },
     "158":{
         "comment":"Back",
         "type": "ir",
         "code":"KEY_TITLE",
-        "device":"Sony_RMT-D126A"
+        "device":"nvidia_shield"
     },
     "172":{
         "comment":"Menu",
         "type": "ir",
         "code":"KEY_MENU",
-        "device":"Sony_RMT-D126A"
+        "device":"nvidia_shield"
     }
 }
