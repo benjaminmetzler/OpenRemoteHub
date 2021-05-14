@@ -46,13 +46,43 @@
     "158":{
         "comment":"Back",
         "type": "ir",
-        "code":"KEY_TITLE",
+        "code":"KEY_BACK",
         "device":"nvidia_shield"
     },
-    "172":{
+    "127":{
         "comment":"Menu",
         "type": "ir",
         "code":"KEY_MENU",
         "device":"nvidia_shield"
-    }
+    },
+    "165":{
+        "comment":"Rew",
+        "type": "ir",
+        "code":"KEY_REW",
+        "device":"nvidia_shield"
+    },
+    "164":{
+        "comment":"Play/Pause",
+        "type": "ir",
+        "code":"KEY_PLAYPAUSE",
+        "device":"nvidia_shield"
+    },
+    "163":{
+        "comment":"ffwd",
+        "type": "ir",
+        "code":"KEY_FFWD",
+        "device":"nvidia_shield"
+    },
+    "172":{
+        "comment":"ffwd",
+        "type": "ir",
+        "code":"KEY_HOME",
+        "device":"nvidia_shield"
+    },  
+    "14":{
+        "comment":"Delete",
+        "type": "ir",
+        "code":"KEY_DELETE",
+        "device":"nvidia_shield"
+    }  
 }

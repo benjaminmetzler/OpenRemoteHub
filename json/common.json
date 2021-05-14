@@ -40,7 +40,7 @@
             { "type": "ir", "code":"KEY_HOME" , "device": "nvidia_shield" },
             { "type": "ir", "code":"KEY_HOME" , "device": "nvidia_shield" },
             { "type": "ir", "code":"KEY_HOME" , "device": "nvidia_shield" },
-            { "type": "ir", "code":"KEY_POWER_ON" , "device": "nvidia_shield" }
+            { "type": "ir", "code":"KEY_POWER_OFF" , "device": "nvidia_shield" }
         ]
     }
 }
