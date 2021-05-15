@@ -54,6 +54,7 @@ sudo systemctl enable lircd
 
 # install the my_remote python required packages
 popd
+pip3 install virtualenv
 virtualenv venv
 source venv/bin/activate
 pip3 install -r requirements.txt

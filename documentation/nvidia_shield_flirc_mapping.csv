@@ -28,3 +28,4 @@ echo "Press button: 0" && flirc_util record_api 0 39,irsend SEND_ONCE NVIDIA_SHI
 echo "Press button: Clear" && flirc_util record_api 0 42,irsend SEND_ONCE NVIDIA_SHIELD KEY_DELETE
 echo "Press button: Enter" && flirc_util record_api 0 40,irsend SEND_ONCE NVIDIA_SHIELD KEY_OK
 echo "Press button: Info" && flirc_util record_api 0 12,irsend SEND_ONCE NVIDIA_SHIELD KEY_INFO
+echo "Press button: Info" && flirc_util record_api 0 12,irsend SEND_ONCE NVIDIA_SHIELD KEY_TITLE
