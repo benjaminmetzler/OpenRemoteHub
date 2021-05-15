@@ -4,16 +4,16 @@ My_Remote state is determined by the loaded mode file.  This is independent of t
 
 My_Remote uses a json formatted file to store and configure the remote depending on the button pressed on the remote.  The objects are named after the scan_code received by My_Remote.  For instance the `Enter` key will have a scan_code of `28`.  Each object will contain key:value pairs defining the action and any required key:value pairs.  The valid keys are listed below.
 
-| Key        | Data                                                                                                       |
-| ---------- | ---------------------------------------------------------------------------------------------------------- |
-| type       | Required.  Action to take.  Valid values are `ir`, `bluetooth`, `sleep`, `load`, and `macro`               |
-| device     | Name of the device to control as defined in lirc or via bluetooth.                                         |
-| code       | Required if type is `ir` or `bluetooth`. Code to transmit on the specified channel to the specified device |
-| file       | Required if type is `load`.  Specifies the name of the file to load. This will clear out the current mode. |
-| duration   | Required if type is `sleep`.  Specifies the duration to sleep in seconds                                   |
-| macro      | Multiple of the above to form a macro                                                                      |
-| comment    | Optional field that is not used by the code but can be used for block info                                 |
-| long_press | An actions to take if a long press ( > 1 second) is detected                                               |
+| Key        | Data                                                                                                               |
+| ---------- | ------------------------------------------------------------------------------------------------------------------ |
+| type       | Required.  Action to take.  Valid values are `ir`, `bluetooth`, `adb`,`sleep`, `load`, and `macro`                 |
+| device     | Name of the device to control as defined in lirc or via bluetooth.                                                 |
+| code       | Required if type is `ir`, `adb`, or `bluetooth`. Code to transmit on the specified channel to the specified device |
+| file       | Required if type is `load`.  Specifies the name of the file to load. This will clear out the current mode.         |
+| duration   | Required if type is `sleep`.  Specifies the duration to sleep in seconds                                           |
+| macro      | Multiple of the above to form a macro                                                                              |
+| comment    | Optional field that is not used by the code but can be used for block info                                         |
+| long_press | An actions to take if a long press ( > 1 second) is detected                                                       |
 
 Possible actions are demonstrated below.
 
@@ -78,7 +78,9 @@ The `sleep` command is used in macros.  While it can be used for it's own action
         }
     },
 ```
-The above configuration will instruct My_Remote to load the my_dvd.json mode file.  This is used to switch the mode of the remote.  An alternative action will load the my_stb.json mode file if the key is held for longer then 1 second.
+The above configuration will instruct My_Remote to load the my_dvd.json mode file.  This is used to switch the mode of the remote.  An alternative action will load the my_stb.json mode file if the key is held for longer then 1 second.  
+
+long_press requires that the key up indication not be returned until the key has been released.  This can happen with some special buttons like push-to-talk buttons on HDI remote.  Also not that some remotes will send the same key multiple key down indications as long as it is pressed while other buttons will send just one key down.
 
 ### Macros
 ``` json
