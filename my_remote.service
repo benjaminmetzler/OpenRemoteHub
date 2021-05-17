@@ -3,7 +3,7 @@ Description=my_remote
 After=network.target
 
 [Service]
-ExecStart=sh /home/pi/my_remote/main.sh
+ExecStart=bash /home/pi/my_remote/main.sh
 WorkingDirectory=/home/pi/my_remote
 StandardOutput=inherit
 StandardError=inherit

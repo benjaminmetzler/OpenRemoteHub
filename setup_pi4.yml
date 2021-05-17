@@ -22,10 +22,11 @@
         name: "{{ item }}"
       become: yes
       loop:
+        - git
         - devscripts
         - dh-exec
-        # - doxygen
-        # - expect
+        - doxygen
+        - expect
         - libasound2-dev
         - libftdi1-dev
         - libsystemd-dev
@@ -38,7 +39,7 @@
         - xsltproc
         - python3-yaml
         - dh-python
-        # - libx11-dev
+        - libx11-dev
         - python3-dev
         - python3-setuptools
         - python3-pip
