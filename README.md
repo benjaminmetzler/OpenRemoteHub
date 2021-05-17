@@ -1,6 +1,6 @@
 # my_remote
 
-my_remote is a universal remote hub for the Raspberry PI.  It translates keyboard presses into IR/Bluetooth (TBD)/adb commands for remote controlled devices.  It's goal is to provide a single way for controlling remote controlled devices.
+my_remote is a universal remote hub running on a Raspberry PI.  It translates keyboard presses into IR/Bluetooth (TBD)/adb commands for remote controlled devices.  It's goal is to provide a single way for controlling remote controlled devices.
 
 ## Progress
 
