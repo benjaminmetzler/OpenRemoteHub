@@ -3,8 +3,8 @@
         "type": "macro",
         "macro": [
             { "type": "ir", "code":"KEY_POWER_ON" , "device": "nvidia_shield" },
-            { "type": "ir", "code":"POWER_ON" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"POWER_ON" , "device": "yamaha_receiver" },
+            { "type": "ir", "code":"KEY_POWER_ON" , "device": "toshiba_tv" },
+            { "type": "ir", "code":"KEY_POWER_ON" , "device": "yamaha_receiver" },
             { "type": "sleep", "duration": "2s" , "device": "toshiba_tv" },
             { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv" },
             { "type": "ir", "code":"INPUT_HDMI_4" , "device": "yamaha_receiver" }
@@ -78,11 +78,11 @@
         "type": "ir",
         "code":"KEY_HOME",
         "device":"nvidia_shield"
-    },  
+    },
     "14":{
         "comment":"Delete",
         "type": "ir",
         "code":"KEY_DELETE",
         "device":"nvidia_shield"
-    }  
+    }
 }
