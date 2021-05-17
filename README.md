@@ -61,7 +61,11 @@ Pull requests are welcome. Help with enabling the Raspberry Pi as a functional b
 * https://flirc.tv/more/flirc-usb
 * https://github.com/ruundii/bthidhub
 * https://github.com/quangthanh010290/keyboard_mouse_emulate_on_raspberry
-
+* https://www.lirc.org
+* https://www.raspberrypi.org/
+* https://www.crowdsupply.com/anavi-technology/infrared-phat
+* https://github.com/AnaviTechnology/anavi-docs/blob/master/anavi-infrared-phat/anavi-infrared-phat.md
+* https://www.aliexpress.com/item/1005001714763038.html
 ## License
 
 [See LICENSE](https://github.com/benjaminmetzler/my_remote/blob/main/LICENSE)
