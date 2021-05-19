@@ -73,8 +73,8 @@ systemctl disable getty@tty1.service
 sudo cp ir_database/*.conf /etc/lirc/lircd.conf.d/
 
 # Install and enable the my_remote service
-sudo cp my_remote.service /etc/systemd/system/my_remote.service
-sudo systemctl enable my_remote
+# sudo cp my_remote.service /etc/systemd/system/my_remote.service
+# sudo systemctl enable my_remote
 
-# make sure everything is up and running
+# reboot to make sure everything is up and running
 sudo shutdown -r 0
