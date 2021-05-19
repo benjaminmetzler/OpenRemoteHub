@@ -6,9 +6,9 @@ My_Remote uses a json formatted file to store and configure the remote depending
 
 | Key        | Data                                                                                                               |
 | ---------- | ------------------------------------------------------------------------------------------------------------------ |
-| type       | Required.  Action to take.  Valid values are `ir`, `bluetooth`, `adb`,`sleep`, `load`, and `macro`                 |
+| type       | Required.  Action to take.  Valid values are `ir`, `bluetooth`, `adb`, `curl`, `app`, `sleep`, `load`, and `macro` |
 | device     | Name of the device to control.                                                                                     |
-| code       | Required if type is `ir`, `adb`, or `bluetooth`. Code to transmit on the specified channel to the specified device |
+| code       | Required if type is `ir`, `bluetooth`, `adb`, `curl`, or `app`. Code to transmit on the specified channel to the specified device |
 | file       | Required if type is `load`.  Specifies the name of the file to load. This will clear out the current mode.         |
 | duration   | Required if type is `sleep`.  Specifies the duration to sleep in seconds.                                          |
 | macro      | Allows running multiple commands with a single button press.                                                       |
@@ -51,7 +51,9 @@ The above will send a command to the device.  `adb` also allows additional optio
 
 #### Bluetooth
 
-Note: Bluetooth is not currently implemented.
+##### NOTE: Bluetooth is not currently implemented
+
+Useful for devices that can accept input via a bluetooth keyboard (Nvidia Shield, Amazon Firestick)
 
 ```json
     "103":{
@@ -64,7 +66,38 @@ Note: Bluetooth is not currently implemented.
 
 The next example does the same thing as the first, but with bluetooth.
 
+#### curl
+
+##### NOTE: curl is not currently implemented
+
+Useful for apps like [Kodi](https://kodi.tv/) (https://kodi.wiki/view/JSON-RPC_API)
+
+```json
+    "103":{
+        "comment": "An up button is pressed",
+        "type": "curl",
+        "code":"-s --data-binary '{\"jsonrpc\": \"2.0\", \"method\": \"System.Suspend\", \"id\":1}' -H 'content-type: application/json;' ",
+        "device":"192.168.0.88:9001/jsonrpc"
+    },
+```
+
+#### app
+
+##### NOTE: app is not currently implemented
+
+Useful for apps like can be accessed via an cli app
+
+```json
+    "103":{
+        "comment": "An up button is pressed",
+        "type": "app",
+        "code":"TBD",
+        "device":"TBD"
+    },
+```
+
 ### Sleep
+
 The `sleep` command is used in macros.  While it can be used for it's own action, it doesn't make much sense as it will just sleep the system for the `duration` on the button press.
 
 ### Load Another Mode File
