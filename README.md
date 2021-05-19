@@ -28,15 +28,11 @@ my_remote runs on a (Raspberry PI)[https://www.raspberrypi.org/] with an [IR int
     * `git clone https://github.com/benjaminmetzler/my_remote.git`
 1. Change into the local directory
     * `cd my_remote`
-1. Run the setup.
+1. Run the setup.  The pi will reboot after the script has finished.
     * `sh setup_pi4.sh`
-1. Reboot the pi
-    * `sudo reboot`
 1. ssh back into the pi
-1. Start the my_remote service
-    * `sudo systemctl start my_remote`
-1. To view the logs of the my_remote service:
-    * `journalctl -u my_remote -f`
+1. cd into the my_remote directory and run main.sh
+    * `cd my_remote; bash main.sh` 
 
 The my_remote service will start and listen for keystrokes from a directly connected keyboard.  Depending on the keystroke, my_remote will take different actions.  When first booted, it will load the `json/common.json` file.
 
