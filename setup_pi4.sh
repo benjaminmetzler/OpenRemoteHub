@@ -69,6 +69,11 @@ sudo su -c "echo 'NAutoVTs=0' >> /etc/systemd/logind.conf"
 sudo su -c "echo 'eserveVT=0' >> /etc/systemd/logind.conf"
 systemctl disable getty@tty1.service
 
+# Copy and activate the harmony companion map for unknown keys
+sudo cp scripts/98-harmonycompanion.hwdb /etc/udev/hwdb.d/
+sudo systemd-hwdb update
+sudo udevadm trigger
+
 # copy the sample lirc IR defintion files
 sudo cp ir_database/*.conf /etc/lirc/lircd.conf.d/
 
