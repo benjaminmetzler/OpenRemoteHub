@@ -4,15 +4,13 @@ my_remote is a universal remote hub running on a Raspberry PI.  It translates ke
 
 ## Progress
 
-```text
 | Feature           | Progress       |
 | ----------------- | -------------- |
 | IR Support        | Working        |
 | Bluetooth Support | Not Working    |
 | ADB Support       | Working (slow) |
-
-```
-
+| curl              | Not Working    |
+| app calls         | Not Working    |
 
 ## Installation
 
