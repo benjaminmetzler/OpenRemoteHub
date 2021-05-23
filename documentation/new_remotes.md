@@ -67,14 +67,14 @@ In this case the scancode must be mapped at the system level for my_remote to us
 
 ```shell
 evdev:name:Logitech Harmony 20+:*
- KEYBOARD_KEY_c01ec=KEY_POWER
- KEYBOARD_KEY_c01f4=KEY_BLUE
- KEYBOARD_KEY_c01f5=KEY_YELLOW
- KEYBOARD_KEY_c01f6=KEY_GREEN
- KEYBOARD_KEY_c01f7=KEY_RED
+ KEYBOARD_KEY_c01ec=power
+ KEYBOARD_KEY_c01f4=blue
+ KEYBOARD_KEY_c01f5=yellow
+ KEYBOARD_KEY_c01f6=green
+ KEYBOARD_KEY_c01f7=red
 ```
 
-The above example maps the button `c01ec` (determined by the value seen in `evtest`) to the KEY_POWER event type.  It also maps the buttons c01f4, c01f5, c01f6, and c01f7 to blue, yellow, green, and red, respectively.  The first line indicates the device that should be mapped, which you can find in the list presented by `evtest`.  A full list of valid event types can be found in the `Keys and buttons` section [here](https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h).
+The above example maps the button `c01ec` (determined by the value seen in `evtest`) to the KEY_POWER event type.  It also maps the buttons c01f4, c01f5, c01f6, and c01f7 to blue, yellow, green, and red, respectively.  The first line indicates the device that should be mapped, which you can find in the list presented by `evtest`.  The format of each line KEYBOARD_KEY_<scancode>=<keycode>. The value of <scancode> is hexadecimal but without the leading 0x (e.g. `c01ec` instead of `0xc01ec`).  The value of <keycode> is the lower-case keycode name string as listed in /usr/include/linux/input-event-codes.h minus the `KEY_`.  A full list of valid event types can be found in the `Keys and buttons` section [here](https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h).
 
 After creating the mapping, copy the file to `/etc/udev/hwdb.d/`, and then load the mapping by running the below
 

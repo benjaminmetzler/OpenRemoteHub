@@ -8,3 +8,5 @@ evdev:name:Logitech Harmony 20+:*
  KEYBOARD_KEY_c01f6=green
  KEYBOARD_KEY_c01f7=red
  KEYBOARD_KEY_c01ff=info
+ KEYBOARD_KEY_70058=ok
+ KEYBOARD_KEY_70065=menu

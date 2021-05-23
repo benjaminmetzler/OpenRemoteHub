@@ -1,25 +1,28 @@
 # Introduction
 
-My_Remote state is determined by the loaded mode file.  This is independent of the current state of the controlled devices.
+my_remote state is determined by the loaded mode file.  This is independent of the current state of the controlled devices.
 
-My_Remote uses a json formatted file to store and configure the remote depending on the button pressed on the remote.  The objects are named after the scan_code received by My_Remote.  For instance the `Enter` key will have a scan_code of `28`.  Each object will contain key:value pairs defining the action and any required key:value pairs.  The valid keys are listed below.
+my_remote uses a json formatted file to store and configure the remote depending on the button pressed on the remote.  The objects are named after the scan_code received by my_remote.  For instance the `Enter` key will have a scan_code of `28`.  Each object will contain key:value pairs defining the action and any required key:value pairs.  The valid keys are listed below.
 
-| Key        | Data                                                                                                               |
-| ---------- | ------------------------------------------------------------------------------------------------------------------ |
-| type       | Required.  Action to take.  Valid values are `ir`, `bluetooth`, `adb`, `curl`, `app`, `sleep`, `load`, and `macro` |
-| device     | Name of the device to control.                                                                                     |
-| code       | Required if type is `ir`, `bluetooth`, `adb`, `curl`, or `app`. Code to transmit on the specified channel to the specified device |
-| file       | Required if type is `load`.  Specifies the name of the file to load. This will clear out the current mode.         |
-| duration   | Required if type is `sleep`.  Specifies the duration to sleep in seconds.                                          |
-| macro      | Allows running multiple commands with a single button press.                                                       |
-| comment    | Optional field that is not used by the code but can be used for block info.                                        |
-| long_press | An actions to take if a long press ( > 1 second) is detected.                                                      |
+| Key        | Data                                                                        |
+| ---------- | --------------------------------------------------------------------------- |
+| type       | Required.  Action to take.  Valid values are `ir`, `bluetooth`, `adb`,      |
+|            | `curl`, `app`, `sleep`,`load`, and `macro`                                  |
+| device     | Name of the device to control.                                              |
+| code       | Required if type is `ir`, `bluetooth`, `adb`, `curl`, or `app`.             |
+|            | Code to transmit on the specified channel to the specified device           |
+| file       | Required if type is `load`.  Specifies the name of the file to load. This   |
+|            | will clear out  the current mode.                                           |
+| duration   | Required if type is `sleep`.  Specifies the duration to sleep in seconds.   |
+| macro      | Allows running multiple commands with a single button press.                |
+| comment    | Optional field that is not used by the code but can be used for block info. |
+| long_press | An actions to take if a long press ( > 1 second) is detected.               |
 
 Possible actions are demonstrated below.
 
-### Send IR/ADB/Bluetooth Command
+## Send IR/ADB/Bluetooth Command
 
-#### IR
+### IR
 
 ```json
     "103":{
@@ -34,9 +37,9 @@ Possible actions are demonstrated below.
     },
 ```
 
-The above configuration will instruct My_Remote to send the example_stb a KEY_UP code via the IR channel.  Medium is determined by the type.
+The above configuration will instruct my_remote to send the example_stb a KEY_UP code via the IR channel.  Medium is determined by the type.
 
-#### ADB
+### ADB
 
 ```json
     "103":{
@@ -49,9 +52,9 @@ The above configuration will instruct My_Remote to send the example_stb a KEY_UP
 
 The above will send a command to the device.  `adb` also allows additional options for code: `CONNECT` and `DISCONNECT`.  Use of these options will cause my_remote to issue an `adb connect` or `adb disconnect`.  See [here](nvidia_adb.md) for more information on using adb for device control.
 
-#### Bluetooth
+### Bluetooth
 
-##### NOTE: Bluetooth is not currently implemented
+#### NOTE: Bluetooth is not currently implemented
 
 Useful for devices that can accept input via a bluetooth keyboard (Nvidia Shield, Amazon Firestick)
 
@@ -66,9 +69,9 @@ Useful for devices that can accept input via a bluetooth keyboard (Nvidia Shield
 
 The next example does the same thing as the first, but with bluetooth.
 
-#### curl
+### curl
 
-##### NOTE: curl is not currently implemented
+#### NOTE: curl is not currently implemented
 
 Useful for apps like [Kodi](https://kodi.tv/) (https://kodi.wiki/view/JSON-RPC_API)
 
@@ -81,9 +84,9 @@ Useful for apps like [Kodi](https://kodi.tv/) (https://kodi.wiki/view/JSON-RPC_A
     },
 ```
 
-#### app
+### app
 
-##### NOTE: app is not currently implemented
+#### NOTE: app is not currently implemented
 
 Useful for apps like can be accessed via an cli app
 
@@ -111,11 +114,13 @@ The `sleep` command is used in macros.  While it can be used for it's own action
         }
     },
 ```
-The above configuration will instruct My_Remote to load the example_dvd.json mode file.  This is used to switch the mode of the remote.  An alternative action will load the example_stb.json mode file if the key is held for longer then 1 second.
+
+The above configuration will instruct my_remote to load the example_dvd.json mode file.  This is used to switch the mode of the remote.  An alternative action will load the example_stb.json mode file if the key is held for longer then 1 second.
 
 long_press requires that the key up indication not be returned until the key has been released.  This can happen with some special buttons like push-to-talk buttons on HDI remote.  Also not that some remotes will send the same key multiple key down indications as long as it is pressed while other buttons will send just one key down.
 
 ### Macros
+
 ``` json
     "116":{
         "comment": "power system off macro",
@@ -136,7 +141,8 @@ Macros can be used to group multiple actions on a key press.  In the above examp
 
 There are two optional actions defined for mode files: `on_load` and `on_unload`.
 
-When a mode is loaded, My_Remote will invoke the `on_load` block.  This will carry out any number of steps as shown below.
+When a mode is loaded, my_remote will invoke the `on_load` block.  This will carry out any number of steps as shown below.
+
 ``` json
     "on_load":[
         {
@@ -150,7 +156,8 @@ When a mode is loaded, My_Remote will invoke the `on_load` block.  This will car
         }
     ],
 ```
-The above example shows that when the mode is loaded it will instruct My_Remote to send the power on commands to the tv and receiver and then tell them to switch to the correct HDMI ports.  Any number of actions can be done in a macro.
+
+The above example shows that when the mode is loaded it will instruct my_remote to send the power on commands to the tv and receiver and then tell them to switch to the correct HDMI ports.  Any number of actions can be done in a macro.
 
 ``` json
     "on_unload":[
@@ -161,6 +168,7 @@ The above example shows that when the mode is loaded it will instruct My_Remote 
         }
     ],
 ```
+
 The above example shows that when the mode is unloaded it will instruct the `example_stb` to power off via the `KEY_POWER_OFF` command.  This could be used to turn off devices when not in use.  As with the `on_load` any number of actions can be called in `on_unload`.
 
 ## Common.json
