@@ -136,10 +136,25 @@
         name: "getty@tty1.service"
       become: yes
 
+
+    - name: Copy hwdb configuration for Harmony Companion/Smart Remote
+      ansible.builtin.synchronize:
+        src: "{{ playbook_dir }}//98-harmonycompanion.hwdb"
+        dest: "/etc/udev/hwdb.d/"
+      become: yes
+
+    - name: Load new hwdb configuration
+      ansible.builtin.shell: "{{ item }}"
+      become: yes
+      loop:
+        - "systemd-hwdb update"
+        - "udevadm trigger"
+
     - name: Clean up lirc build directories
       ansible.builtin.file:
         path: "{{ lirc_src_directory }}"
         state: absent
+
     - name: Copy my_remote to the raspberry pi
       ansible.posix.synchronize:
         src: "{{ playbook_dir }}"
