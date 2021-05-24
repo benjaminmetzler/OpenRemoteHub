@@ -65,7 +65,6 @@ class My_Remote:
     def send_ir(self, device, code):
         command = 'irsend SEND_ONCE "%s" "%s"' % (device, code)
         print("%s | %s" % (device, command))
-        # TK sanitize parameters since we are running as root
         os.system(command)
 
     def adb(self, device, code):
@@ -84,22 +83,20 @@ class My_Remote:
         os.system(command)
 
     def bluetooth(self, device, code):
-        command = " %s --> bluetooth(%s)" % (device, code)
+        command = "TBD: %s --> bluetooth(%s)" % (device, code)
         print("%s | %s" % (device, command))
-        # TK sanitize parameters since we are running as root
         # os.system("TK")
 
     def sleep(self, device, duration):
         command = 'sleep "%s"' % duration
         print("%s | %s" % (device, command))
-        # TK sanitize parameters since we are running as root
         os.system(command)
 
-    def callback_key_up(self, event):
+    def callback_key_release(self, event):
         long_press = False
         scan_code = str(event.scan_code)
         name = event.name
-        print("callback_key_up: %s - %s (%s)" % (event, scan_code, name))
+        print("callback_key_release: %s - %s (%s)" % (event, scan_code, name))
         if scan_code in self.mode:
             if scan_code in self.key_presses:
                 current_time = time.time()
@@ -114,14 +111,14 @@ class My_Remote:
 
                 self.process_code(self.mode[scan_code], long_press)
 
-    def callback_key_down(self, event):
+    def callback_key_press(self, event):
         # This callback adds the keypress to the dictionary along
         # with the current time so that when the key is released
         # the time can be used to determine if it was a long
         # or short press, allowing different actions for the same key.
         scan_code = str(event.scan_code)
         name = event.name
-        print("callback_key_down: %s - %s (%s)" % (event, scan_code, name))
+        print("callback_key_press: %s - %s (%s)" % (event, scan_code, name))
         if scan_code in self.mode:
             if scan_code not in self.key_presses:
                 self.key_presses[scan_code] = time.time()
@@ -139,8 +136,8 @@ class My_Remote:
         self.mode = {}
 
     def event_loop(self):
-        keyboard.on_press(callback=self.callback_key_down, suppress=True)
-        keyboard.on_release(callback=self.callback_key_up, suppress=True)
+        keyboard.on_press(callback=self.callback_key_press, suppress=True)
+        keyboard.on_release(callback=self.callback_key_release, suppress=True)
         keyboard.wait()
 
 

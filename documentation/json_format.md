@@ -99,7 +99,7 @@ Useful for apps like can be accessed via an cli app
 
 ### Sleep
 
-The `sleep` command is used in macros.  While it can be used for it's own action, it doesn't make much sense as it will just sleep the system for the `duration` on the button press.
+The `sleep` command is used in macros.  This is useful for when a device might require some wait between actions.  While it can be used for it's own action, it doesn't make much sense as it will just sleep the system for the `duration`.
 
 ### Load Another Mode File
 
