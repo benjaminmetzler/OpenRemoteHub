@@ -71,8 +71,6 @@ The next example does the same thing as the first, but with bluetooth.
 
 ### curl
 
-#### NOTE: curl is not currently implemented
-
 Useful for apps like [Kodi](https://kodi.tv/) (https://kodi.wiki/view/JSON-RPC_API)
 
 ```json

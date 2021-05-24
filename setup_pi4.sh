@@ -1,6 +1,8 @@
 #! /bin/bash
 # https://github.com/AnaviTechnology/anavi-docs/blob/master/anavi-infrared-phat/anavi-infrared-phat.md#infrared-and-lirc
 
+currentdir=$(pwd)
+
 echo "*** add the source files to apt ***"
 sudo su -c "grep '^deb ' /etc/apt/sources.list | sed 's/^deb/deb-src/g' > /etc/apt/sources.list.d/deb-src.list"
 
@@ -33,16 +35,14 @@ sudo apt install -y git \
                     adb
 
 echo "*** Build the patched version of lirc for the anava IR adapter ***"
-cd ~
-
-mkdir ~/lirc-src
-cd ~/lirc-src
+mkdir $currentdir/lirc-src
+cd $currentdir/lirc-src
 apt source lirc
 wget https://raw.githubusercontent.com/neuralassembly/raspi/master/lirc-gpio-ir-0.10.patch
 patch -p0 -i lirc-gpio-ir-0.10.patch
 cd lirc-0.10.1
 debuild -uc -us -b
-cd ~/lirc-src
+cd $currentdir/lirc-src
 sudo apt install -y ./liblirc0_0.10.1-6.3~deb10u1_armhf.deb ./liblircclient0_0.10.1-6.3~deb10u1_armhf.deb ./lirc_0.10.1-6.3~deb10u1_armhf.deb
 
 echo "*** Update the lirc to support the anava IR adapter ***"
@@ -69,22 +69,22 @@ sudo su -c "echo 'eserveVT=0' >> /etc/systemd/logind.conf"
 systemctl disable getty@tty1.service
 
 echo "*** pull the my_remote repo locally ***"
-cd ~
+cd $currentdir
 git clone https://github.com/benjaminmetzler/my_remote.git
-cd ~/my_remote
+cd $currentdir/my_remote
 sudo pip3 install virtualenv
 virtualenv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
 
 echo "*** Copy and activate the harmony companion map for unknown keys ***"
-cd ~/my_remote
+cd $currentdir/my_remote
 sudo cp scripts/98-harmonycompanion.hwdb /etc/udev/hwdb.d/
 sudo systemd-hwdb update
 sudo udevadm trigger
 
 echo "*** copy the sample lirc IR defintion files ***"
-cd ~/my_remote
+cd $currentdir/my_remote
 sudo cp ir_database/*.conf /etc/lirc/lircd.conf.d/
 
 echo "*** Install and enable the my_remote service ***"

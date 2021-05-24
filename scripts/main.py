@@ -21,7 +21,9 @@ class My_Remote:
             elif code["type"] == "bluetooth":
                 self.bluetooth(code["device"], code["code"])
             elif code["type"] == "adb":
-                self.send_adb(code["device"], code["code"])
+                self.adb(code["device"], code["code"])
+            elif code["type"] == "curl":
+                self.curl(code["device"], code["code"])
             elif code["type"] == "load":
                 self.load(code["file"])
             elif code["type"] == "sleep":
@@ -66,7 +68,7 @@ class My_Remote:
         # TK sanitize parameters since we are running as root
         os.system(command)
 
-    def send_adb(self, device, code):
+    def adb(self, device, code):
         if code == "CONNECT":
             command = "adb connect %s" % device
         elif code == "DISCONNECT":
@@ -74,7 +76,11 @@ class My_Remote:
         else:
             command = 'adb shell input keyevent "%s"' % code
         print("%s | %s" % (device, command))
-        # TK sanitize parameters since we are running as root
+        os.system(command)
+
+    def curl(self, device, code):
+        command = 'curl "%s" "%s"' % (code, device)
+        print("%s | %s" % (device, command))
         os.system(command)
 
     def bluetooth(self, device, code):
