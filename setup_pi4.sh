@@ -1,6 +1,9 @@
 #! /bin/bash
 # https://github.com/AnaviTechnology/anavi-docs/blob/master/anavi-infrared-phat/anavi-infrared-phat.md#infrared-and-lirc
 
+# add the source files to apt
+sudo su -c "grep '^deb ' /etc/apt/sources.list | sed 's/^deb/deb-src/g' > /etc/apt/sources.list.d/deb-src.list"
+
 # Install the necessary packages
 sudo apt update
 sudo apt upgrade -y
@@ -30,7 +33,7 @@ sudo apt install -y git \
 
 # Build the patched version of lirc for the anava IR adapter
 cd ~
-sudo su -c "grep '^deb ' /etc/apt/sources.list | sed 's/^deb/deb-src/g' > /etc/apt/sources.list.d/deb-src.list"
+
 mkdir ~/lirc-src
 cd ~/lirc-src
 apt source lirc
