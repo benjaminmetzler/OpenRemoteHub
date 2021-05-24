@@ -1,12 +1,13 @@
 #! /bin/bash
 # https://github.com/AnaviTechnology/anavi-docs/blob/master/anavi-infrared-phat/anavi-infrared-phat.md#infrared-and-lirc
 
-# add the source files to apt
+echo "*** add the source files to apt ***"
 sudo su -c "grep '^deb ' /etc/apt/sources.list | sed 's/^deb/deb-src/g' > /etc/apt/sources.list.d/deb-src.list"
 
-# Install the necessary packages
+echo "*** Install the necessary packages ***"
 sudo apt update
 sudo apt upgrade -y
+
 sudo apt install -y git \
                     vim \
                     devscripts \
@@ -31,7 +32,7 @@ sudo apt install -y git \
                     python3-pip \
                     adb
 
-# Build the patched version of lirc for the anava IR adapter
+echo "*** Build the patched version of lirc for the anava IR adapter ***"
 cd ~
 
 mkdir ~/lirc-src
@@ -44,51 +45,51 @@ debuild -uc -us -b
 cd ~/lirc-src
 sudo apt install -y ./liblirc0_0.10.1-6.3~deb10u1_armhf.deb ./liblircclient0_0.10.1-6.3~deb10u1_armhf.deb ./lirc_0.10.1-6.3~deb10u1_armhf.deb
 
-# Update the lirc to support the anava IR adapter
+echo "*** Update the lirc to support the anava IR adapter ***"
 sudo cp /etc/lirc/lirc_options.conf /etc/lirc/lirc_options.conf.backup.$(date '+%Y%m%d%H%M%S')
 sudo su -c "cat /etc/lirc/lirc_options.conf | sed 's/devinput/default/g' > /etc/lirc/lirc_options.conf.new"
 sudo su -c "cat /etc/lirc/lirc_options.conf.new | sed 's/auto/\/dev\/lirc0/g' > /etc/lirc/lirc_options.conf"
-sudo rm /etc/lirc/lirc_options.conf.new # cleanup
+sudo rm /etc/lirc/lirc_options.conf.new
 
-# Configure kernal extensions for the anava IR adapter
+echo "*** Configure kernal extensions for the anava IR adapter ***"
 sudo su -c "echo 'dtoverlay=gpio-ir,gpio_pin=18' >> /boot/config.txt"
 sudo su -c "echo 'dtoverlay=gpio-ir-tx,gpio_pin=17' >> /boot/config.txt"
 
-# enable the lircd service
+echo "*** enable the lircd service ***"
 sudo systemctl enable lircd
 
-# Prevent power buttons on remotes from putting the Raspberry Pi to sleep
+echo "*** Prevent power buttons on remotes from putting the Raspberry Pi to sleep ***"
 sudo su -c "echo 'HandlePowerKey=ignore' >> /etc/systemd/logind.conf"
 sudo su -c "echo 'HandleSuspendKey=ignore' >> /etc/systemd/logind.conf"
 
-# Disable tty session to prevent the keyboard access from the remote
-# from locking the system
+echo "*** Disable tty session to prevent the keyboard access from the remote ***"
+echo "*** from locking the system ***"
 sudo su -c "echo 'NAutoVTs=0' >> /etc/systemd/logind.conf"
 sudo su -c "echo 'eserveVT=0' >> /etc/systemd/logind.conf"
 systemctl disable getty@tty1.service
 
-# pull the my_remote repo locally
+echo "*** pull the my_remote repo locally ***"
 cd ~
 git clone https://github.com/benjaminmetzler/my_remote.git
 cd ~/my_remote
-pip3 install virtualenv
+sudo pip3 install virtualenv
 virtualenv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
 
-# Copy and activate the harmony companion map for unknown keys
+echo "*** Copy and activate the harmony companion map for unknown keys ***"
 cd ~/my_remote
 sudo cp scripts/98-harmonycompanion.hwdb /etc/udev/hwdb.d/
 sudo systemd-hwdb update
 sudo udevadm trigger
 
-# copy the sample lirc IR defintion files
+echo "*** copy the sample lirc IR defintion files ***"
 cd ~/my_remote
 sudo cp ir_database/*.conf /etc/lirc/lircd.conf.d/
 
-# Install and enable the my_remote service
+echo "*** Install and enable the my_remote service ***"
 # sudo cp my_remote.service /etc/systemd/system/my_remote.service
 # sudo systemctl enable my_remote
 
-# reboot to make sure everything is up and running
+echo "*** reboot to make sure everything is up and running ***"
 sudo shutdown -r 0
