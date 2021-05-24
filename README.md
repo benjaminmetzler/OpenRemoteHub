@@ -16,6 +16,19 @@ my_remote is a universal remote hub running on a Raspberry PI.  It translates ke
 
 my_remote runs on a (Raspberry PI)[https://www.raspberrypi.org/] with an [IR interface](https://www.crowdsupply.com/anavi-technology/infrared-phat).
 
+### Quick install
+ssh to the raspberry pi and run the below.  This has only been tested on a newly flashed Raspberry Pi 4 with Raspberry Pi OS Lite (32-bit)(03-04-2021).
+
+```shell
+   curl https://raw.githubusercontent.com/benjaminmetzler/my_remote/main/setup_pi4.sh | bash
+```
+
+This will update the system, install the needed packages, lirc, and other miscellaneous actions.
+
+### Long Install
+
+If you don't feel safe just randomly running a script from the Internet:
+
 1. [Boot a Raspberry Pi with the `Raspberry Pi OS Lite (32-bit)` image](https://www.raspberrypi.org/documentation/installation/installing-images/). Tested version is 03-04-2021.
     * Make sure to enable ssh as a directly connected keyboard could be captured by my_remote.
 1. Insert the SD card into the raspberry pi and power it up.
