@@ -62,8 +62,7 @@ echo "*** Prevent power buttons on remotes from putting the Raspberry Pi to slee
 sudo su -c "echo 'HandlePowerKey=ignore' >> /etc/systemd/logind.conf"
 sudo su -c "echo 'HandleSuspendKey=ignore' >> /etc/systemd/logind.conf"
 
-echo "*** Disable tty session to prevent the keyboard access from the remote ***"
-echo "*** from locking the system ***"
+echo "*** Disable tty session to prevent the keyboard access from locking the system ***"
 sudo su -c "echo 'NAutoVTs=0' >> /etc/systemd/logind.conf"
 sudo su -c "echo 'eserveVT=0' >> /etc/systemd/logind.conf"
 systemctl disable getty@tty1.service
