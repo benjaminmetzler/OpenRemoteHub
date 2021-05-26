@@ -9,6 +9,11 @@
         "type": "load",
         "file":"/home/pi/my_remote/json/example_dvd.json"
     },
+    "208":{
+        "comment": "red",
+        "type": "load",
+        "file":"/home/pi/my_remote/json/example_xbox360.json"
+    },
     "115":{
         "comment": "Volume Up",
         "type": "ir",
@@ -32,11 +37,16 @@
         "type": "macro",
         "macro": [
             { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv" },
+            { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
             { "type": "ir", "code":"INPUT_HDMI_4" , "device": "yamaha_receiver" },
-            { "type": "sleep", "duration": "2s" , "device": "toshiba_tv" },
+            { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
             { "type": "ir", "code":"KEY_POWER_OFF" , "device": "toshiba_tv" },
+            { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
             { "type": "ir", "code":"KEY_POWER_OFF" , "device": "yamaha_receiver" },
-            { "type": "ir", "code":"KEY_POWER_OFF" , "device": "nvidia_shield" }
+            { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
+            { "type": "ir", "code":"KEY_POWER_OFF" , "device": "nvidia_shield" },
+            { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
+            { "type": "ir", "code":"KEY_POWER_OFF" , "device": "xbox360_discrete" }
         ]
     }
 }

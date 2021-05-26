@@ -1,0 +1,85 @@
+{
+    "on_load":{
+        "type": "macro",
+        "macro": [
+            { "type": "ir", "code":"KEY_POWER_ON" , "device": "xbox360_discrete" },
+            { "type": "sleep", "duration": ".25s" , "device": "xbox360_discrete" },
+            { "type": "ir", "code":"KEY_POWER_ON" , "device": "toshiba_tv" },
+            { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
+            { "type": "ir", "code":"KEY_POWER_ON" , "device": "yamaha_receiver" },
+            { "type": "sleep", "duration": ".25s" , "device": "yamaha_receiver" },
+            { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv" },
+            { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
+            { "type": "ir", "code":"INPUT_HDMI_3" , "device": "yamaha_receiver" }
+        ]
+    },
+    "on_unload":{
+    },
+
+    "28": {
+        "comment":"Ok",
+        "type": "ir",
+        "code":"KEY_OK",
+        "device":"Microsoft_Xbox360"
+    },
+    "103":{
+        "comment":"KEY_UP",
+        "type": "ir",
+        "code":"KEY_UP",
+        "device":"Microsoft_Xbox360"
+    },
+    "108":{
+        "comment":"KEY_DOWN",
+        "type": "ir",
+        "code":"KEY_DOWN",
+        "device":"Microsoft_Xbox360"
+    },
+    "105":{
+        "comment":"KEY_LEFT",
+        "type": "ir",
+        "code":"KEY_LEFT",
+        "device":"Microsoft_Xbox360"
+    },
+    "106":{
+        "comment":"KEY_RIGHT",
+        "type": "ir",
+        "code":"KEY_RIGHT",
+        "device":"Microsoft_Xbox360"
+    },
+    "158":{
+        "comment":"Back",
+        "type": "ir",
+        "code":"KEY_BACK",
+        "device":"Microsoft_Xbox360"
+    },
+    "127":{
+        "comment":"Menu",
+        "type": "ir",
+        "code":"KEY_MENU",
+        "device":"Microsoft_Xbox360"
+    },
+    "165":{
+        "comment":"Rew",
+        "type": "ir",
+        "code":"KEY_REW",
+        "device":"Microsoft_Xbox360"
+    },
+    "164":{
+        "comment":"Play/Pause",
+        "type": "ir",
+        "code":"KEY_PLAYPAUSE",
+        "device":"Microsoft_Xbox360"
+    },
+    "163":{
+        "comment":"ffwd",
+        "type": "ir",
+        "code":"KEY_FFWD",
+        "device":"Microsoft_Xbox360"
+    },
+    "172":{
+        "comment":"Home",
+        "type": "ir",
+        "code":"XboxFancyButton",
+        "device":"Microsoft_Xbox360"
+    }
+}
