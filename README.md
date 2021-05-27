@@ -46,7 +46,7 @@ If you don't feel safe just randomly running a script from the Internet:
 1. cd into the my_remote directory and run main.sh
     * `cd my_remote; bash main.sh`
 
-my_remote service start and listen for keystrokes from a directly connected keyboard.  Depending on the keystroke, my_remote will take different actions.  When first booted, it will load the `json/common.json` file.
+my_remote will start and listen for keystrokes from a directly connected keyboard.  Depending on the keystroke, my_remote will take different actions.  When first booted, it will load the `json/common.json` file.
 
 ## Design
 
