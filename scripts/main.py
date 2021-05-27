@@ -16,23 +16,29 @@ class My_Remote:
         if long_press and "long_press" in code:
             code = code["long_press"]
         if "type" in code:
-            if code["type"] == "ir":
-                self.send_ir(code["device"], code["code"])
-            elif code["type"] == "bluetooth":
-                self.bluetooth(code["device"], code["code"])
-            elif code["type"] == "adb":
-                self.adb(code["device"], code["code"])
-            elif code["type"] == "curl":
-                self.curl(code["device"], code["code"])
-            elif code["type"] == "load":
-                self.load(code["file"])
-            elif code["type"] == "sleep":
-                self.sleep(code["device"], code["duration"])
-            elif code["type"] == "macro":
-                for macro_code in code["macro"]:
-                    self.process_code(macro_code, long_press)
+            if "repeat" in code:
+                repeat = code["repeat"]
             else:
-                print("Unknown type(%s)" % self.code["type"])
+                repeat = 1
+            for x in range(repeat):
+                if code["type"] == "ir":
+                    self.send_ir(code["device"], code["code"])
+                elif code["type"] == "bluetooth":
+                    self.bluetooth(code["device"], code["code"])
+                elif code["type"] == "adb":
+                    self.adb(code["device"], code["code"])
+                elif code["type"] == "curl":
+                    self.curl(code["device"], code["code"])
+                elif code["type"] == "load":
+                    self.load(code["file"])
+                elif code["type"] == "sleep":
+                    self.sleep(code["device"], code["duration"])
+                elif code["type"] == "macro":
+                    for macro_code in code["macro"]:
+                        self.process_code(macro_code, long_press)
+                else:
+                    print("Unknown type(%s)" % self.code["type"])
+
         else:
             print("Type not found: %s" % code)
 

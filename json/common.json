@@ -36,18 +36,15 @@
         "comment": "power system off macro",
         "type": "macro",
         "macro": [
-            { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv" },
+            { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv", "repeat":2 },
             { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"INPUT_HDMI_4" , "device": "yamaha_receiver" },
+            { "type": "ir", "code":"INPUT_HDMI_4" , "device": "yamaha_receiver", "repeat":2 },
             { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"KEY_POWER_OFF" , "device": "toshiba_tv" },
+            { "type": "ir", "code":"KEY_POWER_OFF" , "device": "toshiba_tv", "repeat":2 },
             { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
             { "type": "ir", "code":"KEY_POWER_OFF" , "device": "yamaha_receiver" },
             { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"KEY_POWER_OFF" , "device": "nvidia_shield" },
-            { "type": "ir", "code":"KEY_POWER_OFF" , "device": "nvidia_shield" },
-            { "type": "ir", "code":"KEY_POWER_OFF" , "device": "nvidia_shield" },
-            { "type": "ir", "code":"KEY_POWER_OFF" , "device": "nvidia_shield" },
+            { "type": "ir", "code":"KEY_POWER_OFF" , "device": "nvidia_shield", "repeat":5},
             { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
             { "type": "ir", "code":"KEY_POWER_OFF" , "device": "xbox360_discrete" }
         ]

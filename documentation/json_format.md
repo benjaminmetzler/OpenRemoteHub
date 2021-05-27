@@ -4,19 +4,20 @@ my_remote state is determined by the loaded mode file.  This is independent of t
 
 my_remote uses a json formatted file to store and configure the remote depending on the button pressed on the remote.  The objects are named after the scan_code received by my_remote.  For instance the `Enter` key will have a scan_code of `28`.  Each object will contain key:value pairs defining the action and any required key:value pairs.  The valid keys are listed below.
 
-| Key        | Data                                                                        |
-| ---------- | --------------------------------------------------------------------------- |
-| type       | Required.  Action to take.  Valid values are `ir`, `bluetooth`, `adb`,      |
-|            | `curl`, `app`, `sleep`,`load`, and `macro`                                  |
-| device     | Name of the device to control.                                              |
-| code       | Required if type is `ir`, `bluetooth`, `adb`, `curl`, or `app`.             |
-|            | Code to transmit on the specified channel to the specified device           |
-| file       | Required if type is `load`.  Specifies the name of the file to load. This   |
-|            | will clear out  the current mode.                                           |
-| duration   | Required if type is `sleep`.  Specifies the duration to sleep in seconds.   |
-| macro      | Allows running multiple commands with a single button press.                |
-| comment    | Optional field that is not used by the code but can be used for block info. |
-| long_press | An actions to take if a long press ( > 1 second) is detected.               |
+| Key        | Data                                                                            |
+| ---------- | ------------------------------------------------------------------------------- |
+| type       | Required.  Action to take.  Valid values are `ir`, `bluetooth`, `adb`,          |
+|            | `curl`, `app`, `sleep`,`load`, and `macro`                                      |
+| device     | Name of the device to control.                                                  |
+| code       | Required if type is `ir`, `bluetooth`, `adb`, `curl`, or `app`.                 |
+|            | Code to transmit on the specified channel to the specified device               |
+| file       | Required if type is `load`.  Specifies the name of the file to load. This       |
+|            | will clear out  the current mode.                                               |
+| duration   | Required if type is `sleep`.  Specifies the duration to sleep in seconds.       |
+| macro      | Allows running multiple commands with a single button press.                    |
+| comment    | Optional field that is not used by the code but can be used for block info.     |
+| repeat     | Number of times to repeat the action.  If not set the action will be done once. |
+| long_press | An actions to take if a long press ( > 1 second) is detected.                   |
 
 Possible actions are demonstrated below.
 
@@ -63,11 +64,12 @@ Useful for devices that can accept input via a bluetooth keyboard (Nvidia Shield
         "comment": "An up button is pressed",
         "type": "bluetooth",
         "code":"103",
+        "repeat": 5,
         "device":"example_stb"
     },
 ```
 
-The next example does the same thing as the first, but with bluetooth.
+The next example does the same thing as the first, but with bluetooth.  It will repeat the command 5 times.
 
 ### curl
 

@@ -2,15 +2,12 @@
     "on_load":{
         "type": "macro",
         "macro": [
-            { "type": "ir", "code":"KEY_POWER_ON" , "device": "nvidia_shield" },
-            { "type": "ir", "code":"KEY_POWER_ON" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"KEY_POWER_ON" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"KEY_POWER_ON" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"KEY_POWER_ON" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"KEY_POWER_ON" , "device": "yamaha_receiver" },
+            { "type": "ir", "code":"KEY_POWER_ON" , "device": "nvidia_shield", "repeat":5},
+            { "type": "ir", "code":"KEY_POWER_ON" , "device": "toshiba_tv", "repeat":5},
+            { "type": "ir", "code":"KEY_POWER_ON" , "device": "yamaha_receiver", "repeat":2 },
             { "type": "sleep", "duration": "2s" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"INPUT_HDMI_4" , "device": "yamaha_receiver" }
+            { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv", "repeat":2 },
+            { "type": "ir", "code":"INPUT_HDMI_4" , "device": "yamaha_receiver", "repeat":2 }
         ]
     },
     "on_unload":{
