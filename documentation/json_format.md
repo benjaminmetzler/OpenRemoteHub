@@ -21,7 +21,7 @@ my_remote uses a json formatted file to store and configure the remote depending
 
 Possible actions are demonstrated below.
 
-## Send IR/ADB/Bluetooth Command
+## Send Command
 
 ### IR
 
