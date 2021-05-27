@@ -45,6 +45,9 @@
             { "type": "ir", "code":"KEY_POWER_OFF" , "device": "yamaha_receiver" },
             { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
             { "type": "ir", "code":"KEY_POWER_OFF" , "device": "nvidia_shield" },
+            { "type": "ir", "code":"KEY_POWER_OFF" , "device": "nvidia_shield" },
+            { "type": "ir", "code":"KEY_POWER_OFF" , "device": "nvidia_shield" },
+            { "type": "ir", "code":"KEY_POWER_OFF" , "device": "nvidia_shield" },
             { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
             { "type": "ir", "code":"KEY_POWER_OFF" , "device": "xbox360_discrete" }
         ]
