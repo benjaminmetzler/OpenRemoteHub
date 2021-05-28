@@ -3,6 +3,7 @@ import keyboard
 import os
 import pathlib
 import time
+import lirc
 
 
 class My_Remote:
@@ -11,6 +12,7 @@ class My_Remote:
         self.current_mode_file = ""
         self.load(conf_file)
         self.key_presses = {}
+        self.client = lirc.Client()
 
     def process_code(self, code, long_press):
         if long_press and "long_press" in code:
@@ -71,7 +73,12 @@ class My_Remote:
     def send_ir(self, device, code):
         command = 'irsend SEND_ONCE "%s" "%s"' % (device, code)
         print("%s | %s" % (device, command))
-        os.system(command)
+        try:
+            self.client.send_once(device, code)
+        except lirc.exceptions.LircdCommandFailureError as error:
+            print("Unable to send the %s key to %s!" % (device, code))
+            print(error)  # Error has more info on what lircd sent back.
+            # os.system(command)
 
     def adb(self, device, code):
         if code == "CONNECT":
