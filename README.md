@@ -14,7 +14,7 @@ my_remote is a universal remote hub running on a Raspberry PI.  It translates ke
 
 ## Installation
 
-my_remote runs on a (Raspberry PI)[https://www.raspberrypi.org/] with an [IR interface](https://www.crowdsupply.com/anavi-technology/infrared-phat).
+my_remote runs on a [Raspberry Pi](https://www.raspberrypi.org/) with an [IR interface](https://www.crowdsupply.com/anavi-technology/infrared-phat).
 
 ### Quick install
 
