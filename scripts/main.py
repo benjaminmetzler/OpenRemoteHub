@@ -34,25 +34,29 @@ class My_Device(threading.Thread):
     def __init__(self, name):
         threading.Thread.__init__(self)
         self.name = name
-        self.number = 0
-        self.cmd_queue = queue.Queue()
-        self.done = 0
+        self.deviceQueue = queue.Queue()
+        self.stop = False
 
-    def kill(self):
-        self.done = 1
-
-    def put(self, command):
-        self.cmd_queue.put(command)
+    def kill(self, force):
+        if not force:
+            # any additional commands will be ignored
+            self.deviceQueue.put('{ "type":"kill"}')
+        else:
+            # stop after the next command
+            self.stop = True
 
     def run(self):
+        # the basic idea is that each device will handle it's
+        # own queue sleeps, sending commands to the mainQueue for
+        # processing the events at a system level.
         print("Starting " + self.name)
-        while not self.done:
-            if not self.cmd_queue.empty():
-                command = self.cmd_queue.get()
+        while not self.stop:
+            if not self.deviceQueue.empty():
+                command = self.deviceQueue.get()
                 if command["type"] == "sleep":
                     time.sleep(float(command["duration"]))
                 elif command["type"] == "kill":
-                    self.done = 1
+                    self.stop = True
                 else:
                     lock.acquire()
                     mainQueue.put(command)
@@ -77,9 +81,7 @@ class My_Remote:
                 self.run_command(mainQueue.get())
                 lock.release()
 
-    def run_command(self, code, long_press):
-        if long_press and "long_press" in code:
-            code = code["long_press"]
+    def run_command(self, code):
         if "type" in code:
             if "repeat" in code:
                 repeat = code["repeat"]
@@ -129,16 +131,22 @@ class My_Remote:
         if file.exists():
 
             self.on_unload()
+
+            # tell the threads to finish processing
+            # after the current commands have finished.
             for device in self.devices:
-                self.devices[device].start()
-            # wait for the device threads to exit
+                self.devices[device].kill(False)
+
+            # wait for all devices to finish commands
+            for device in self.devices:
+                self.devices[device].join()
 
             # read the common file
             f = open("/home/pi/my_remote/json/common.json")
             self.common = json.load(f)
             f.close()
 
-            # read the configuration file
+            # read the loaded configuration file
             f = open(conf_file)
             self.mode = json.load(f)
             f.close()
