@@ -4,6 +4,59 @@ import os
 import pathlib
 import time
 import lirc
+import threading
+import queue
+
+
+def getDevices(json_string):
+    list = []
+    for command in json_string:
+        if "type" in json_string[command]:
+            if json_string[command]["type"] == "macro":
+                list.extend(getDevices(json_string[command]))
+            elif (
+                json_string[command]["type"] == "ir"
+                or json_string[command]["type"] == "bluetooth"
+                or json_string[command]["type"] == "adb"
+                or json_string[command]["type"] == "sleep"
+                or json_string[command]["type"] == "curl"
+            ):
+                list.append(json_string[command]["device"])
+    return list
+
+
+# Main command queue for the My_Remote
+lock = threading.Lock()
+mainQueue = queue.Queue()
+
+
+class My_Device(threading.Thread):
+    def __init__(self, name):
+        threading.Thread.__init__(self)
+        self.name = name
+        self.number = 0
+        self.cmd_queue = queue.Queue()
+        self.done = 0
+
+    def kill(self):
+        self.done = 1
+
+    def put(self, command):
+        self.cmd_queue.put(command)
+
+    def run(self):
+        print("Starting " + self.name)
+        while not self.done:
+            if not self.cmd_queue.empty():
+                command = self.cmd_queue.get()
+                if command["type"] == "sleep":
+                    time.sleep(float(command["duration"]))
+                elif command["type"] == "kill":
+                    self.done = 1
+                else:
+                    lock.acquire()
+                    mainQueue.put(command)
+                    lock.release()
 
 
 class My_Remote:
@@ -13,8 +66,18 @@ class My_Remote:
         self.load(conf_file)
         self.key_presses = {}
         self.client = lirc.Client()
+        self.device = {}
 
-    def process_code(self, code, long_press):
+    def run(self):
+        print("Starting My_Remote")
+
+        while True:
+            if not mainQueue.empty():
+                lock.acquire()
+                self.run_command(mainQueue.get())
+                lock.release()
+
+    def run_command(self, code, long_press):
         if long_press and "long_press" in code:
             code = code["long_press"]
         if "type" in code:
@@ -37,10 +100,27 @@ class My_Remote:
                     self.sleep(code["device"], code["duration"])
                 elif code["type"] == "macro":
                     for macro_code in code["macro"]:
-                        self.process_code(macro_code, long_press)
+                        self.run_command(macro_code, long_press)
                 else:
                     print("Unknown type(%s)" % self.code["type"])
 
+        else:
+            print("Type not found: %s" % code)
+
+    def assign_command(self, code):
+        # assigns a command to a device queue
+        # The device queue must already exist
+        if "type" in code:
+            if code["type"] == "macro":
+                for macro_code in code["macro"]:
+                    self.assign_command(macro_code)
+            elif "device" in code and code["device"] in self.devices:
+                # QUESTION Should we create new device queues if they don't already exist?
+                # we'd have to do something like "if device doesn't exist, create it and then add"
+                # currently the code creates an empty My_Device queue in load()
+                self.devices[code["device"]].put(code)
+            else:
+                print("Unable to parse command to correct queue (%s)" % code)
         else:
             print("Type not found: %s" % code)
 
@@ -49,10 +129,11 @@ class My_Remote:
         if file.exists():
 
             self.on_unload()
+            for device in self.devices:
+                self.devices[device].start()
+            # wait for the device threads to exit
 
             # read the common file
-            # TK should we have an on_load and on_unload in the common.json?
-            # TK how should they be handled?
             f = open("/home/pi/my_remote/json/common.json")
             self.common = json.load(f)
             f.close()
@@ -64,7 +145,16 @@ class My_Remote:
 
             self.mode.update(self.common)
 
+            # Initialize each device object
+            for device in getDevices(self.mode):
+                self.devices[device] = My_Device(device)
+
+            # start each device thread
+            for device in self.devices:
+                self.devices[device].start()
+
             self.current_mode_file = conf_file
+
             # load up the defaults
             self.on_load()
         else:
@@ -122,7 +212,10 @@ class My_Remote:
                 if time_diff > 1:
                     long_press = True
 
-                self.process_code(self.mode[scan_code], long_press)
+                if long_press and "long_press" in self.mode[scan_code]:
+                    self.assign_code(self.mode[scan_code]["long_press"])
+                else:
+                    self.assign_code(self.mode[scan_code])
 
     def callback_key_press(self, event):
         # This callback adds the keypress to the dictionary along
@@ -140,12 +233,12 @@ class My_Remote:
     def on_load(self):
         print("on_load: %s" % self.current_mode_file)
         if "on_load" in self.mode:
-            self.process_code(self.mode["on_load"], False)
+            self.assign_command(self.mode["on_load"])
 
     def on_unload(self):
         print("on_unload: %s" % self.current_mode_file)
         if "on_unload" in self.mode:
-            self.process_code(self.mode["on_unload"], False)
+            self.assign_command(self.mode["on_unload"])
         self.mode = {}
 
     def event_loop(self):
