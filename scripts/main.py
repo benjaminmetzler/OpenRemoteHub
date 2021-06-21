@@ -90,8 +90,8 @@ class My_Remote:
             for x in range(repeat):
                 if code["type"] == "ir":
                     self.send_ir(code["device"], code["code"])
-                elif code["type"] == "bluetooth":
-                    self.bluetooth(code["device"], code["code"])
+                # elif code["type"] == "bluetooth":
+                #     self.bluetooth(code["device"], code["code"])
                 elif code["type"] == "adb":
                     self.adb(code["device"], code["code"])
                 elif code["type"] == "curl":
@@ -193,10 +193,10 @@ class My_Remote:
         print("%s | %s" % (device, command))
         os.system(command)
 
-    def bluetooth(self, device, code):
-        command = "TBD: %s --> bluetooth(%s)" % (device, code)
-        print("%s | %s" % (device, command))
-        # os.system("TK")
+    # def bluetooth(self, device, code):
+    #     command = "TBD: %s --> bluetooth(%s)" % (device, code)
+    #     print("%s | %s" % (device, command))
+    #     # os.system("TK")
 
     def sleep(self, device, duration):
         command = 'sleep "%s"' % duration
