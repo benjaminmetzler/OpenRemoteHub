@@ -208,7 +208,6 @@ class MyRemote:
         os.system(command)
 
     def callback_key_release(self, event):
-        long_press = False
         scan_code = str(event.scan_code)
         name = event.name
         print("callback_key_release: %s - %s (%s)" % (event, scan_code, name))
@@ -221,10 +220,7 @@ class MyRemote:
 
                 # NOTE: If the time of a keypress is greater than 1 second
                 # then handle this as a long press
-                if time_diff > 1:
-                    long_press = True
-
-                if long_press and "long_press" in self.mode[scan_code]:
+                if time_diff > 1 and "long_press" in self.mode[scan_code]:
                     self.assign_command(self.mode[scan_code]["long_press"])
                 else:
                     self.assign_command(self.mode[scan_code])
