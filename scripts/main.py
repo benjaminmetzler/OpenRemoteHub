@@ -176,7 +176,6 @@ class MyRemote:
         except lirc.exceptions.LircdCommandFailureError as error:
             print("Unable to send the %s key to %s!" % (device, code))
             print(error)  # Error has more info on what lircd sent back.
-            # os.system(command)
 
     @classmethod
     def adb(cls, device, code):
