@@ -83,11 +83,11 @@ class MyRemote:
                     self.run_command(mainQueue.get())
 
     def run_command(self, code):
+        repeat = 1
+        if "repeat" in code:
+            repeat = code["repeat"]
+
         if "type" in code:
-            if "repeat" in code:
-                repeat = code["repeat"]
-            else:
-                repeat = 1
             for _ in range(repeat):
                 if code["type"] == "ir":
                     self.send_ir(code["device"], code["code"])
