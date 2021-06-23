@@ -9,24 +9,6 @@ import queue
 import lirc
 import keyboard
 
-
-def get_devices(json_string):
-    device_list = []
-    for command in json_string:
-        if "type" in json_string[command]:
-            if json_string[command]["type"] == "macro":
-                device_list.extend(get_devices(json_string[command]))
-            elif (
-                json_string[command]["type"] == "ir"
-                or json_string[command]["type"] == "bluetooth"
-                or json_string[command]["type"] == "adb"
-                or json_string[command]["type"] == "sleep"
-                or json_string[command]["type"] == "curl"
-            ):
-                device_list.append(json_string[command]["device"])
-    return device_list
-
-
 # Main command queue for the MyRemote
 lock = threading.Lock()
 mainQueue = queue.Queue()
@@ -47,6 +29,9 @@ class MyDevice(threading.Thread):
         else:
             # stop after the next command
             self.stop = True
+
+    def put(self, command):
+        self.device_queue.put(command)
 
     def run(self):
         # the basic idea is that each device will handle it's
@@ -70,9 +55,10 @@ class MyRemote:
     def __init__(self, conf_file):
         self.mode = {}
         self.current_mode_file = ""
-        self.load(conf_file)
         self.key_presses = {}
         self.devices = {}
+        threading.Thread(target=self.run).start()
+        self.load(conf_file)
 
     def run(self):
         print("Starting MyRemote")
@@ -90,7 +76,7 @@ class MyRemote:
         if "type" in code:
             for _ in range(repeat):
                 if code["type"] == "ir":
-                    self.send_ir(code["device"], code["code"])
+                    self.lirc(code["device"], code["code"])
                 # elif code["type"] == "bluetooth":
                 #     self.bluetooth(code["device"], code["code"])
                 elif code["type"] == "adb":
@@ -110,22 +96,29 @@ class MyRemote:
         else:
             print("Type not found: %s" % code)
 
-    def assign_command(self, code):
+    def assign_command(self, command):
         # assigns a command to a device queue
         # The device queue must already exist
-        if "type" in code:
-            if code["type"] == "macro":
-                for macro_code in code["macro"]:
-                    self.assign_command(macro_code)
-            elif "device" in code and code["device"] in self.devices:
-                # QUESTION Should we create new device queues if they don't already exist?
-                # we'd have to do something like "if device doesn't exist, create it and then add"
-                # currently the code creates an empty MyDevice queue in load()
-                self.devices[code["device"]].put(code)
+        if "type" in command:
+            if command["type"] == "macro":
+                for macro_command in command["macro"]:
+                    self.assign_command(macro_command)
+            if command["type"] == "load":
+                mainQueue.put(command)
+            elif "device" in command:
+                # Would it be better to parse through the json to find all
+                # the devices to spin them up during load?  I tried this before
+                # but the logic for getting all the devices in all the macros
+                # proved difficult.  Instead I create the device queues on
+                # the fly.
+                if not command["device"] in self.devices:
+                    self.devices[command["device"]] = MyDevice(command["device"])
+                    self.devices[command["device"]].start()
+                self.devices[command["device"]].put(command)
             else:
-                print("Unable to parse command to correct queue (%s)" % code)
+                print("Unable to parse command to correct queue (%s)" % command)
         else:
-            print("Type not found: %s" % code)
+            print("Type not found: %s" % command)
 
     def load(self, conf_file):
         file = pathlib.Path(conf_file)
@@ -138,9 +131,10 @@ class MyRemote:
             for device in self.devices:
                 self.devices[device].kill(False)
 
-            # wait for all devices to finish commands
-            for device in self.devices:
-                self.devices[device].join()
+            # # wait for all devices to finish commands
+            # for device in self.devices:
+            #     print("Stopping %s thread" % device)
+            #     self.devices[device].join()
 
             # read the common file
             with open("/home/pi/my_remote/json/common.json") as file:
@@ -150,25 +144,18 @@ class MyRemote:
             with open(conf_file) as file:
                 self.mode = json.load(file)
 
+            # merge the common with the current mode file
             self.mode.update(self.common)
-
-            # Initialize each device object
-            for device in get_devices(self.mode):
-                self.devices[device] = MyDevice(device)
-
-            # start each device thread
-            for device in self.devices:
-                self.devices[device].start()
 
             self.current_mode_file = conf_file
 
-            # load up the defaults
+            # load up the defaults for the mode file
             self.on_load()
         else:
             print("Unable to find: %s" % conf_file)
 
     @classmethod
-    def send_ir(cls, device, code):
+    def lirc(cls, device, code):
         command = 'irsend SEND_ONCE "%s" "%s"' % (device, code)
         print("%s | %s" % (device, command))
         try:
