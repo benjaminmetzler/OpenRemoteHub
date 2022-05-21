@@ -75,6 +75,7 @@ Pull requests are welcome. Help with enabling the Raspberry Pi as a functional b
 * https://github.com/AnaviTechnology/anavi-docs/blob/master/anavi-infrared-phat/anavi-infrared-phat.md
 * https://www.aliexpress.com/item/1005001714763038.html
 * https://github.com/mtlynch/key-mime-pi
+* https://pyatv.dev/documentation/getting-started/
 
 ## License
 
