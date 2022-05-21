@@ -2,7 +2,7 @@
     "168":{
         "comment": "blue",
         "type": "load",
-        "file":"/home/pi/my_remote/json/example_stb.json"
+        "file":"/home/pi/my_remote/json/example_nvidia_shield.json"
     },
     "217":{
         "comment": "orange",

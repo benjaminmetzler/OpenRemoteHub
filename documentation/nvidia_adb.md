@@ -12,6 +12,6 @@ To connect the Nvidia shield to my_remote:
 1. `ssh` into the raspberry pi and type `adb connect IP_ADDRESS` where IP_ADDRESS is the IP address noted above.
 1. On the Nvidia Shield it will prompt to `Allow Network debugging`.  Click the `Always allow from this computer` box and then click OK.
 
-After you have done the above, review the `example_stb.json` for how to use the `adb` command.  Note that in the example my_remote will attempt to connect `on_load` of the mode and disconnect `on_unload`.  This is not necessary but may be more reliable.
+After you have done the above, review the `example_nvidia_shield.json` for how to use the `adb` command.  Note that in the example my_remote will attempt to connect `on_load` of the mode and disconnect `on_unload`.  This is not necessary but may be more reliable.
 
 Also note that the adb connection is slow so the time between a press on the keyboard/remote can take longer then IR based actions.

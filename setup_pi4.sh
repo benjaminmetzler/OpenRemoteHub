@@ -43,7 +43,7 @@ patch -p0 -i lirc-gpio-ir-0.10.patch
 cd lirc-0.10.1
 debuild -uc -us -b
 cd $currentdir/lirc-src
-sudo apt install -y ./liblirc0_0.10.1-6.3~deb10u1_armhf.deb ./liblircclient0_0.10.1-6.3~deb10u1_armhf.deb ./lirc_0.10.1-6.3~deb10u1_armhf.deb
+sudo apt install -y ./liblirc0_0.10.1-6.3_armhf.deb ./liblircclient0_0.10.1-6.3_armhf.deb ./lirc_0.10.1-6.3_armhf.deb
 
 echo "*** Update the lirc to support the anava IR adapter ***"
 sudo cp /etc/lirc/lirc_options.conf /etc/lirc/lirc_options.conf.backup.$(date '+%Y%m%d%H%M%S')
@@ -65,7 +65,7 @@ sudo su -c "echo 'HandleSuspendKey=ignore' >> /etc/systemd/logind.conf"
 echo "*** Disable tty session to prevent the keyboard access from locking the system ***"
 sudo su -c "echo 'NAutoVTs=0' >> /etc/systemd/logind.conf"
 sudo su -c "echo 'eserveVT=0' >> /etc/systemd/logind.conf"
-systemctl disable getty@tty1.service
+sudo systemctl disable getty@tty1.service
 
 echo "*** pull the my_remote repo locally ***"
 cd $currentdir

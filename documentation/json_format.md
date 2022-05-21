@@ -30,7 +30,7 @@ Possible actions are demonstrated below.
         "comment": "An up button is pressed",
         "type": "ir",
         "code":"KEY_UP",
-        "device":"example_stb",
+        "device":"example_nvidia_shield",
         "long_press": {
             "type": "load",
             "file":"/home/pi/my_remote/json/example_dvd.json"
@@ -38,7 +38,7 @@ Possible actions are demonstrated below.
     },
 ```
 
-The above configuration will instruct my_remote to send the example_stb a KEY_UP code via the IR channel.  Medium is determined by the type.
+The above configuration will instruct my_remote to send the example_nvidia_shield a KEY_UP code via the IR channel.  Medium is determined by the type.
 
 ### ADB
 
@@ -65,7 +65,7 @@ Useful for devices that can accept input via a bluetooth keyboard (Nvidia Shield
         "type": "bluetooth",
         "code":"103",
         "repeat": 5,
-        "device":"example_stb"
+        "device":"example_nvidia_shield"
     },
 ```
 
@@ -110,12 +110,12 @@ The `sleep` command is used in macros.  This is useful for when a device might r
        "load":"/home/pi/my_remote/json/example_dvd.json",
         "long_press": {
             "type": "load",
-            "file":"/home/pi/my_remote/json/example_stb.json"
+            "file":"/home/pi/my_remote/json/example_nvidia_shield.json"
         }
     },
 ```
 
-The above configuration will instruct my_remote to load the example_dvd.json mode file.  This is used to switch the mode of the remote.  An alternative action will load the example_stb.json mode file if the key is held for longer then 1 second.
+The above configuration will instruct my_remote to load the example_dvd.json mode file.  This is used to switch the mode of the remote.  An alternative action will load the example_nvidia_shield.json mode file if the key is held for longer then 1 second.
 
 long_press requires that the key up indication not be returned until the key has been released.  This can happen with some special buttons like push-to-talk buttons on HDI remote.  Also not that some remotes will send the same key multiple key down indications as long as it is pressed while other buttons will send just one key down.
 
@@ -164,16 +164,16 @@ The above example shows that when the mode is loaded it will instruct my_remote 
         {
             "type":"bluetooth",
             "code":"KEY_POWER_OFF",
-            "device":"example_stb"
+            "device":"example_nvidia_shield"
         }
     ],
 ```
 
-The above example shows that when the mode is unloaded it will instruct the `example_stb` to power off via the `KEY_POWER_OFF` command.  This could be used to turn off devices when not in use.  As with the `on_load` any number of actions can be called in `on_unload`.
+The above example shows that when the mode is unloaded it will instruct the `example_nvidia_shield` to power off via the `KEY_POWER_OFF` command.  This could be used to turn off devices when not in use.  As with the `on_load` any number of actions can be called in `on_unload`.
 
 ## Common.json
 
-Common.json will be loaded with each mode file.  This allows for a common set of macros to be defined across multiple remotes, such as a set of device buttons used to switch modes as shown below.  In the below example, the volume and mute buttons are always mapped to the `example_receiver` and the power button will call a `macro` to shut the system down.  These actions will be available regardless of the active mode.
+Common.json will be loaded with each mode file.  This allows for a common set of macros to be defined across multiple remotes, such as a set of device buttons used to switch modes.  In the below example, the volume and mute buttons are always mapped to the `example_receiver` and the power button will call a `macro` to shut the system down.  These actions will be available regardless of the active mode.
 
 ``` json
     "115":{
