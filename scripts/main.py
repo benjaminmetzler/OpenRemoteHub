@@ -7,7 +7,7 @@ import keyboard
 import lirc
 
 
-class My_Remote:
+class MyRemote:
     '''my_remote'''
     def __init__(self, conf_file):
         '''__init__(self, conf_file):'''
@@ -190,5 +190,5 @@ class My_Remote:
 
 
 if __name__ == "__main__":
-    my_remote = My_Remote("/home/pi/my_remote/json/common.json")
+    my_remote = MyRemote("/home/pi/my_remote/json/common.json")
     my_remote.event_loop()
