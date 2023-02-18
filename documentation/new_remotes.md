@@ -21,17 +21,17 @@ The above maps the scancode 106 to the KEY_RIGHT.  Depending on your HID control
     No device specified, trying to scan all of /dev/input/event*
     Not running as root, no devices may be available.
     Available devices:
-    /dev/input/event0:	SG.Ltd SG Control Mic Keyboard
-    /dev/input/event1:	SG.Ltd SG Control Mic Consumer Control
-    /dev/input/event2:	SG.Ltd SG Control Mic System Control
-    /dev/input/event3:	SG.Ltd SG Control Mic
-    /dev/input/event4:	SG.Ltd SG Control Mic Keyboard
-    /dev/input/event5:	SG.Ltd SG Control Mic Consumer Control
-    /dev/input/event6:	SG.Ltd SG Control Mic System Control
-    /dev/input/event7:	SG.Ltd SG Control Mic
-    /dev/input/event8:	gpio_ir_recv
-    /dev/input/event9:	Logitech Harmony 20+
-    /dev/input/event10:	Virtual Keyboard
+    /dev/input/event0:  SG.Ltd SG Control Mic Keyboard
+    /dev/input/event1:  SG.Ltd SG Control Mic Consumer Control
+    /dev/input/event2:  SG.Ltd SG Control Mic System Control
+    /dev/input/event3:  SG.Ltd SG Control Mic
+    /dev/input/event4:  SG.Ltd SG Control Mic Keyboard
+    /dev/input/event5:  SG.Ltd SG Control Mic Consumer Control
+    /dev/input/event6:  SG.Ltd SG Control Mic System Control
+    /dev/input/event7:  SG.Ltd SG Control Mic
+    /dev/input/event8:  gpio_ir_recv
+    /dev/input/event9:  Logitech Harmony 20+
+    /dev/input/event10:  Virtual Keyboard
     Select the device event number [0-10]: 9
     ```
 
@@ -48,6 +48,7 @@ The above maps the scancode 106 to the KEY_RIGHT.  Depending on your HID control
     Event: time 1621660271.687440, type 1 (EV_KEY), code 103 (KEY_UP), value 0
     Event: time 1621660271.687440, -------------- SYN_REPORT ------------
     ```
+
 1. Press all buttons on your remote to get each button scancode.
 
 ## Unknown Scancodes
@@ -74,7 +75,7 @@ evdev:name:Logitech Harmony 20+:*
  KEYBOARD_KEY_c01f7=red
 ```
 
-The above example maps the button `c01ec` (determined by the value seen in `evtest`) to the KEY_POWER event type.  It also maps the buttons c01f4, c01f5, c01f6, and c01f7 to blue, yellow, green, and red, respectively.  The first line indicates the device that should be mapped, which you can find in the list presented by `evtest`.  The format of each line KEYBOARD_KEY_<scancode>=<keycode>. The value of <scancode> is hexadecimal but without the leading 0x (e.g. `c01ec` instead of `0xc01ec`).  The value of <keycode> is the lower-case keycode name string as listed in /usr/include/linux/input-event-codes.h minus the `KEY_`.  A full list of valid event types can be found in the `Keys and buttons` section [here](https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h).
+The above example maps the button `c01ec` (determined by the value seen in `evtest`) to the KEY_POWER event type.  It also maps the buttons c01f4, c01f5, c01f6, and c01f7 to blue, yellow, green, and red, respectively.  The first line indicates the device that should be mapped, which you can find in the list presented by `evtest`.  The format of each line `KEYBOARD_KEY_<scancode>=<keycode>`. The value of `<scancode>` is hexadecimal but without the leading 0x (e.g. `c01ec` instead of `0xc01ec`).  The value of `<keycode>` is the lower-case keycode name string as listed in /usr/include/linux/input-event-codes.h minus the `KEY_`.  A full list of valid event types can be found in the `Keys and buttons` section [here](https://github.com/torvalds/linux/blob/master/include/uapi/linux/input-event-codes.h).
 
 After creating the mapping, copy the file to `/etc/udev/hwdb.d/`, and then load the mapping by running the below
 

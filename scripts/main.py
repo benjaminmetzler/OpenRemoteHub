@@ -65,6 +65,7 @@ class My_Remote:
             self.mode.update(self.common)
 
             self.current_mode_file = conf_file
+            
             # load up the defaults
             self.on_load()
         else:
@@ -78,7 +79,6 @@ class My_Remote:
         except lirc.exceptions.LircdCommandFailureError as error:
             print("Unable to send the %s key to %s!" % (device, code))
             print(error)  # Error has more info on what lircd sent back.
-            # os.system(command)
 
     def adb(self, device, code):
         if code == "CONNECT":
