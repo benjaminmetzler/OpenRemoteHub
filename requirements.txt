@@ -1,12 +1,14 @@
 appdirs==1.4.4
+black==23.1.0
 cfgv==3.2.0
 distlib==0.3.1
 filelock==3.0.12
 identify==2.2.4
+lirc==2.0.0
 nodeenv==1.6.0
 pre-commit==2.12.1
 PyYAML==5.4.1
+ruff==0.0.248
 six==1.15.0
 toml==0.10.2
 virtualenv==20.4.4
-lirc==2.0.0
