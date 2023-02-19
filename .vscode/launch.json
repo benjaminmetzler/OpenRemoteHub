@@ -8,10 +8,10 @@
             "name": "Python: Current File",
             "type": "python",
             "request": "launch",
-            "program": "${file}",
+            "program": "${workspaceFolder}/scripts/main.py",
             "console": "integratedTerminal",
             "justMyCode": true,
-            "cwd": "${fileDirname}/../"
+            "cwd": "${workspaceFolder}"
         }
     ]
 }

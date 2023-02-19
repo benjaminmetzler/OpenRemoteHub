@@ -43,12 +43,12 @@ Usage:
 
 
 def here(path):
-    " Return path added to current dir for __file__. "
+    "Return path added to current dir for __file__."
     return os.path.join(os.path.dirname(os.path.abspath(__file__)), path)
 
 
 def download_file(url, path):
-    """ Download url to a file. """
+    """Download url to a file."""
     if not os.path.exists(REMOTES_LIST_DIR):
         os.makedirs(REMOTES_LIST_DIR)
     try:
@@ -59,7 +59,7 @@ def download_file(url, path):
 
 
 def get_list_lines():
-    """ Download remotes.list if required, return as list of lines. """
+    """Download remotes.list if required, return as list of lines."""
     if not os.path.exists(REMOTES_LIST):
         download_file(REMOTES_LIST_URL, REMOTES_LIST)
     with open(REMOTES_LIST) as f:
@@ -68,7 +68,7 @@ def get_list_lines():
 
 
 def do_download():
-    """ Download a file as given in sys.argv[2]. """
+    """Download a file as given in sys.argv[2]."""
     if len(sys.argv) < 3:
         print("No remote to download")
         print(USAGE)
@@ -81,7 +81,7 @@ def do_download():
 
 
 def print_info(l):
-    """ Print some info for list line. """
+    """Print some info for list line."""
     tokens = l.split(";")
     uri = os.path.join(REMOTE_CODEBASE, "remotes", tokens[0])
     print("Directory:        " + tokens[0])
@@ -95,7 +95,7 @@ def print_info(l):
 
 
 def do_show():
-    """ Show info for id in sys.argv[2]. """
+    """Show info for id in sys.argv[2]."""
     if len(sys.argv) < 3:
         print("No id string")
         print(USAGE)
@@ -113,7 +113,7 @@ def do_show():
 
 
 def do_list():
-    """ List files matching optional pattern in sys.argv[2]. """
+    """List files matching optional pattern in sys.argv[2]."""
     if len(sys.argv) < 3:
         pattern = "*/*"
     elif len(sys.argv) == 3:
@@ -138,7 +138,7 @@ def do_list():
 
 
 def do_find_driver():
-    """ Find files having exactly the driver in sys.argv[2]. """
+    """Find files having exactly the driver in sys.argv[2]."""
     if len(sys.argv) < 3:
         print("No driver specified")
         print(USAGE)
@@ -156,7 +156,7 @@ def do_find_driver():
 
 
 def print_yaml_dict(_dict):
-    """ Print a single-level dictionary as a yaml snippet. """
+    """Print a single-level dictionary as a yaml snippet."""
     for key in sorted(_dict.keys()):
         print("\n    %s:" % key, end="")
         to_print = ["\n" + (8 * " ") + "- " + p for p in sorted(list(set(_dict[key])))]
@@ -164,7 +164,7 @@ def print_yaml_dict(_dict):
 
 
 def do_yaml_config():
-    """ Write a yaml file mappinng drivers to list of lircd.conf. """
+    """Write a yaml file mappinng drivers to list of lircd.conf."""
 
     if len(sys.argv) != 2:
         print("yaml-config: No arguments are allowed.")
@@ -199,7 +199,7 @@ def do_yaml_config():
 
 
 def do_find():
-    """ Find files containing pattern in sys.argv[2]. """
+    """Find files containing pattern in sys.argv[2]."""
     if len(sys.argv) < 3:
         print("No search string")
         print(USAGE)
@@ -216,14 +216,14 @@ def do_find():
 
 
 def do_update():
-    """ Download the directory from website. """
+    """Download the directory from website."""
     if os.path.exists(REMOTES_LIST):
         os.unlink(REMOTES_LIST)
     download_file(REMOTES_LIST_URL, REMOTES_LIST)
 
 
 def main():
-    """ Indeed: main program. """
+    """Indeed: main program."""
 
     if len(sys.argv) < 2:
         print("No command given")

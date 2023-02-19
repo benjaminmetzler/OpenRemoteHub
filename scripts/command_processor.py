@@ -14,8 +14,8 @@ class CommandProcessor:
     def start(self):
         while True:
             item = self.command_queue.get()
-            scancode = str(item['scancode'])
-            time_elapsed = item['time_elapsed']
+            scancode = str(item["scancode"])
+            time_elapsed = item["time_elapsed"]
             if scancode in self.current_activity:
                 code = self.current_activity[scancode]
                 if time_elapsed > self.long_press_limit and "long_press" in code:
@@ -27,41 +27,39 @@ class CommandProcessor:
             self.command_queue.task_done()
 
     def process_code(self, code: str):
-            repeat = 1
-            if "repeat" in code:
-                repeat = code["repeat"]
+        repeat = 1
+        if "repeat" in code:
+            repeat = code["repeat"]
 
-            for x in range(repeat):
-                if code["type"] == "ir":
-                    print(f"IR: {code})")
-                elif code["type"] == "bluetooth":
-                    print(f"BLUETOOTH: {code})")
-                elif code["type"] == "adb":
-                    print(f"ADB: {code})")
-                elif code["type"] == "curl":
-                    print(f"CURL: {code})")
-                elif code["type"] == "load":
-                    self.load_conf_file(code["file"])
-                elif code["type"] == "sleep":
-                    print(f"SLEEP: {code})")
-                elif code["type"] == "macro":
-                    print(f"MACRO: {code})")
-                    for macro_code in code["macro"]:
-                        self.process_code(macro_code)
-                else:
-                    print("Unknown type(%s)" % code["type"])
+        for x in range(repeat):
+            if code["type"] == "ir":
+                print(f"IR: {code})")
+            elif code["type"] == "bluetooth":
+                print(f"BLUETOOTH: {code})")
+            elif code["type"] == "adb":
+                print(f"ADB: {code})")
+            elif code["type"] == "curl":
+                print(f"CURL: {code})")
+            elif code["type"] == "load":
+                self.load_conf_file(code["file"])
+            elif code["type"] == "sleep":
+                print(f"SLEEP: {code})")
+            elif code["type"] == "macro":
+                print(f"MACRO: {code})")
+                for macro_code in code["macro"]:
+                    self.process_code(macro_code)
+            else:
+                print("Unknown type(%s)" % code["type"])
 
     def on_load(self):
         print(f"on_load: {self.current_activity_file}")
-        if "on_load" in self.current_activity:
-            print("on_load'ing")
-            # self.process_code(activity["on_load"], False)
+        if "on_load" in self.current_activity and self.current_activity["on_load"]:
+            self.process_code(self.current_activity["on_load"])
 
     def on_unload(self):
         print(f"on_unload: {self.current_activity_file}")
-        if "on_unload" in self.current_activity:
-            print("on_unload'ing")
-            # self.process_code(activity["on_unload"], False)
+        if "on_unload" in self.current_activity and self.current_activity["on_unload"]:
+            self.process_code(self.current_activity["on_unload"])
         self.current_activity = {}
 
     def load_conf_file(self, conf_file: str):

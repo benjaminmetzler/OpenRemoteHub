@@ -17,4 +17,3 @@ if __name__ == "__main__":
 
     keyboard_thread.join()
     command_processor_thread.join()
-

@@ -1,6 +1,7 @@
 # keyboard.py
 from evdev import InputDevice, ecodes
 
+
 class Keyboard:
     def __init__(self, input_device_path, command_queue):
         self.input_device_path = input_device_path
