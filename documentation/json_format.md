@@ -33,7 +33,7 @@ Possible actions are demonstrated below.
         "device":"example_stb",
         "long_press": {
             "type": "load",
-            "file":"/home/pi/my_remote/json/example_dvd.json"
+            "file":"json/example_dvd.json"
         }
     },
 ```
@@ -107,10 +107,10 @@ The `sleep` command is used in macros.  This is useful for when a device might r
 
 ```json
     "3":{
-       "load":"/home/pi/my_remote/json/example_dvd.json",
+       "load":"json/example_dvd.json",
         "long_press": {
             "type": "load",
-            "file":"/home/pi/my_remote/json/example_stb.json"
+            "file":"json/example_stb.json"
         }
     },
 ```

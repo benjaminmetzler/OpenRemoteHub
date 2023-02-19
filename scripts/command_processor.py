@@ -14,43 +14,42 @@ class CommandProcessor:
     def start(self):
         while True:
             item = self.command_queue.get()
-            self.process_code(str(item["scancode"]), item["time_elapsed"])
+            scancode = str(item['scancode'])
+            time_elapsed = item['time_elapsed']
+            if scancode in self.current_activity:
+                code = self.current_activity[scancode]
+                if time_elapsed > self.long_press_limit and "long_press" in code:
+                    code = code["long_press"]
+                self.process_code(code)
+            else:
+                print("scancode not found: {scancode}")
+
             self.command_queue.task_done()
 
-    def process_code(self, code: str, time_elapsed: float):
-        if code in self.current_activity:
-            code = self.current_activity[code]
-            if time_elapsed > self.long_press_limit and "long_press" in code:
-                code = code["long_press"]
-                time_elapsed = 0.0
+    def process_code(self, code: str):
+            repeat = 1
+            if "repeat" in code:
+                repeat = code["repeat"]
 
-            if "type" in code:
-                if "repeat" in code:
-                    repeat = code["repeat"]
+            for x in range(repeat):
+                if code["type"] == "ir":
+                    print(f"IR: {code})")
+                elif code["type"] == "bluetooth":
+                    print(f"BLUETOOTH: {code})")
+                elif code["type"] == "adb":
+                    print(f"ADB: {code})")
+                elif code["type"] == "curl":
+                    print(f"CURL: {code})")
+                elif code["type"] == "load":
+                    self.load_conf_file(code["file"])
+                elif code["type"] == "sleep":
+                    print(f"SLEEP: {code})")
+                elif code["type"] == "macro":
+                    print(f"MACRO: {code})")
+                    for macro_code in code["macro"]:
+                        self.process_code(macro_code)
                 else:
-                    repeat = 1
-                for x in range(repeat):
-                    if code["type"] == "ir":
-                        print(f"IR: {code})")
-                    elif code["type"] == "bluetooth":
-                        print(f"BLUETOOTH: {code})")
-                    elif code["type"] == "adb":
-                        print(f"ADB: {code})")
-                    elif code["type"] == "curl":
-                        print(f"CURL: {code})")
-                    elif code["type"] == "load":
-                        self.load_conf_file(code["file"])
-                    elif code["type"] == "sleep":
-                        print(f"SLEEP: {code})")
-                    elif code["type"] == "macro":
-                        print(f"MACRO: {code})")
-                        for macro_code in code["macro"]:
-                            self.process_code(macro_code, time_elapsed)
-                    else:
-                        print("Unknown type(%s)" % code["type"])
-
-        else:
-            print("Type not found: %s" % code)
+                    print("Unknown type(%s)" % code["type"])
 
     def on_load(self):
         print(f"on_load: {self.current_activity_file}")

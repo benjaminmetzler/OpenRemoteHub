@@ -2,17 +2,17 @@
     "168":{
         "comment": "blue",
         "type": "load",
-        "file":"/home/pi/my_remote/json/example_stb.json"
+        "file":"json/example_stb.json"
     },
     "217":{
         "comment": "orange",
         "type": "load",
-        "file":"/home/pi/my_remote/json/example_dvd.json"
+        "file":"json/example_dvd.json"
     },
     "208":{
         "comment": "red",
         "type": "load",
-        "file":"/home/pi/my_remote/json/example_xbox360.json"
+        "file":"json/example_xbox360.json"
     },
     "115":{
         "comment": "Volume Up",

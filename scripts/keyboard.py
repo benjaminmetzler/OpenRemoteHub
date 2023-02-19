@@ -20,7 +20,7 @@ class Keyboard:
                     key_release_time = event.timestamp()
                     if key_press_time is not None:
                         time_elapsed = key_release_time - key_press_time
-                        command = {"code": event.code, "time_elapsed": time_elapsed}
+                        command = {"scancode": event.code, "time_elapsed": time_elapsed}
                         self.command_queue.put(command)
 
                         # Read and ignore the next event to discard the key press
