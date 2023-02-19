@@ -4,9 +4,9 @@ import json
 
 
 class CommandProcessor:
-    def __init__(self, command_queue):
+    def __init__(self, command_queue, activity_file):
         self.command_queue = command_queue
-        self.current_activity_file = "json/common.json"
+        self.current_activity_file = activity_file
         self.current_activity = {}
         self.long_press_limit = 0.75
         self.load_conf_file(self.current_activity_file)
