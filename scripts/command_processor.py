@@ -1,6 +1,7 @@
 # command_processor.py
 import pathlib
 import json
+import lirc
 
 
 class CommandProcessor:
@@ -9,7 +10,9 @@ class CommandProcessor:
         self.current_activity_file = activity_file
         self.current_activity = {}
         self.long_press_limit = 0.75
+        self.client = lirc.Client()
         self.load_conf_file(self.current_activity_file)
+
 
     def start(self):
         while True:
@@ -33,6 +36,7 @@ class CommandProcessor:
 
         for x in range(repeat):
             if code["type"] == "ir":
+                self.send_ir(code["device"], code["code"])
                 print(f"IR: {code})")
             elif code["type"] == "bluetooth":
                 print(f"BLUETOOTH: {code})")
@@ -50,6 +54,15 @@ class CommandProcessor:
                     self.process_code(macro_code)
             else:
                 print("Unknown type(%s)" % code["type"])
+
+    def send_ir(self, device, code):
+        command = 'irsend SEND_ONCE "%s" "%s"' % (device, code)
+        print("%s | %s" % (device, command))
+        try:
+            self.client.send_once(device, code)
+        except lirc.exceptions.LircdCommandFailureError as error:
+            print("Unable to send the %s key to %s!" % (device, code))
+            print(error)  # Error has more info on what lircd sent back.
 
     def on_load(self):
         print(f"on_load: {self.current_activity_file}")
