@@ -1,4 +1,4 @@
-# keyboard.py
+""" Handle keyboard events and push them to the command queue """
 from evdev import InputDevice, ecodes
 
 

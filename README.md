@@ -56,7 +56,17 @@ my_remote takes input from a keyboard or an HID remote and converts it into an a
 
 ## Contributing
 
-Pull requests are welcome. Help with enabling the Raspberry Pi as a functional bluetooth HID to an android device (think Nvidia Shield) is greatly appreciated.  For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome. Help with enabling the Raspberry Pi as a functional bluetooth HID to an android device (think Nvidia Shield or Apple TV) is greatly appreciated.  For major changes, please open an issue first to discuss what you would like to change.
+
+The code is written with VSCode in mind. It has a configuration set up in the .vscode directory that allows for debugging. To do development, take the following steps:
+
+1. Run the prep command: `./prep`. This will:
+    1. Create a virtual environment
+    1. Install the requirement.txt into the venv
+    1. Install pre-commit pre-commit hook
+1. Activate the virtual env for your development: `source venv/bin/activate`
+
+Please ensure that any PRs pass pre-commit.
 
 ## Links
 

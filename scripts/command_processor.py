@@ -1,4 +1,4 @@
-# command_processor.py
+""" Handle the commands pushed to the command queue """
 import pathlib
 import json
 import lirc
@@ -12,7 +12,6 @@ class CommandProcessor:
         self.long_press_limit = 0.75
         self.client = lirc.Client()
         self.load_conf_file(self.current_activity_file)
-
 
     def start(self):
         while True:
