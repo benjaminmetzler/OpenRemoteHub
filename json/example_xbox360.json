@@ -3,13 +3,13 @@
         "type": "macro",
         "macro": [
             { "type": "ir", "code":"KEY_POWER_ON" , "device": "xbox360_discrete" },
-            { "type": "sleep", "duration": ".25s" , "device": "xbox360_discrete" },
+            { "type": "sleep", "duration": ".25" , "device": "xbox360_discrete" },
             { "type": "ir", "code":"KEY_POWER_ON" , "device": "toshiba_tv" },
-            { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
+            { "type": "sleep", "duration": ".25" , "device": "toshiba_tv" },
             { "type": "ir", "code":"KEY_POWER_ON" , "device": "yamaha_receiver" },
-            { "type": "sleep", "duration": ".25s" , "device": "yamaha_receiver" },
+            { "type": "sleep", "duration": ".25" , "device": "yamaha_receiver" },
             { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv" },
-            { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
+            { "type": "sleep", "duration": ".25" , "device": "toshiba_tv" },
             { "type": "ir", "code":"INPUT_HDMI_3" , "device": "yamaha_receiver" }
         ]
     },

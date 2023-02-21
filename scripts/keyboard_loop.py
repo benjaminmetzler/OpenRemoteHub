@@ -8,7 +8,7 @@ class My_Remote:
     def callback(self, event):
         scan_code = event.scan_code
         name = event.name
-        print("%s(%s)" % (scan_code, name))
+        print(f"{scan_code}({name}")
 
     def start(self):
         keyboard.on_release(callback=self.callback, suppress=True)

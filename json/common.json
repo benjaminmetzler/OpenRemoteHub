@@ -2,17 +2,17 @@
     "168":{
         "comment": "blue",
         "type": "load",
-        "file":"/home/pi/my_remote/json/example_stb.json"
+        "file":"json/example_stb.json"
     },
     "217":{
         "comment": "orange",
         "type": "load",
-        "file":"/home/pi/my_remote/json/example_dvd.json"
+        "file":"json/example_dvd.json"
     },
     "208":{
         "comment": "red",
         "type": "load",
-        "file":"/home/pi/my_remote/json/example_xbox360.json"
+        "file":"json/example_xbox360.json"
     },
     "115":{
         "comment": "Volume Up",
@@ -37,15 +37,15 @@
         "type": "macro",
         "macro": [
             { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv", "repeat":2 },
-            { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"INPUT_HDMI_4" , "device": "yamaha_receiver", "repeat":2 },
-            { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
+            { "type": "sleep", "duration": ".25" , "device": "toshiba_tv" },
+            { "type": "ir", "code":"INPUT_HDMI_2" , "device": "yamaha_receiver", "repeat":2 },
+            { "type": "sleep", "duration": ".25" , "device": "toshiba_tv" },
             { "type": "ir", "code":"KEY_POWER_OFF" , "device": "toshiba_tv", "repeat":2 },
-            { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
+            { "type": "sleep", "duration": ".25" , "device": "toshiba_tv" },
             { "type": "ir", "code":"KEY_POWER_OFF" , "device": "yamaha_receiver" },
-            { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
+            { "type": "sleep", "duration": ".25" , "device": "toshiba_tv" },
             { "type": "ir", "code":"KEY_POWER_OFF" , "device": "nvidia_shield", "repeat":5},
-            { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
+            { "type": "sleep", "duration": ".25" , "device": "toshiba_tv" },
             { "type": "ir", "code":"KEY_POWER_OFF" , "device": "xbox360_discrete" }
         ]
     }

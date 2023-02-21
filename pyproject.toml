@@ -1,0 +1,5 @@
+[tool.ruff]
+ignore = ["E741"]
+
+[tool.black]
+target-version = ['py39']
