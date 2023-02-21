@@ -1,5 +1,6 @@
 """ Handle keyboard events and push them to the command queue """
-from evdev import InputDevice, ecodes
+from evdev import InputDevice
+from evdev.ecodes import EV_KEY
 
 
 class Keyboard:
@@ -14,7 +15,9 @@ class Keyboard:
         key_release_time = None
 
         for event in self.keyboard.read_loop():
-            if event.type == ecodes.EV_KEY:
+            # read_loop will return all types of input,
+            # so we want to only look at keyboard presses
+            if event.type == EV_KEY:
                 if event.value == 1:
                     key_press_time = event.timestamp()
                 elif event.value == 0:
@@ -27,12 +30,12 @@ class Keyboard:
                         # Read and ignore the next event to discard the key press
                         try:
                             self.keyboard.read_one()
-                        except OSError as e:
+                        except OSError as error:
                             # handle I/O error or device disconnection
-                            print("Error reading from keyboard device:", e)
-                        except ValueError as e:
+                            print("Error reading from keyboard device:", error)
+                        except ValueError as error:
                             # handle invalid input data
-                            print("Invalid input event:", e)
+                            print("Invalid input event:", error)
 
                     key_press_time = None
                     key_release_time = None

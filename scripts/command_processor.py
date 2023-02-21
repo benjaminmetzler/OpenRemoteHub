@@ -1,6 +1,7 @@
 """ Handle the commands pushed to the command queue """
 import pathlib
 import json
+import time
 import lirc
 
 
@@ -33,7 +34,7 @@ class CommandProcessor:
         if "repeat" in code:
             repeat = code["repeat"]
 
-        for x in range(repeat):
+        for _ in range(repeat):
             if code["type"] == "ir":
                 self.send_ir(code["device"], code["code"])
                 print(f"IR: {code})")
@@ -46,22 +47,26 @@ class CommandProcessor:
             elif code["type"] == "load":
                 self.load_conf_file(code["file"])
             elif code["type"] == "sleep":
-                print(f"SLEEP: {code})")
+                self.sleep(code["device"], code["duration"])
             elif code["type"] == "macro":
                 print(f"MACRO: {code})")
                 for macro_code in code["macro"]:
                     self.process_code(macro_code)
             else:
-                print("Unknown type(%s)" % code["type"])
+                print(f"Unknown type({code['type']})")
+
 
     def send_ir(self, device, code):
-        command = 'irsend SEND_ONCE "%s" "%s"' % (device, code)
-        print("%s | %s" % (device, command))
+        print(f"IR: {device}, {code}")
         try:
             self.client.send_once(device, code)
         except lirc.exceptions.LircdCommandFailureError as error:
-            print("Unable to send the %s key to %s!" % (device, code))
+            print(f"Unable to send the {device} key to {code}!")
             print(error)  # Error has more info on what lircd sent back.
+
+    def sleep(self, device, duration):
+        print(f"SLEEP: {device}, {duration}")
+        time.sleep(float(duration))
 
     def on_load(self):
         print(f"on_load: {self.current_activity_file}")
@@ -80,15 +85,15 @@ class CommandProcessor:
             self.on_unload()
 
             # read the common file
-            with open("json/common.json") as file:
+            with open("json/common.json", encoding="utf-8") as file:
                 common = json.load(file)
 
             # read the configuration file
-            with open(conf_file) as file:
+            with open(conf_file, encoding="utf-8") as file:
                 self.current_activity = json.load(file)
 
             self.current_activity.update(common)
             self.current_activity_file = conf_file
             self.on_load()
         else:
-            print("Unable to find: %s" % conf_file)
+            print(f"Unable to find: {conf_file}")

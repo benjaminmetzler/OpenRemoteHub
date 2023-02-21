@@ -1,3 +1,4 @@
+""" main.py """
 import queue
 import threading
 from keyboard import Keyboard

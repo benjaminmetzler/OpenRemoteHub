@@ -5,7 +5,7 @@
         "macro": [
             { "type": "ir", "code":"KEY_POWER_ON" , "device": "toshiba_tv" },
             { "type": "ir", "code":"KEY_POWER_ON" , "device": "yamaha_receiver" },
-            { "type": "sleep", "duration": "2s" , "device": "toshiba_tv" },
+            { "type": "sleep", "duration": "2" , "device": "toshiba_tv" },
             { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv" },
             { "type": "ir", "code":"INPUT_HDMI_1" , "device": "yamaha_receiver" }
         ]

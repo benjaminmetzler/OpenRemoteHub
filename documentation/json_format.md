@@ -13,7 +13,7 @@ my_remote uses a json formatted file to store and configure the remote depending
 |            | Code to transmit on the specified channel to the specified device               |
 | file       | Required if type is `load`.  Specifies the name of the file to load. This       |
 |            | will clear out  the current mode.                                               |
-| duration   | Required if type is `sleep`.  Specifies the duration to sleep in seconds.       |
+| duration   | Required if type is `sleep`.  Specifies the duration to sleep in seconds. Can be a float or int (0.25 or 1)       |
 | macro      | Allows running multiple commands with a single button press.                    |
 | comment    | Optional field that is not used by the code but can be used for block info.     |
 | repeat     | Number of times to repeat the action.  If not set the action will be done once. |
@@ -41,6 +41,9 @@ Possible actions are demonstrated below.
 The above configuration will instruct my_remote to send the example_stb a KEY_UP code via the IR channel.  Medium is determined by the type.
 
 ### ADB
+
+#### NOTE: ADB is not currently implemented
+
 
 ```json
     "103":{
@@ -72,6 +75,8 @@ Useful for devices that can accept input via a bluetooth keyboard (Nvidia Shield
 The next example does the same thing as the first, but with bluetooth.  It will repeat the command 5 times.
 
 ### curl
+
+#### NOTE: curl is not currently implemented
 
 Useful for apps like [Kodi](https://kodi.tv/) (https://kodi.wiki/view/JSON-RPC_API)
 
@@ -128,7 +133,7 @@ long_press requires that the key up indication not be returned until the key has
         "macro": [
             { "type": "ir", "code":"INPUT_HDMI_1" , "device": "example_tv" },
             { "type": "ir", "code":"INPUT_HDMI_4" , "device": "example_receiver" },
-            { "type": "sleep", "duration": "2s"  },
+            { "type": "sleep", "duration": "2"  },
             { "type": "ir", "code":"KEY_POWER_OFF" , "device": "example_tv" },
             { "type": "ir", "code":"KEY_POWER_OFF" , "device": "example_receiver" }
         ]
@@ -149,7 +154,7 @@ When a mode is loaded, my_remote will invoke the `on_load` block.  This will car
             "macro": [
                 { "type": "ir", "code":"KEY_POWER_ON", "device": "example_tv" },
                 { "type": "ir", "code":"KEY_POWER_ON", "device": "example_receiver"},
-                { "type": "sleep", "duration": "2s", "device": "example_tv" },
+                { "type": "sleep", "duration": "2", "device": "example_tv" },
                 { "type": "ir", "code":"KEY_HDMI_01", "device": "example_tv" },
                 { "type": "ir", "code":"KEY_HDMI_04", "device": "example_receiver" }
             ]
@@ -200,7 +205,7 @@ Common.json will be loaded with each mode file.  This allows for a common set of
         "macro": [
             { "type": "ir", "code":"INPUT_HDMI_1" , "device": "example_tv" },
             { "type": "ir", "code":"INPUT_HDMI_4" , "device": "example_receiver" },
-            { "type": "sleep", "duration": "2s" , "device": "example_tv" },
+            { "type": "sleep", "duration": "2" , "device": "example_tv" },
             { "type": "ir", "code":"KEY_POWER_OFF" , "device": "example_tv" },
             { "type": "ir", "code":"KEY_POWER_OFF" , "device": "example_receiver" }
         ]

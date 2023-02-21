@@ -3,4 +3,4 @@ evdev==1.6.1
 lirc==2.0.2
 pathlib==1.0.1
 pre-commit==3.0.4
-ruff==0.0.248
+pylint==2.16.2
