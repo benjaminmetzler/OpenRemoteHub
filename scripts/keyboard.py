@@ -4,6 +4,8 @@ from evdev.ecodes import EV_KEY
 
 
 class Keyboard:
+    """main class"""
+
     def __init__(self, input_device_path, command_queue):
         self.input_device_path = input_device_path
         self.command_queue = command_queue
@@ -11,6 +13,7 @@ class Keyboard:
         self.keyboard = InputDevice(self.input_device_path)
 
     def start(self):
+        """start"""
         key_press_time = None
         key_release_time = None
 
@@ -41,4 +44,5 @@ class Keyboard:
                     key_release_time = None
 
     def stop(self):
+        """stop"""
         self.keyboard.close()
