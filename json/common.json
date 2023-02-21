@@ -38,7 +38,7 @@
         "macro": [
             { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv", "repeat":2 },
             { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"INPUT_HDMI_4" , "device": "yamaha_receiver", "repeat":2 },
+            { "type": "ir", "code":"INPUT_HDMI_2" , "device": "yamaha_receiver", "repeat":2 },
             { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
             { "type": "ir", "code":"KEY_POWER_OFF" , "device": "toshiba_tv", "repeat":2 },
             { "type": "sleep", "duration": ".25s" , "device": "toshiba_tv" },
