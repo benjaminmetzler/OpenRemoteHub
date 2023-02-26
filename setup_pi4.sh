@@ -67,28 +67,28 @@ sudo su -c "echo 'NAutoVTs=0' >> /etc/systemd/logind.conf"
 sudo su -c "echo 'eserveVT=0' >> /etc/systemd/logind.conf"
 systemctl disable getty@tty1.service
 
-echo "*** pull the my_remote repo locally ***"
+echo "*** pull the OpenRemoteHub repo locally ***"
 cd $currentdir
-git clone https://github.com/benjaminmetzler/my_remote.git
-cd $currentdir/my_remote
+git clone https://github.com/benjaminmetzler/OpenRemoteHub.git
+cd $currentdir/OpenRemoteHub
 sudo pip3 install virtualenv
 virtualenv venv
 source venv/bin/activate
 pip3 install -r requirements.txt
 
 echo "*** Copy and activate the harmony companion map for unknown keys ***"
-cd $currentdir/my_remote
+cd $currentdir/OpenRemoteHub
 sudo cp scripts/98-harmonycompanion.hwdb /etc/udev/hwdb.d/
 sudo systemd-hwdb update
 sudo udevadm trigger
 
 echo "*** copy the sample lirc IR defintion files ***"
-cd $currentdir/my_remote
+cd $currentdir/OpenRemoteHub
 sudo cp ir_database/*.conf /etc/lirc/lircd.conf.d/
 
-echo "*** Install and enable the my_remote service ***"
-# sudo cp my_remote.service /etc/systemd/system/my_remote.service
-# sudo systemctl enable my_remote
+echo "*** Install and enable the OpenRemoteHub service ***"
+# sudo cp OpenRemoteHub.service /etc/systemd/system/OpenRemoteHub.service
+# sudo systemctl enable OpenRemoteHub
 
 echo "*** reboot to make sure everything is up and running ***"
 sudo shutdown -r 0

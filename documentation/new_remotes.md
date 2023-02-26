@@ -1,6 +1,6 @@
 # Adding a new remote
 
-my_remote can handle any device that acts like an HID keyboard.  Most remotes sold for a computer use some set of key presses, whether they are the standard keyboard keys like 0-9 or special "hidden" keys like F11-F24.  my_remote uses the [scancode](https://en.wikipedia.org/wiki/Scancode) sent from the HID controller to map to the action.
+OpenRemoteHub can handle any device that acts like an HID keyboard.  Most remotes sold for a computer use some set of key presses, whether they are the standard keyboard keys like 0-9 or special "hidden" keys like F11-F24.  OpenRemoteHub uses the [scancode](https://en.wikipedia.org/wiki/Scancode) sent from the HID controller to map to the action.
 
 ```json
     "106":{
@@ -64,7 +64,7 @@ Event: time 1621660451.064795, type 1 (EV_KEY), code 240 (KEY_UNKNOWN), value 0
 Event: time 1621660451.064795, -------------- SYN_REPORT ------------
 ```
 
-In this case the scancode must be mapped at the system level for my_remote to use them.  To do this, use the below as a template and create a file with the name `98-REMOTE_NAME.hwdb` where `REMOTE-NAME` is the name of your remote (e.g. 98-GI40.hwdb or 98-harmonycompanion.hwdb):
+In this case the scancode must be mapped at the system level for OpenRemoteHub to use them.  To do this, use the below as a template and create a file with the name `98-REMOTE_NAME.hwdb` where `REMOTE-NAME` is the name of your remote (e.g. 98-GI40.hwdb or 98-harmonycompanion.hwdb):
 
 ```shell
 evdev:name:Logitech Harmony 20+:*

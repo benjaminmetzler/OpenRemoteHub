@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /home/pi/my_remote
-source /home/pi/my_remote/venv/bin/activate
-sudo /home/pi/my_remote/venv/bin/python3 scripts/main.py
+cd /home/pi/OpenRemoteHub
+source /home/pi/OpenRemoteHub/venv/bin/activate
+sudo /home/pi/OpenRemoteHub/venv/bin/python3 scripts/main.py
 # sudo python3 scripts/keyboard_loop.py

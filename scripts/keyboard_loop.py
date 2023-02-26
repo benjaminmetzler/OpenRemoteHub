@@ -1,7 +1,7 @@
 import keyboard
 
 
-class My_Remote:
+class OpenRemoteHub:
     def __init__(self):
         print("waiting for keystroke")
 
@@ -16,5 +16,5 @@ class My_Remote:
 
 
 if __name__ == "__main__":
-    my_remote = My_Remote()
-    my_remote.start()
+    OpenRemoteHub = OpenRemoteHub()
+    OpenRemoteHub.start()
