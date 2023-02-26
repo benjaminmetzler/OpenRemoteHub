@@ -1,10 +1,10 @@
-# Using my_remote
+# Using OpenRemoteHub
 
 My Remote uses the hub model.  A low power device (like a Raspberry Pi) will handle the state of the hub, with the actual remote being just a "dumb" device that send signals to the hub.  The hub will decide what happens when the play button is pressed depending on the state of the hub.
 
-The hub will have modes.  My Remote will do different things based on the current mode it is in.  If it's in DVD mode, it will send the PLAY button press using the DVD PLAY IR code.  If it's in STB mode, then an bluetooth UP press will be sent to the STB.  my_remote tracks its mode only.  The hub doesn't know the state of the devices.
+The hub will have modes.  My Remote will do different things based on the current mode it is in.  If it's in DVD mode, it will send the PLAY button press using the DVD PLAY IR code.  If it's in STB mode, then an bluetooth UP press will be sent to the STB.  OpenRemoteHub tracks its mode only.  The hub doesn't know the state of the devices.
 
-Devices that can be controlled by one of the supported my_remote interfaces can be added to my_remote.
+Devices that can be controlled by one of the supported OpenRemoteHub interfaces can be added to OpenRemoteHub.
 
 ## Infrared
 

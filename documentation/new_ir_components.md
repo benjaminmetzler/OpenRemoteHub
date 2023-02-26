@@ -1,6 +1,6 @@
 # Adding New IR Components
 
-my_remote uses lirc to send out IR signals to devices.  To add a new device you will need to provide an lirc configuration for that device.  lirc has an extensive set of conf files that can be searched using the included scripts/irdb-get.  For instance:
+OpenRemoteHub uses lirc to send out IR signals to devices.  To add a new device you will need to provide an lirc configuration for that device.  lirc has an extensive set of conf files that can be searched using the included scripts/irdb-get.  For instance:
 
 ``` terminal
 % scripts/irdb-get find xbox

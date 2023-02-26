@@ -1,8 +1,8 @@
 # Introduction
 
-my_remote state is determined by the loaded mode file.  This is independent of the current state of the controlled devices.
+OpenRemoteHub state is determined by the loaded mode file.  This is independent of the current state of the controlled devices.
 
-my_remote uses a json formatted file to store and configure the remote depending on the button pressed on the remote.  The objects are named after the scan_code received by my_remote.  For instance the `Enter` key will have a scan_code of `28`.  Each object will contain key:value pairs defining the action and any required key:value pairs.  The valid keys are listed below.
+OpenRemoteHub uses a json formatted file to store and configure the remote depending on the button pressed on the remote.  The objects are named after the scan_code received by OpenRemoteHub.  For instance the `Enter` key will have a scan_code of `28`.  Each object will contain key:value pairs defining the action and any required key:value pairs.  The valid keys are listed below.
 
 | Key        | Data                                                                            |
 | ---------- | ------------------------------------------------------------------------------- |
@@ -38,7 +38,7 @@ Possible actions are demonstrated below.
     },
 ```
 
-The above configuration will instruct my_remote to send the example_stb a KEY_UP code via the IR channel.  Medium is determined by the type.
+The above configuration will instruct OpenRemoteHub to send the example_stb a KEY_UP code via the IR channel.  Medium is determined by the type.
 
 ### ADB
 
@@ -54,7 +54,7 @@ The above configuration will instruct my_remote to send the example_stb a KEY_UP
     },
 ```
 
-The above will send a command to the device.  `adb` also allows additional options for code: `CONNECT` and `DISCONNECT`.  Use of these options will cause my_remote to issue an `adb connect` or `adb disconnect`.  See [here](nvidia_adb.md) for more information on using adb for device control.
+The above will send a command to the device.  `adb` also allows additional options for code: `CONNECT` and `DISCONNECT`.  Use of these options will cause OpenRemoteHub to issue an `adb connect` or `adb disconnect`.  See [here](nvidia_adb.md) for more information on using adb for device control.
 
 ### Bluetooth
 
@@ -120,7 +120,7 @@ The `sleep` command is used in macros.  This is useful for when a device might r
     },
 ```
 
-The above configuration will instruct my_remote to load the example_dvd.json mode file.  This is used to switch the mode of the remote.  An alternative action will load the example_stb.json mode file if the key is held for longer then 1 second.
+The above configuration will instruct OpenRemoteHub to load the example_dvd.json mode file.  This is used to switch the mode of the remote.  An alternative action will load the example_stb.json mode file if the key is held for longer then 1 second.
 
 long_press requires that the key up indication not be returned until the key has been released.  This can happen with some special buttons like push-to-talk buttons on HDI remote.  Also not that some remotes will send the same key multiple key down indications as long as it is pressed while other buttons will send just one key down.
 
@@ -146,7 +146,7 @@ Macros can be used to group multiple actions on a key press.  In the above examp
 
 There are two optional actions defined for mode files: `on_load` and `on_unload`.
 
-When a mode is loaded, my_remote will invoke the `on_load` block.  This will carry out any number of steps as shown below.
+When a mode is loaded, OpenRemoteHub will invoke the `on_load` block.  This will carry out any number of steps as shown below.
 
 ``` json
     "on_load":[
@@ -162,7 +162,7 @@ When a mode is loaded, my_remote will invoke the `on_load` block.  This will car
     ],
 ```
 
-The above example shows that when the mode is loaded it will instruct my_remote to send the power on commands to the tv and receiver and then tell them to switch to the correct HDMI ports.  Any number of actions can be done in a macro.
+The above example shows that when the mode is loaded it will instruct OpenRemoteHub to send the power on commands to the tv and receiver and then tell them to switch to the correct HDMI ports.  Any number of actions can be done in a macro.
 
 ``` json
     "on_unload":[

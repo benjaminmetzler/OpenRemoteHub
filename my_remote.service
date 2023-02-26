@@ -1,10 +1,10 @@
 [Unit]
-Description=my_remote
+Description=OpenRemoteHub
 After=network.target
 
 [Service]
-ExecStart=bash /home/pi/my_remote/main.sh
-WorkingDirectory=/home/pi/my_remote
+ExecStart=bash /home/pi/OpenRemoteHub/main.sh
+WorkingDirectory=/home/pi/OpenRemoteHub
 StandardOutput=inherit
 StandardError=inherit
 Restart=always

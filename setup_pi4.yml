@@ -1,11 +1,11 @@
-- name: Set up my_remote on Raspberry Pi 4
+- name: Set up OpenRemoteHub on Raspberry Pi 4
   gather_facts: false
   hosts: all
   become_user: root
   vars:
     home_directory: "/home/pi"
     lirc_src_directory: "{{ home_directory }}/lirc-src"
-    my_remote_directory: "{{ home_directory }}/my_remote"
+    OpenRemoteHub_directory: "{{ home_directory }}/OpenRemoteHub"
     ansible_python_interpreter: /usr/bin/python3
   tasks:
     - name: create deb-src list
@@ -155,7 +155,7 @@
         path: "{{ lirc_src_directory }}"
         state: absent
 
-    - name: Copy my_remote to the raspberry pi
+    - name: Copy OpenRemoteHub to the raspberry pi
       ansible.posix.synchronize:
         src: "{{ playbook_dir }}"
         dest: "{{ home_directory }}"
@@ -168,10 +168,10 @@
         name: virtualenv
       become: yes
 
-    - name: Install my_remote python requirements
+    - name: Install OpenRemoteHub python requirements
       ansible.builtin.pip:
-        requirements: "{{ my_remote_directory }}/requirements.txt"
-        virtualenv: "{{ my_remote_directory }}/venv"
+        requirements: "{{ OpenRemoteHub_directory }}/requirements.txt"
+        virtualenv: "{{ OpenRemoteHub_directory }}/venv"
 
     - name: Copy ir files to the raspberry pi lirc directory
       ansible.builtin.synchronize:
@@ -179,16 +179,16 @@
         dest: "/etc/lirc/lircd.conf.d/"
       become: yes
 
-    - name: Copy my_remote service
+    - name: Copy OpenRemoteHub service
       ansible.builtin.copy:
-        src: "{{ playbook_dir }}/my_remote.service"
-        dest: /etc/systemd/system/my_remote.service
+        src: "{{ playbook_dir }}/OpenRemoteHub.service"
+        dest: /etc/systemd/system/OpenRemoteHub.service
       become: yes
 
-    - name: Enable the my_remote service
+    - name: Enable the OpenRemoteHub service
       ansible.builtin.systemd:
         enabled: yes
-        name: my_remote
+        name: OpenRemoteHub
       become: yes
 
     - name: Reboot to enable all changes
