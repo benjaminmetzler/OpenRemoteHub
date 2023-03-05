@@ -6,6 +6,8 @@ OpenRemoteHub uses a json formatted file to store and configure the remote depen
 
 ## Valid Keys
 
+**action**: Action to take. Valid values are `ir`, `bluetooth`, `adb`, `curl`, `app`, `sleep`,`load`, and `macro`
+
 **code**: Code to transmit on the specified channel to the specified device. Required if action is `ir`, `bluetooth`, `adb`, `curl`, or `app`.
 
 **comment**: Optional field that is not used by the code but can be used for block info.
@@ -21,8 +23,6 @@ OpenRemoteHub uses a json formatted file to store and configure the remote depen
 **macro**: Allows running multiple commands with a single button press.
 
 **repeat**: Number of times to repeat the action. If not set the action will be done once.
-
-**action**: Action to take. Valid values are `ir`, `bluetooth`, `adb`, `curl`, `app`, `sleep`,`load`, and `macro`
 
 ## Examples
 
