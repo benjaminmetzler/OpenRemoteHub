@@ -7,13 +7,21 @@ OpenRemoteHub uses a json formatted file to store and configure the remote depen
 ## Valid Keys
 
 **code**: Code to transmit on the specified channel to the specified device. Required if action is `ir`, `bluetooth`, `adb`, `curl`, or `app`.
+
 **comment**: Optional field that is not used by the code but can be used for block info.
+
 **device**: Name of the device to control
+
 **duration**: Required if action is `sleep`. Specifies the duration to sleep in seconds. Can be a float or int (0.25 or 1)
-**file**: Specifies the name of the file to load. This will clear out the current activity. Required if action is `load`. 
+
+**file**: Specifies the name of the file to load. This will clear out the current activity. Required if action is `load`.
+
 **long_press**: An actions to take if a long press ( > 1 second) is detected.
+
 **macro**: Allows running multiple commands with a single button press.
+
 **repeat**: Number of times to repeat the action. If not set the action will be done once.
+
 **action**: Action to take. Valid values are `ir`, `bluetooth`, `adb`, `curl`, `app`, `sleep`,`load`, and `macro`
 
 ## Examples
