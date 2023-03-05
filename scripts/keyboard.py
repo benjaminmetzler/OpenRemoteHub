@@ -1,7 +1,7 @@
+""" keyboard.py """
+import threading
 from evdev import InputDevice
 from evdev.ecodes import EV_KEY
-import threading
-import time
 
 
 class Keyboard:
@@ -24,16 +24,20 @@ class Keyboard:
             if event.type == EV_KEY:
                 if event.value == 1:
                     key_press_time = event.timestamp()
-                    long_press_timer = threading.Timer(self.long_press_limit, self.handle_long_press, args=[event.code])
+                    long_press_timer = threading.Timer(
+                        self.long_press_limit, self.handle_long_press, args=[event.code]
+                    )
                     long_press_timer.start()
                 elif event.value == 0:
                     if key_press_time is not None:
                         key_release_time = event.timestamp()
                         time_elapsed = key_release_time - key_press_time
                         if long_press_timer and long_press_timer.is_alive():
-                            long_press_timer.cancel()  # release detected, cancel the long press timer
+                            long_press_timer.cancel()
                         if time_elapsed < self.long_press_limit:
-                            self.command_queue.put({"scancode": event.code, "long_press": False})
+                            self.command_queue.put(
+                                {"scancode": event.code, "long_press": False}
+                            )
                     key_press_time = None
                     long_press_timer = None
 
