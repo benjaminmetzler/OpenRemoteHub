@@ -24,4 +24,4 @@ Copy the conf file with `sudo cp  Xbox_PG-8012.lircd.conf /etc/lirc/lircd.d.conf
 
 The above would send the DISPLAY IR code to the xbox.  Your device will have different commands to use.
 
-Once the above is done you will need to update the mode jsons to call the new device.  Please refer to json/example* files for how to format the new commands as well as documentation/json_formate.md.
+Once the above is done you will need to update the activity jsons to call the new device.  Please refer to json/example* files for how to format the new commands as well as documentation/json_formate.md.
