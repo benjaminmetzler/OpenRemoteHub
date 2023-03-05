@@ -2,7 +2,7 @@
 
 OpenRemoteHub state is determined by the loaded mode file.  This is independent of the current state of the controlled devices.
 
-OpenRemoteHub uses a json formatted file to store and configure the remote depending on the button pressed on the remote.  The objects are named after the scan_code received by OpenRemoteHub.  For instance the `Enter` key will have a scan_code of `28`.  Each object will contain key:value pairs defining the action and any required key:value pairs.  The valid keys are listed below.
+OpenRemoteHub uses a json formatted file to store and configure the remote depending on the button pressed on the remote.  The objects are named after the scancode received by OpenRemoteHub.  For instance the `Enter` key will have a scancode of `28`.  Each object will contain key:value pairs defining the action and any required key:value pairs.  The valid keys are listed below.
 
 | Key        | Data                                                                            |
 | ---------- | ------------------------------------------------------------------------------- |

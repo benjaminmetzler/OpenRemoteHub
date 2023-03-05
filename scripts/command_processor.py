@@ -12,7 +12,6 @@ class CommandProcessor:
         self.command_queue = command_queue
         self.current_activity_file = activity_file
         self.current_activity = {}
-        self.long_press_limit = 0.75
         self.client = lirc.Client()
         self.load_conf_file(self.current_activity_file)
 
@@ -21,14 +20,15 @@ class CommandProcessor:
         while True:
             item = self.command_queue.get()
             scancode = str(item["scancode"])
-            time_elapsed = item["time_elapsed"]
+            long_press = item["long_press"]
+            print(f"processing scancode {scancode}, long_press {long_press}")
             if scancode in self.current_activity:
                 code = self.current_activity[scancode]
-                if time_elapsed > self.long_press_limit and "long_press" in code:
+                if long_press and "long_press" in code:
                     code = code["long_press"]
                 self.process_code(code)
             else:
-                print("scancode not found: {scancode}")
+                print(f"scancode {scancode} not found")
 
             self.command_queue.task_done()
 

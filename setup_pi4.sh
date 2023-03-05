@@ -39,7 +39,7 @@ mkdir $currentdir/lirc-src
 cd $currentdir/lirc-src
 apt source lirc
 wget https://raw.githubusercontent.com/neuralassembly/raspi/master/lirc-gpio-ir-0.10.patch
-patch -p0 -i lirc-gpio-ir-0.10.patch
+patch -p0 -i lirc-gpio-ir-0.10.patch -R
 cd lirc-0.10.1
 debuild -uc -us -b
 cd $currentdir/lirc-src

@@ -1,6 +1,6 @@
 # Adding a new remote
 
-OpenRemoteHub can handle any device that acts like an HID keyboard.  Most remotes sold for a computer use some set of key presses, whether they are the standard keyboard keys like 0-9 or special "hidden" keys like F11-F24.  OpenRemoteHub uses the [scancode](https://en.wikipedia.org/wiki/Scancode) sent from the HID controller to map to the action.
+OpenRemoteHub can handle any device that acts like an HID keyboard.  Most remotes sold for a computer use some set of key presses, whether they are the standard keyboard keys like 0-9 or special "hidden" keys like F11-F24.  OpenRemoteHub uses the [scancode](https://en.wikipedia.org/wiki/scancode) sent from the HID controller to map to the action.
 
 ```json
     "106":{
@@ -51,7 +51,7 @@ The above maps the scancode 106 to the KEY_RIGHT.  Depending on your HID control
 
 1. Press all buttons on your remote to get each button scancode.
 
-## Unknown Scancodes
+## Unknown scancodes
 
 In some cases `evtest` will report an "unknown" key (code 240), as shown below:
 
