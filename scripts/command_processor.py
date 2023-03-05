@@ -39,25 +39,25 @@ class CommandProcessor:
             repeat = code["repeat"]
 
         for _ in range(repeat):
-            if code["type"] == "ir":
+            if code["action"] == "ir":
                 self.send_ir(code["device"], code["code"])
                 print(f"IR: {code})")
-            elif code["type"] == "bluetooth":
+            elif code["action"] == "bluetooth":
                 print(f"BLUETOOTH: {code})")
-            elif code["type"] == "adb":
+            elif code["action"] == "adb":
                 print(f"ADB: {code})")
-            elif code["type"] == "curl":
+            elif code["action"] == "curl":
                 print(f"CURL: {code})")
-            elif code["type"] == "load":
+            elif code["action"] == "load":
                 self.load_conf_file(code["file"])
-            elif code["type"] == "sleep":
+            elif code["action"] == "sleep":
                 self.sleep(code["device"], code["duration"])
-            elif code["type"] == "macro":
+            elif code["action"] == "macro":
                 print(f"MACRO: {code})")
                 for macro_code in code["macro"]:
                     self.process_code(macro_code)
             else:
-                print(f"Unknown type({code['type']})")
+                print(f"Unknown action({code['action']})")
 
     def send_ir(self, device, code):
         """send_ir"""

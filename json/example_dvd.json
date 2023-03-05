@@ -1,13 +1,13 @@
 {
     "on_load": {
         "comment": "",
-        "type": "macro",
+        "action": "macro",
         "macro": [
-            { "type": "ir", "code":"KEY_POWER_ON" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"KEY_POWER_ON" , "device": "yamaha_receiver" },
-            { "type": "sleep", "duration": "2" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv" },
-            { "type": "ir", "code":"INPUT_HDMI_1" , "device": "yamaha_receiver" }
+            { "action": "ir", "code":"KEY_POWER_ON" , "device": "toshiba_tv" },
+            { "action": "ir", "code":"KEY_POWER_ON" , "device": "yamaha_receiver" },
+            { "action": "sleep", "duration": "2" , "device": "toshiba_tv" },
+            { "action": "ir", "code":"INPUT_HDMI_1" , "device": "toshiba_tv" },
+            { "action": "ir", "code":"INPUT_HDMI_1" , "device": "yamaha_receiver" }
         ]
     },
 
@@ -17,79 +17,79 @@
 
     "103":{
         "comment": "up",
-        "type": "ir",
+        "action": "ir",
         "code": "KEY_UP",
         "device": "lg_dvd"
     },
     "108":{
         "comment": "down",
-        "type": "ir",
+        "action": "ir",
         "code": "KEY_DOWN",
         "device": "lg_dvd"
     },
     "105":{
         "comment": "left",
-        "type": "ir",
+        "action": "ir",
         "code": "KEY_LEFT",
         "device": "lg_dvd"
     },
     "106":{
         "comment": "right",
-        "type": "ir",
+        "action": "ir",
         "code": "KEY_RIGHT",
         "device": "lg_dvd"
     },
     "109":{
         "comment": "Pg-",
-        "type": "ir",
+        "action": "ir",
         "code": "KEY_PREVIOUS",
         "device": "lg_dvd"
     },
     "104":{
         "comment": "Pg+",
-        "type": "ir",
+        "action": "ir",
         "code": "KEY_NEXT",
         "device": "lg_dvd"
     },
     "28":{
         "comment": "enter/okay",
-        "type": "ir",
+        "action": "ir",
         "code": "KEY_ENTER",
         "device": "lg_dvd"
     },
     "158":{
         "comment": "back",
-        "type": "ir",
+        "action": "ir",
         "code": "KEY_BACK",
         "device": "lg_dvd"
     },
     "127":{
         "comment": "menu",
-        "type": "ir",
+        "action": "ir",
         "code": "KEY_MENU",
         "device": "lg_dvd"
     },
     "172":{
         "comment": "home",
-        "type": "ir",
+        "action": "ir",
         "code": "KEY_MENU",
         "device": "lg_dvd"
     },
     "165":{
         "comment": "Rew",
-        "type": "ir",
+        "action": "ir",
         "code": "KEY_BACK",
         "device": "lg_dvd"
     },
     "164":{
         "comment": "Play/Pause",
-        "type": "ir",
+        "action": "ir",
         "code": "KEY_PLAY",
         "device": "lg_dvd"
     },
     "163":{
         "comment": "FFWD",
-        "type": "ir",
+        "action": "ir",
         "code": "KEY_FORWARD",
         "device": "lg_dvd"
     }

@@ -5,7 +5,7 @@ OpenRemoteHub can handle any device that acts like an HID keyboard.  Most remote
 ```json
     "106":{
         "comment": "right",
-        "type": "ir",
+        "action": "ir",
         "code": "KEY_RIGHT",
         "device": "lg_dvd"
     }
