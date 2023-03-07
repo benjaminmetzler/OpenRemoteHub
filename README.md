@@ -68,7 +68,7 @@ The code is written with VSCode in mind. It has a configuration set up in the .v
 
 Please ensure that any PRs pass pre-commit.
 
-## Docker Container
+### Docker Container
 
 I'd want OpenRemoteHub into a container to avoid having to build everything into the OS. The main issue with this is that the USB remote controls tend to show up as an HID device and get picked up by the kernel, as shown below:
 
@@ -87,6 +87,10 @@ ben@scratch:~ $ sudo dmesg -c
 ```
 
 The hid-generic is built into the kernel, so there doesn't appear to be a way to disable it. As a result, the RF remotes that emulate keyboards will always get attached to the kernel, preventing it from being controlled by a docker container...At least as far as I can tell.
+
+### Plugins
+
+I'd like to use a plugin architecture for handling the way signals are sent from the OneRemoteHub. For instance, instead of a series of `if` statements, the command_processor would load plugins for `ir`, `bluetooth`, etc., which would handle the sending of the command. This would allow other contributers to add to the transmission options without messing with the main code body.
 
 ## Links
 
