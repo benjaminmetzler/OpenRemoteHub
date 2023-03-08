@@ -7,7 +7,9 @@ from command_processor import CommandProcessor
 if __name__ == "__main__":
     command_queue = queue.Queue()
 
-    command_processor = CommandProcessor(command_queue, "json/common.json")
+    command_processor = CommandProcessor(
+        command_queue, "json/common.json", "scripts/plugins", 60
+    )
     keyboard = Keyboard("/dev/input/event0", command_queue)
 
     keyboard_thread = threading.Thread(target=keyboard.start)
