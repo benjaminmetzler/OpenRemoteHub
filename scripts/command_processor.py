@@ -52,7 +52,8 @@ class CommandProcessor:
                 code = self.current_activity[scancode]
                 if long_press and "long_press" in code:
                     code = code["long_press"]
-                self.process_code(code)
+                with self.plugins_lock:
+                    self.process_code(code)
             else:
                 print(f"scancode {scancode} not found")
 
@@ -64,22 +65,20 @@ class CommandProcessor:
         if "repeat" in code:
             repeat = code["repeat"]
 
-        with self.plugins_lock:
-            for _ in range(repeat):
-                action = code["action"]
-                if code["action"] == "load":
-                    self.load_conf_file(code["file"])
-                elif code["action"] == "sleep":
-                    self.sleep(code["device"], code["duration"])
-                elif code["action"] == "macro":
-                    print(f"MACRO: {code})")
-                    for macro_code in code["macro"]:
-                        with self.plugins_lock:
-                            self.process_code(macro_code)
-                elif action in self.plugins:
-                    self.plugins[action](code)
-                else:
-                    print(f"Unknown action({action})")
+        for _ in range(repeat):
+            action = code["action"]
+            if code["action"] == "load":
+                self.load_conf_file(code["file"])
+            elif code["action"] == "sleep":
+                self.sleep(code["device"], code["duration"])
+            elif code["action"] == "macro":
+                print(f"MACRO: {code})")
+                for macro_code in code["macro"]:
+                    self.process_code(macro_code)
+            elif action in self.plugins:
+                self.plugins[action](code)
+            else:
+                print(f"Unknown action({action})")
 
     def register_plugin(self, action, plugin_func):
         """register_plugin"""
