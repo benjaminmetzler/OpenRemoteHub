@@ -1,22 +1,48 @@
-""" Handle the commands pushed to the command queue """
+""" command_processor.py """
 import pathlib
 import json
 import time
-import lirc
+import importlib.util
+import threading
 
 
 class CommandProcessor:
     """CommandProcessor"""
 
-    def __init__(self, command_queue, activity_file):
+    def __init__(
+        self,
+        command_queue,
+        activity_file,
+        plugin_dir=None,
+        plugin_refresh_interval=None,
+    ):
         self.command_queue = command_queue
         self.current_activity_file = activity_file
         self.current_activity = {}
-        self.client = lirc.Client()
+        self.plugins = {}
+        self.plugins_lock = threading.Lock()
+        self.plugin_dir = plugin_dir
+        self.plugin_refresh_interval = (
+            plugin_refresh_interval or 3600
+        )  # default to 1 hour
+        self.load_plugins()
         self.load_conf_file(self.current_activity_file)
+
+    def load_plugins_periodically(self):
+        """load_plugins_periodically"""
+        while True:
+            self.load_plugins()
+            time.sleep(self.plugin_refresh_interval)
 
     def start(self):
         """start"""
+
+        # start a separate thread to periodically load plugins
+        reload_thread = threading.Thread(
+            target=self.load_plugins_periodically, daemon=True
+        )
+        reload_thread.start()
+
         while True:
             item = self.command_queue.get()
             scancode = str(item["scancode"])
@@ -26,7 +52,8 @@ class CommandProcessor:
                 code = self.current_activity[scancode]
                 if long_press and "long_press" in code:
                     code = code["long_press"]
-                self.process_code(code)
+                with self.plugins_lock:
+                    self.process_code(code)
             else:
                 print(f"scancode {scancode} not found")
 
@@ -39,16 +66,8 @@ class CommandProcessor:
             repeat = code["repeat"]
 
         for _ in range(repeat):
-            if code["action"] == "ir":
-                self.send_ir(code["device"], code["code"])
-                print(f"IR: {code})")
-            elif code["action"] == "bluetooth":
-                print(f"BLUETOOTH: {code})")
-            elif code["action"] == "adb":
-                print(f"ADB: {code})")
-            elif code["action"] == "curl":
-                print(f"CURL: {code})")
-            elif code["action"] == "load":
+            action = code["action"]
+            if code["action"] == "load":
                 self.load_conf_file(code["file"])
             elif code["action"] == "sleep":
                 self.sleep(code["device"], code["duration"])
@@ -56,17 +75,32 @@ class CommandProcessor:
                 print(f"MACRO: {code})")
                 for macro_code in code["macro"]:
                     self.process_code(macro_code)
+            elif action in self.plugins:
+                self.plugins[action](code)
             else:
-                print(f"Unknown action({code['action']})")
+                print(f"Unknown action({action})")
 
-    def send_ir(self, device, code):
-        """send_ir"""
-        print(f"IR: {device}, {code}")
-        try:
-            self.client.send_once(device, code)
-        except lirc.exceptions.LircdCommandFailureError as error:
-            print(f"Unable to send the {device} key to {code}!")
-            print(error)  # Error has more info on what lircd sent back.
+    def register_plugin(self, action, plugin_func):
+        """register_plugin"""
+        self.plugins[action] = plugin_func
+
+    def load_plugins(self):
+        """load_plugins"""
+        if not self.plugin_dir:
+            return
+
+        path = pathlib.Path(self.plugin_dir)
+        if not path.is_dir():
+            return
+
+        with self.plugins_lock:
+            for plugin_file in path.glob("*.py"):
+                plugin_name = plugin_file.stem
+                spec = importlib.util.spec_from_file_location(plugin_name, plugin_file)
+                plugin_module = importlib.util.module_from_spec(spec)
+                spec.loader.exec_module(plugin_module)
+                action = plugin_file.stem
+                self.register_plugin(action, plugin_module.run)
 
     def sleep(self, device, duration):
         """sleep"""
