@@ -1,8 +1,10 @@
 """ main.py """
 import queue
 import threading
+import os
 from keyboard import Keyboard
 from command_processor import CommandProcessor
+
 
 if __name__ == "__main__":
     command_queue = queue.Queue()
@@ -10,7 +12,9 @@ if __name__ == "__main__":
     command_processor = CommandProcessor(
         command_queue, "json/common.json", "scripts/plugins", 60
     )
-    keyboard = Keyboard("/dev/input/event0", command_queue)
+
+    default_keyboard = os.getenv("OPEN_REMOTE_HUB_KEYBOARD", "/dev/input/event0")
+    keyboard = Keyboard(default_keyboard, command_queue)
 
     keyboard_thread = threading.Thread(target=keyboard.start)
     command_processor_thread = threading.Thread(target=command_processor.start)

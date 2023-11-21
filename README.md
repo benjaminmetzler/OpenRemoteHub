@@ -1,6 +1,6 @@
 # OpenRemoteHub
 
-OpenRemoteHub is a universal remote hub running on a Raspberry PI.  It translates keyboard presses into commands for remote controlled devices.  It's goal is to provide a single way for controlling remote controlled devices via a remote control.
+OpenRemoteHub is a universal remote hub running on a Raspberry PI. It translates keyboard presses into commands for remote controlled devices. It's goal is to provide a single way for controlling remote controlled devices via a remote control.
 
 ## Progress
 
@@ -16,9 +16,23 @@ OpenRemoteHub is a universal remote hub running on a Raspberry PI.  It translate
 
 OpenRemoteHub runs on a [Raspberry Pi](https://www.raspberrypi.org/) with an [IR interface](https://www.crowdsupply.com/anavi-technology/infrared-phat).
 
+### Tested Raspbian Version
+
+``` shell
+$ date
+Mon 20 Nov 21:45:44 PST 2023
+$ neofetch --ascii_distro debian_small
+  _____     OS: Debian GNU/Linux 12 (bookworm) aarch64
+ /  __ \    Host: Raspberry Pi 4 Model B Rev 1.2
+|  /    |   Kernel: 6.1.0-rpi6-rpi-v8
+|  \___-    Memory: 112MiB / 3792MiB
+-_
+  --_
+```
+
 ### Quick install
 
-ssh to the raspberry pi and run the below.  This has only been tested on a newly flashed Raspberry Pi 4 with Raspberry Pi OS Lite (32-bit)(03-04-2021).
+ssh to the raspberry pi and run the below. This has only been tested on a newly flashed Raspberry Pi 4 with the tested version noted above.
 
 ```shell
 curl https://raw.githubusercontent.com/benjaminmetzler/OpenRemoteHub/main/setup_pi4.sh | bash
@@ -30,7 +44,7 @@ This will update the system, install the needed packages, lirc, and other miscel
 
 If you don't feel safe just randomly running a script from the Internet:
 
-1. [Boot a Raspberry Pi with the `Raspberry Pi OS Lite (32-bit)` image](https://www.raspberrypi.org/documentation/installation/installing-images/). Tested version is 03-04-2021.
+1. Flash a raspian image with the tested version listed above.
     * Make sure to enable ssh as a directly connected keyboard could be captured by OpenRemoteHub.
 1. Insert the SD card into the raspberry pi and power it up.
 1. Connect to the pi with ssh.
@@ -40,23 +54,23 @@ If you don't feel safe just randomly running a script from the Internet:
     * `git clone https://github.com/benjaminmetzler/OpenRemoteHub.git`
 1. Change into the local directory
     * `cd OpenRemoteHub`
-1. Run the setup.  The pi will reboot after the script has finished.
+1. Run the setup. The pi will reboot after the script has finished.
     * `sh setup_pi4.sh`
-1. ssh back into the pi
+1. Connect to the pi with ssh.
 1. cd into the OpenRemoteHub directory and run main.sh
     * `cd OpenRemoteHub; bash main.sh`
 
-OpenRemoteHub will start and listen for keystrokes from a directly connected keyboard.  Depending on the keystroke, OpenRemoteHub will take different actions.  When first booted, it will load the `json/common.json` file.
+OpenRemoteHub will start and listen for keystrokes from a directly connected keyboard. Depending on the keystroke, OpenRemoteHub will take different actions. When first booted, it will load the `json/common.json` file.
 
 ## Design
 
 ![Architecture Diagram](documentation/MR_Diagram.png)
 
-OpenRemoteHub takes input from a keyboard or an HID remote and converts it into an appropriate format.  OpenRemoteHub uses json files to it's current state. Each state defines the actions that OpenRemoteHub takes when an HID button is pressed.  The format of these json files is documented [here](documentation/json_format.md).
+OpenRemoteHub takes input from a keyboard or an HID remote and converts it into an appropriate format. OpenRemoteHub uses json files to it's current state. Each state defines the actions that OpenRemoteHub takes when an HID button is pressed. The format of these json files is documented [here](documentation/json_format.md).
 
 ## Contributing
 
-Pull requests are welcome. Help with enabling the Raspberry Pi as a functional bluetooth HID to an android device (think Nvidia Shield or Apple TV) is greatly appreciated.  For major changes, please open an issue first to discuss what you would like to change.
+Pull requests are welcome. Help with enabling the Raspberry Pi as a functional bluetooth HID to an android device (think Nvidia Shield or Apple TV) is greatly appreciated. For major changes, please open an issue first to discuss what you would like to change.
 
 The code is written with VSCode in mind. It has a configuration set up in the .vscode directory that allows for debugging. To do development, take the following steps:
 
@@ -94,21 +108,15 @@ I'd like to use a plugin architecture for handling the way signals are sent from
 
 ## Links
 
+* https://www.raspberrypi.org/
+* https://www.lirc.org
 * https://github.com/AnaviTechnology/anavi-docs/blob/master/anavi-infrared-phat/anavi-infrared-phat.md
 * https://globalcache.zendesk.com/hc/en-us/articles/360034968311-iConvert-Converting-IR-code-formats
 * https://www.instructables.com/Transforming-Raspberry-Pi-Into-a-Remote-Control/
 * https://projects-raspberry.com/emulate-a-bluetooth-keyboard-with-the-raspberry-pi/
-* https://remotesource.net/full-remote-catalog/
-* https://github.com/boppreh/keyboard
 * https://flirc.tv/more/flirc-usb
 * https://github.com/ruundii/bthidhub
 * https://github.com/quangthanh010290/keyboard_mouse_emulate_on_raspberry
-* https://www.lirc.org
-* https://www.raspberrypi.org/
-* https://www.crowdsupply.com/anavi-technology/infrared-phat
-* https://github.com/AnaviTechnology/anavi-docs/blob/master/anavi-infrared-phat/anavi-infrared-phat.md
-* https://www.aliexpress.com/item/1005001714763038.html
-* https://github.com/mtlynch/key-mime-pi
 
 ## License
 
