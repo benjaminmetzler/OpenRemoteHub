@@ -2,9 +2,9 @@
 
 OpenRemoteHub state is determined by the loaded activity file. This is independent of the current state of the controlled devices.
 
-OpenRemoteHub uses a json formatted file to store and configure the remote depending on the button pressed on the remote. The objects are named after the scancode received by OpenRemoteHub. For instance the `Enter` key will have a scancode of `28`. Each object will contain key:value pairs defining the action and any required key:value pairs.
+OpenRemoteHub uses a json formatted file to store and configure the remote depending on the button pressed on the remote. The objects are named after the scancode received by OpenRemoteHub. For instance `Enter` will have a scancode of `28`. Each object will contain key:value pairs defining the action and any required key:value pairs.
 
-## Valid Keys
+## Valid Key:Value Pairs
 
 **action**: Action to take. Valid values are `ir`, `bluetooth`, `adb`, `curl`, `app`, `sleep`,`load`, and `macro`
 
@@ -18,7 +18,7 @@ OpenRemoteHub uses a json formatted file to store and configure the remote depen
 
 **file**: Specifies the name of the file to load. This will clear out the current activity. Required if action is `load`.
 
-**long_press**: An actions to take if a long press ( > 1 second) is detected.
+**long_press**: An action to take if a long press ( > 1 second) is detected.
 
 **macro**: Allows running multiple commands with a single button press.
 
@@ -75,7 +75,7 @@ Useful for devices that can accept input via a bluetooth keyboard (Nvidia Shield
     },
 ```
 
-The next example does the same thing as the first, but with bluetooth. It will repeat the command 5 times.
+This example does the same thing as the first, but with bluetooth. It will repeat the command 5 times.
 
 ### curl
 
@@ -125,7 +125,7 @@ The `sleep` command is used in macros. This is useful for when a device might re
 
 The above configuration will instruct OpenRemoteHub to load the example_dvd.json activity file. This is used to switch the activity of the remote. An alternative action will load the example_stb.json activity file if the key is held for longer then 1 second.
 
-long_press requires that the key up indication not be returned until the key has been released. This can happen with some special buttons like push-to-talk buttons on HDI remote. Also not that some remotes will send the same key multiple key down indications as long as it is pressed while other buttons will send just one key down.
+long_press requires that the key up indication not be returned until the key has been released. This can happen with some special buttons like push-to-talk buttons on HDI remote. Some remotes will send the multiple key down indications as long as it is pressed while other buttons will send just one key down.
 
 ### Macros
 
@@ -143,7 +143,7 @@ long_press requires that the key up indication not be returned until the key has
     }
 ```
 
-Macros can be used to group multiple actions on a key press. In the above example, the `power` button (`116`) will invoke a macro that will switch the `example_tv` and `example_receiver` to the default HDMI ports and then power off the devices. Macros can be any length and potentially call other macros or load files (both to be tested).
+Macros can be used to group multiple actions on a key press. In the above example, `power` (`116`) will invoke a macro that will switch the `example_tv` and `example_receiver` to the default HDMI ports and then power off the devices. Macros can be any length and potentially call other macros or load files (both to be tested).
 
 ## Default Actions
 
@@ -165,7 +165,7 @@ When a activity is loaded, OpenRemoteHub will invoke the `on_load` block. This w
     ],
 ```
 
-The above example shows that when the activity is loaded it will instruct OpenRemoteHub to send the power on commands to the tv and receiver and then tell them to switch to the correct HDMI ports. Any number of actions can be done in a macro.
+The above example shows that when the activity is loaded it will instruct OpenRemoteHub to send the power on commands to the tv and receiver and then tell them to switch to the correct HDMI ports. Any number of actions can be called in `on_load`.
 
 ``` json
     "on_unload":[
@@ -177,11 +177,11 @@ The above example shows that when the activity is loaded it will instruct OpenRe
     ],
 ```
 
-The above example shows that when the activity is unloaded it will instruct the `example_stb` to power off via the `KEY_POWER_OFF` command. This could be used to turn off devices when not in use. As with the `on_load` any number of actions can be called in `on_unload`.
+The above example shows that when the activity is unloaded it will instruct the `example_stb` to power off via the `KEY_POWER_OFF` command. This could be used to turn off devices when not in use. Any number of actions can be called in `on_unload`.
 
 ## Common.json
 
-Common.json will be loaded with each activity file. This allows for a common set of macros to be defined across multiple remotes, such as a set of device buttons used to switch activities as shown below. In the below example, the volume and mute buttons are always mapped to the `example_receiver` and the power button will call a `macro` to shut the system down. These actions will be available regardless of the active activity.
+Common.json will be loaded with each activity file. This allows for a common set of macros actions to be available regardless of the current activity. In the below example, the volume and mute buttons are always mapped to the `example_receiver` and the power button will call a `macro` to shut the system down. These actions will be available regardless of the active activity.
 
 ``` json
     "115":{
