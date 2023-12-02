@@ -1,6 +1,6 @@
 # Adding a new remote
 
-OpenRemoteHub can handle any device that acts like an HID keyboard.  Most remotes sold for a computer use some set of key presses, whether they are the standard keyboard keys like 0-9 or special "hidden" keys like F11-F24.  OpenRemoteHub uses the [scancode](https://en.wikipedia.org/wiki/scancode) sent from the HID controller to map to the action.
+OpenRemoteHub can handle any device that acts like an HID keyboard.  Most remotes sold for a computer act as an HID, whether they are the standard keyboard keys like 0-9 or special "hidden" keys like F11-F24.  OpenRemoteHub uses the [scancode](https://en.wikipedia.org/wiki/scancode) sent from the HID controller to map to the action.
 
 ```json
     "106":{
@@ -11,7 +11,7 @@ OpenRemoteHub can handle any device that acts like an HID keyboard.  Most remote
     }
 ```
 
-The above maps the scancode 106 to the KEY_RIGHT.  Depending on your HID controller it use the standard codes or it's own mapping.  The best way to determine the scancode is to use `evtest`.  This will display the keyboard events with useful extended information not returned with the `keyboard` python library.
+The above maps the scancode 106 to the KEY_RIGHT.  Depending on your HID controller, it can use the standard HID codes or have its own mapping.  The best way to determine the scancode is to use `evtest`.  This will display the keyboard events with useful extended information not returned with the `keyboard` python library.
 
 1. Launch `evtest`
 1. Select your remotes keyboard device.  This may require a couple of tries if you have multiple keyboards attached.
@@ -84,4 +84,4 @@ sudo systemd-hwdb update
 sudo udevadm trigger
 ```
 
-A mapping for the Harmony Companion has already been installed to the Pi and can be used as a sample.
+A mapping for the Harmony Companion has already been installed to the Pi and can be used as an example.

@@ -38,11 +38,11 @@ ssh to the raspberry pi and run the below. This has only been tested on a newly 
 curl https://raw.githubusercontent.com/benjaminmetzler/OpenRemoteHub/main/setup_pi4.sh | bash
 ```
 
-This will update the system, install the needed packages, lirc, and other miscellaneous actions.
+This will update the system, install the needed packages, configure lirc, and set up the system to run OpenRemoteHub.
 
 ### Long Install
 
-If you don't feel safe just randomly running a script from the Internet:
+If you don't feel safe running a random script from the Internet:
 
 1. Flash a raspian image with the tested version listed above.
     * Make sure to enable ssh as a directly connected keyboard could be captured by OpenRemoteHub.
@@ -84,7 +84,7 @@ Please ensure that any PRs pass pre-commit.
 
 ### Docker Container
 
-I'd want OpenRemoteHub into a container to avoid having to build everything into the OS. The main issue with this is that the USB remote controls tend to show up as an HID device and get picked up by the kernel, as shown below:
+I want to move OpenRemoteHub into a container to avoid having to build everything into the OS. The main issue with this is that the HID based USB remote controls get picked up by the kernel, as shown below, preventing it from being controlled by the container:
 
 ``` log
 ben@scratch:~ $ sudo dmesg -c
@@ -100,7 +100,7 @@ ben@scratch:~ $ sudo dmesg -c
 [  900.377897] hid-generic 0003:0C40:7A1C.000A: input,hidraw1: USB HID v1.01 Mouse [SG.Ltd SG Control Mic] on usb-3f980000.usb-1.1.3/input3
 ```
 
-The hid-generic is built into the kernel, so there doesn't appear to be a way to disable it. As a result, the RF remotes that emulate keyboards will always get attached to the kernel, preventing it from being controlled by a docker container...At least as far as I can tell.
+The hid-generic is built into the kernel, so there doesn't appear to be a way to disable it without recompliling the kernel entirely. As a result, the RF remotes that emulate keyboards will always get attached to the kernel, preventing it from being controlled by a docker container...At least as far as I can tell.
 
 ### Plugins
 
