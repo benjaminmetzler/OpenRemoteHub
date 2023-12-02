@@ -7,7 +7,7 @@ import threading
 
 
 class CommandProcessor:
-    """CommandProcessor"""
+    """Class for processing commands based on input events."""
 
     def __init__(
         self,
@@ -16,6 +16,9 @@ class CommandProcessor:
         plugin_dir=None,
         plugin_refresh_interval=None,
     ):
+        """Initialize CommandProcessor with necessary parameters."""
+
+        # Initialize instance variables
         self.command_queue = command_queue
         self.current_activity_file = activity_file
         self.current_activity = {}
@@ -25,29 +28,35 @@ class CommandProcessor:
         self.plugin_refresh_interval = (
             plugin_refresh_interval or 3600
         )  # default to 1 hour
+        # Load plugins and configuration file
         self.load_plugins()
         self.load_conf_file(self.current_activity_file)
 
     def load_plugins_periodically(self):
-        """load_plugins_periodically"""
+        """Periodically load plugins in a separate thread."""
+
         while True:
             self.load_plugins()
             time.sleep(self.plugin_refresh_interval)
 
     def start(self):
-        """start"""
+        """Start method to process commands based on input events."""
 
-        # start a separate thread to periodically load plugins
+        # Start a separate thread to periodically load plugins
         reload_thread = threading.Thread(
             target=self.load_plugins_periodically, daemon=True
         )
         reload_thread.start()
 
         while True:
+
+            # Get the next command from the command queue
             item = self.command_queue.get()
             scancode = str(item["scancode"])
             long_press = item["long_press"]
             print(f"processing scancode {scancode}, long_press {long_press}")
+
+            # Process the command based on the current activity configuration
             if scancode in self.current_activity:
                 code = self.current_activity[scancode]
                 if long_press and "long_press" in code:
@@ -60,18 +69,17 @@ class CommandProcessor:
             self.command_queue.task_done()
 
     def process_code(self, code: str):
-        """process_code"""
-        repeat = 1
-        if "repeat" in code:
-            repeat = code["repeat"]
+        """Process the provided code according to its defined action."""
 
-        for _ in range(repeat):
+        # Repeat the indicated action based on the number
+        # of repeats requested, defaulting to 1.
+        for _ in range(code.get("repeat", 1)):
             action = code["action"]
-            if code["action"] == "load":
+            if action == "load":
                 self.load_conf_file(code["file"])
-            elif code["action"] == "sleep":
+            elif action == "sleep":
                 self.sleep(code["device"], code["duration"])
-            elif code["action"] == "macro":
+            elif action == "macro":
                 print(f"MACRO: {code})")
                 for macro_code in code["macro"]:
                     self.process_code(macro_code)
@@ -81,11 +89,11 @@ class CommandProcessor:
                 print(f"Unknown action({action})")
 
     def register_plugin(self, action, plugin_func):
-        """register_plugin"""
+        """Register a plugin action and its corresponding function."""
         self.plugins[action] = plugin_func
 
     def load_plugins(self):
-        """load_plugins"""
+        """Load plugins from the specified directory."""
         if not self.plugin_dir:
             return
 
@@ -103,34 +111,34 @@ class CommandProcessor:
                 self.register_plugin(action, plugin_module.run)
 
     def sleep(self, device, duration):
-        """sleep"""
+        """Pause execution for the specified duration."""
         print(f"SLEEP: {device}, {duration}")
         time.sleep(float(duration))
 
     def on_load(self):
-        """on_load"""
+        """Handle actions specified in the 'on_load' section of the configuration."""
         print(f"on_load: {self.current_activity_file}")
         if "on_load" in self.current_activity and self.current_activity["on_load"]:
             self.process_code(self.current_activity["on_load"])
 
     def on_unload(self):
-        """on_unload"""
+        """Handle actions specified in the 'on_unload' section of the configuration."""
         print(f"on_unload: {self.current_activity_file}")
         if "on_unload" in self.current_activity and self.current_activity["on_unload"]:
             self.process_code(self.current_activity["on_unload"])
         self.current_activity = {}
 
     def load_conf_file(self, conf_file: str):
-        """load_conf_file"""
+        """Load and process the specified configuration file."""
         file = pathlib.Path(conf_file)
         if file.exists():
             self.on_unload()
 
-            # read the common file
+            # Read the common file
             with open("json/common.json", encoding="utf-8") as file:
                 common = json.load(file)
 
-            # read the configuration file
+            # Read the configuration file
             with open(conf_file, encoding="utf-8") as file:
                 self.current_activity = json.load(file)
 
