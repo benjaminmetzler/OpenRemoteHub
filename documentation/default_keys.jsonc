@@ -1,0 +1,66 @@
+{
+    /* Power Related Buttons */
+    "power": "power toggle button",
+
+    /* Mode Buttons */
+    "pc": "macro0/PC button (e.g. switch modes)",
+    "tv": "macro1/TV button (e.g. switch modes)",
+    "tv2": "macro2/TV2 button (e.g. switch modes)",
+    "vcr": "macro3/VCR button (e.g. switch modes)",
+    "vcr2": "macro4/VCR2 button (e.g. switch modes)",
+    "sat": "macro5/SAT button (e.g. switch modes)",
+    "sat2": "macro6/SAT2 button (e.g. switch modes)",
+    "cd": "macro7/CD button (e.g. switch modes)",
+    "tape": "macro8/TAPE button (e.g. switch modes)",
+    "radio": "macro9/RADIO button (e.g. switch modes)",
+
+    /* Media Buttons */
+    "pause": "pause button",
+    "play": "play button",
+    "fastforward": "fast forward button",
+    "rewind": "rewind button",
+    "record": "record button",
+    "stop": "stop button",
+
+    /* Color Buttons */
+    "red": "red button",
+    "green": "green button",
+    "yellow": "yellow button",
+    "blue": "blue button",
+
+    /* Misc Buttons */
+    "pvr": "PVR/DVR button",
+    "epg": "guide/Electronic Programming Guide button",
+    "info": "info button",
+    "exit": "exit/Back button",
+    "menu": "menu button",
+    "channelup": "channel up button",
+    "channeldown": "channel down button",
+    "back": "back button",
+    "minus": "minus button",
+    "enter": "enter button",
+
+    /* Volume Buttons */
+    "mute": "mute button",
+    "volumedown": "volume down button",
+    "volumeup": "volume up button",
+
+    /* Navigation Buttons */
+    "up": "up button",
+    "left": "left button",
+    "right": "right button",
+    "down": "down button",
+    "ok": "ok button (found at the center of the arrow pad)",
+
+    /* Number Buttons */
+    "1": "1 button",
+    "2": "2 button",
+    "3": "3 button",
+    "4": "4 button",
+    "5": "5 button",
+    "6": "6 button",
+    "7": "7 button",
+    "8": "8 button",
+    "9": "9 button",
+    "0": "0 button"
+}
